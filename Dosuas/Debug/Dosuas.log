@@ -1,0 +1,10 @@
+﻿  main.cpp
+  Unknown compiler version - please run the configure tests and report the results
+  imageProcessor.cpp
+  Unknown compiler version - please run the configure tests and report the results
+c:\users\yzesc\programming\projects\dosuas\dosuas\source\imageprocessor.cpp(84): warning C4804: "<=": unsichere Verwendung des Typs "bool" in einer Operation
+c:\users\yzesc\programming\projects\dosuas\dosuas\source\imageprocessor.cpp(84): warning C4804: ">=": unsichere Verwendung des Typs "bool" in einer Operation
+  audioPlayer.cpp
+  Unknown compiler version - please run the configure tests and report the results
+  Code wird generiert...
+  Dosuas.vcxproj -> C:\Users\yzesc\Programming\Projects\dosuas\Debug\Dosuas.exe
