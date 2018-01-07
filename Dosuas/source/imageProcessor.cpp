@@ -46,10 +46,9 @@ Voxel ImageProcessor::getVoxel(std::array<pcl::PointXYZ, 240> column) {
 	Voxel vxl;
 	std::sort(column.begin(), column.end(), [](pcl::PointXYZ a, pcl::PointXYZ b) {return a.z > b.z;});
 	while (column[i].z == 0) { i++; }  // skip invalid voxels
-	for (j = i; (j < i + 5) && (j < 240); j++) {
+	for (j = i; (j < i + 10) && (j < 240); j++) {
 		sum += column[j].z;
 		num++;
-		std::cout << column[j] << std::endl;
 	}
 	vxl.x = column[j].x;
 	vxl.y = 1;  // TODO: later add y to sounds
@@ -70,15 +69,14 @@ void ImageProcessor::showPointCloud(pcl::PointCloud<pcl::PointXYZ>::Ptr pCloud) 
 std::vector<Voxel> ImageProcessor::getVoxelsForAudioSwipe(pcl::PointCloud<pcl::PointXYZ>::Ptr pCloud) {
 	/* calculates voxels, which are played in the audio swipe */
 
-	std::cout << "size: " << pCloud->size() << std::endl;
 	std::vector<Voxel> voxels;
-	for (int i = 0; i < 320; i++) {
+	for (int i = 0; i < 320; i += 10) {
 		std::array<pcl::PointXYZ, 240> col;
 		for (int j = 0; j < 240; j++) {
 			col[j] = pCloud->points[i + j * 320];
 		}
 		Voxel vxl = getVoxel(col);
-		std::printf("Voxel coordinates: %i %i %i\n", vxl.x, vxl.y, vxl.z);
+		//std::printf("Voxel coordinates: %i %i %i\n", vxl.x, vxl.y, vxl.z);
 		voxels.push_back(vxl);
 	}
 	return voxels;

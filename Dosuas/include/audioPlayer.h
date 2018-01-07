@@ -10,7 +10,11 @@
 
 
 class AudioPlayer {
-	std::vector<sf::Int16> getSineWaveSamples(float frequency, float duration, int sample_rate=44100);
+	std::vector<sf::Int16> getSineWaveSamples(float frequency, float duration, int sampeRate);
+	float AudioPlayer::depthToFrequency(int depth);
+	void configureSoundSource(sf::SoundBuffer& buffer, sf::Sound& sound, std::vector<sf::Int16> samples,
+		int sampleRate);
 public:
-	void AudioPlayer::playSoundSwipe(std::vector<int> depthValues, float duration);
+	void playTestSound();
+	void playSoundSwipe(std::vector<Voxel> voxels, float duration, int sampleRate = 44100);
 };
