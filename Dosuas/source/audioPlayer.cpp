@@ -17,6 +17,20 @@ std::vector<sf::Int16> AudioPlayer::getSineWaveSamples(float frequency, float du
 }
 
 
+std::vector<sf::Int16> AudioPlayer::getSweepSamples(double f_start, double f_end, double interval, int n_steps) {
+	std::vector<sf::Int16> samples;
+	for (int i = 0; i < n_steps; ++i) {
+		double delta = i / (float)n_steps;
+		double t = interval * delta;
+		double phase = 2 * PI * t * (f_start + (f_end - f_start) * delta / 2);
+		while (phase > 2 * PI) { phase -= 2 * PI; }
+		samples.push_back(3 * sin(phase));
+		//printf("%f %f %f", t, phase * 180 / PI, 3 * sin(phase));
+	}
+	return samples;
+}
+
+
 float AudioPlayer::depthToFrequency(int depth) {
 	/* converts depth in cm to frequency in Hz; 450 cm conforms 294 Hz (from 294 to 588); 
 	depth is a value between 80 and 530 (sensor depth range) */
@@ -37,39 +51,37 @@ void AudioPlayer::configureSoundSource(sf::SoundBuffer& buffer, sf::Sound& sound
 }
 
 
-void AudioPlayer::playTestSound() {
-	sf::Sound sound;
-	sf::SoundBuffer buffer;
-	std::vector<sf::Int16> samples;
-	configureSoundSource(buffer, sound, samples, 44100);
+std::vector<sf::Int16> AudioPlayer::getVoxelSamples(std::vector<Voxel> voxels, float duration, int sampleRate) {
+	//std::vector<sf::Int16> samples = getSweepSamples(1, 10, 5, 1000);
+	/*const float singleDuration = duration / voxels.size();
+	const int singleSampleRate = singleDuration * sampleRate;
+
+	for (int i = 0; i < voxels.size(); i++) {
+		float freq = depthToFrequency(voxels[i].z);
+		std::vector<sf::Int16> partialSamples = getSineWaveSamples(freq, singleDuration, singleSampleRate);
+		samples.insert(samples.end(), partialSamples.begin(), partialSamples.end());
+	}*/
+	std::vector<sf::Int16> samples = getSineWaveSamples(440, 1.0f, sampleRate);
+	return samples;
 }
 
 
 void AudioPlayer::playSoundSwipe(std::vector<Voxel> voxels, float duration, int sampleRate) {
 	/* plays the audio swipe representing the image (using only one moving 3D sound source) */
 
-	std::vector<sf::Int16> audioSamples;
-	float dur = duration / voxels.size();
-
-	for (int i = 0; i < voxels.size(); i++) {
-		float freq = depthToFrequency(voxels[i].z);	
-		std::vector<sf::Int16> voxelSamples = getSineWaveSamples(freq, dur, sampleRate);
-		audioSamples.insert(audioSamples.end(), voxelSamples.begin(), voxelSamples.end());
-	}
-	//audioSamples = getSineWaveSamples(440, duration, sampleRate);
-
+	std::vector<sf::Int16> audioSamples = getVoxelSamples(voxels, duration, sampleRate);
 	sf::Sound sound;
 	sf::SoundBuffer buffer;
-	float xPos = voxels.size() / -20.0f;
+	float xPos = -16.0f;
 
 	configureSoundSource(buffer, sound, audioSamples, sampleRate);
-	sound.setPosition(xPos, 1, 1);
+	//sound.setPosition(xPos, 1, 1);
 	sound.play();
-	std::cout << "Size: " << voxels.size() << " " << voxels.size() / -20.0f << std::endl;
-	for (int i = 0; i < voxels.size(); i++) {
-		xPos = voxels[i].x / 10.0f + voxels.size() / -20.0f;
+	sf::sleep(sf::seconds(duration));
+	/*for (int i = 0; i < voxels.size(); i++) {
+		xPos += voxels[i].x / 10.0f;
 		sound.setPosition(xPos, 1, 1);
 		std::cout << xPos << std::endl;
-		sf::sleep(sf::seconds(dur));
-	}
+		sf::sleep(sf::seconds(voxels.size() / duration));
+	}*/
 }

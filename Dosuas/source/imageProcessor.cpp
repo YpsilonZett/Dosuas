@@ -70,7 +70,7 @@ std::vector<Voxel> ImageProcessor::getVoxelsForAudioSwipe(pcl::PointCloud<pcl::P
 	/* calculates voxels, which are played in the audio swipe */
 
 	std::vector<Voxel> voxels;
-	for (int i = 0; i < 320; i += 10) {
+	for (int i = 0; i < 320; i++) {
 		std::array<pcl::PointXYZ, 240> col;
 		for (int j = 0; j < 240; j++) {
 			col[j] = pCloud->points[i + j * 320];
