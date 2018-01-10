@@ -13,6 +13,6 @@ int main(int argc, char** argv) {
 	}
 	pcl::PointCloud<pcl::PointXYZ>::Ptr pImgCloud = sr.getImg();
 	std::vector<Voxel> imgVoxels = ip.getVoxelsForAudioSwipe(pImgCloud);
-	ap.playSoundSwipe(imgVoxels, 10);
+	ap.playSoundSwipe(imgVoxels, 10, 88200);
 	return 0;
 }

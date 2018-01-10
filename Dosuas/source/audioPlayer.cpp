@@ -5,10 +5,10 @@ std::vector<sf::Int16> AudioPlayer::getSineWaveSamples(float frequency, float du
 	/* returns vector of audio samples needed to play sine wave of given
 	frequency for given duration (in seconds) */
 	
-	const int amplitude = 20000;
 	std::vector<sf::Int16> samples;
+	const int amplitude = 20000;
 	double t = 0;
-	
+
 	for (unsigned sample = 0; sample < sampleRate * duration; sample++) {
 		samples.push_back(amplitude * sin(t * 2 * PI));
 		t += frequency / sampleRate;
@@ -17,16 +17,24 @@ std::vector<sf::Int16> AudioPlayer::getSineWaveSamples(float frequency, float du
 }
 
 
-std::vector<sf::Int16> AudioPlayer::getSweepSamples(double f_start, double f_end, double interval, int n_steps) {
+std::vector<sf::Int16> AudioPlayer::getTriangleWaveSamples(float frequency, float duration, int sampleRate) {
 	std::vector<sf::Int16> samples;
-	for (int i = 0; i < n_steps; ++i) {
-		double delta = i / (float)n_steps;
-		double t = interval * delta;
-		double phase = 2 * PI * t * (f_start + (f_end - f_start) * delta / 2);
-		while (phase > 2 * PI) { phase -= 2 * PI; }
-		samples.push_back(3 * sin(phase));
-		//printf("%f %f %f", t, phase * 180 / PI, 3 * sin(phase));
+	const int amplitude = 20000;
+	const float period = sampleRate / frequency;
+	float slope = 4 * amplitude * frequency;
+
+	for (int i = 0; i < (duration * sampleRate / period); i++) {
+		for (int x = 0; x < (int)(period / 2.0); x++) {
+			samples.push_back(slope * x + amplitude / 2);
+			//std::printf("y: %i\n", slope * x + amplitude / 2);
+		}
+		slope = -slope;
+		for (int x = 0; x < (int)(period / 2.0); x++) {
+			samples.push_back(slope * x - amplitude / 2);
+			//std::printf("y: %i\n", slope * x - amplitude / 2);
+		}
 	}
+	std::printf("Sample size: %i", samples.size());
 	return samples;
 }
 
@@ -52,16 +60,15 @@ void AudioPlayer::configureSoundSource(sf::SoundBuffer& buffer, sf::Sound& sound
 
 
 std::vector<sf::Int16> AudioPlayer::getVoxelSamples(std::vector<Voxel> voxels, float duration, int sampleRate) {
-	//std::vector<sf::Int16> samples = getSweepSamples(1, 10, 5, 1000);
-	/*const float singleDuration = duration / voxels.size();
-	const int singleSampleRate = singleDuration * sampleRate;
-
+	std::vector<sf::Int16> samples;
 	for (int i = 0; i < voxels.size(); i++) {
 		float freq = depthToFrequency(voxels[i].z);
-		std::vector<sf::Int16> partialSamples = getSineWaveSamples(freq, singleDuration, singleSampleRate);
-		samples.insert(samples.end(), partialSamples.begin(), partialSamples.end());
-	}*/
-	std::vector<sf::Int16> samples = getSineWaveSamples(440, 1.0f, sampleRate);
+		std::printf("Frequency: %f\n", freq);
+		std::vector<sf::Int16> singleVoxelSamples = getTriangleWaveSamples(freq, duration / voxels.size(), sampleRate);
+		std::printf("Samples: %i\n", singleVoxelSamples.size());
+		samples.insert(samples.end(), singleVoxelSamples.begin(), singleVoxelSamples.end());
+	}
+	std::printf("Voxel samples size: %i", samples.size());
 	return samples;
 }
 

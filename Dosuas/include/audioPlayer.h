@@ -11,7 +11,7 @@
 
 class AudioPlayer {
 	std::vector<sf::Int16> getSineWaveSamples(float frequency, float duration, int sampeRate);
-	std::vector<sf::Int16> getSweepSamples(double f_start, double f_end, double interval, int n_steps);
+	std::vector<sf::Int16> getTriangleWaveSamples(float frequency, float duration, int sampleRate);
 	float AudioPlayer::depthToFrequency(int depth);
 	void configureSoundSource(sf::SoundBuffer& buffer, sf::Sound& sound, std::vector<sf::Int16> samples,
 		int sampleRate);
