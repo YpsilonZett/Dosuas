@@ -45,12 +45,12 @@ Voxel ImageProcessor::getVoxel(std::array<pcl::PointXYZ, 240> column) {
 	int i = 0, j = 0, sum = 0, num = 0;
 	Voxel vxl;
 	std::sort(column.begin(), column.end(), [](pcl::PointXYZ a, pcl::PointXYZ b) {return a.z > b.z;});
-	while (column[i].z == 0) { i++; }  // skip invalid voxels
+	while (column.at(i).z == 0) { i++; }  // skip invalid voxels
 	for (j = i; (j < i + 10) && (j < 240); j++) {
-		sum += column[j].z;
+		sum += column.at(j).z;
 		num++;
-	}
-	vxl.x = column[j].x;
+	}  // throws error if all pixels are invalid
+	vxl.x = column.at(j).x;
 	vxl.y = 1;  // TODO: later add y to sounds
 	vxl.z = sum / num;  
 	return vxl;
@@ -73,7 +73,7 @@ std::vector<Voxel> ImageProcessor::getVoxelsForAudioSwipe(pcl::PointCloud<pcl::P
 	for (int i = 0; i < 320; i++) {
 		std::array<pcl::PointXYZ, 240> col;
 		for (int j = 0; j < 240; j++) {
-			col[j] = pCloud->points[i + j * 320];
+			col.at(j) = pCloud->points.at(i + j * 320);
 		}
 		Voxel vxl = getVoxel(col);
 		//std::printf("Voxel coordinates: %i %i %i\n", vxl.x, vxl.y, vxl.z);
