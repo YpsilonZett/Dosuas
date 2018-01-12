@@ -16,10 +16,10 @@ pcl::PointCloud<pcl::PointXYZ>::Ptr ImageProcessor::filterPointCloud(pcl::PointC
 	pass.filter(*pVerticallyFilteredCloud);
 
 	// remove measurement errors (outliners) by depth filtering
-	pass.setInputCloud(pVerticallyFilteredCloud);
+	/*pass.setInputCloud(pVerticallyFilteredCloud);
 	pass.setFilterFieldName("z");
 	pass.setFilterLimits(80.0, 530.0);
-	pass.filter(*pCompletelyFilteredCloud);
+	pass.filter(*pCompletelyFilteredCloud);*/
 	
 	return pVerticallyFilteredCloud;
 }
@@ -36,6 +36,18 @@ pcl::PointCloud<pcl::PointXYZ>::Ptr ImageProcessor::downSamplePointCloud(pcl::Po
 	vg.setLeafSize(leaf, leaf, leaf); 
 	vg.filter(cloudFiltered);
 	return cloudFiltered.makeShared();
+}
+
+
+std::array<int, 320 * 240> ImageProcessor::pcToImgMat(pcl::PointCloud<pcl::PointXYZ>::Ptr pCloud) {
+	std::array<int, 320 * 240> imgMat;
+	for (int i = 0; i < imgMat.size(); i++) {
+		imgMat[i] = 0;
+	}
+	for (int i = 0; i < pCloud->size(); i++) {
+		imgMat[pCloud->points[i].y * 320 + pCloud->points[i].x] = pCloud->points[i].z;
+	}
+	return imgMat;
 }
 
 
@@ -67,13 +79,21 @@ void ImageProcessor::showPointCloud(pcl::PointCloud<pcl::PointXYZ>::Ptr pCloud) 
 
 
 std::vector<Voxel> ImageProcessor::getVoxelsForAudioSwipe(pcl::PointCloud<pcl::PointXYZ>::Ptr pCloud) {
-	/* calculates voxels, which are played in the audio swipe */
+	/* calculates voxels, which are played in the audio swipe; takes image buffer (filtered pointcloud in 
+	2d matrix form) as input */
 
+	pcl::PointCloud<pcl::PointXYZ>::Ptr pFilteredCloud = filterPointCloud(pCloud);
+	//showPointCloud(pFilteredCloud);
+	std::array<int, 320 * 240> imgMat = pcToImgMat(pCloud);
 	std::vector<Voxel> voxels;
 	for (int i = 0; i < 320; i++) {
 		std::array<pcl::PointXYZ, 240> col;
 		for (int j = 0; j < 240; j++) {
-			col.at(j) = pCloud->points.at(i + j * 320);
+			pcl::PointXYZ point;
+			point.x = i;
+			point.y = j;
+			point.z = imgMat.at(i + j * 320);
+			col.at(j) = point;
 		}
 		Voxel vxl = getVoxel(col);
 		//std::printf("Voxel coordinates: %i %i %i\n", vxl.x, vxl.y, vxl.z);
