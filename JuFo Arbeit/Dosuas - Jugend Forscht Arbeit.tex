@@ -29,8 +29,8 @@ Dosuas (\textbf{D}evice for \textbf{O}rientation in \textbf{S}pace \textbf{U}sin
 \textbf{A}udio \textbf{S}ignals) ist ein Gerät, welches blinden Menschen ermöglicht
 sich mithilfe von Tonsignalen im Raum zu orientieren und Objekte zu erkennen.\par
 Das Projekt besteht aus zwei Unterprojekten, die beide bis zum 
-Wettbewerb als Prototypen umgesetzt werden sollen. Einmal werden Bilder eines 3D-Sensors 
-algorithmisch in Töne umgewandelt, die dann mit 3D-Audio Kopfhörern hörbar gemacht
+Wettbewerb als Prototypen umgesetzt werden sollen. Einmal werden Bilder eines 3D Kamera
+mit einem Programm in Töne umgewandelt, die dann mit 3D-Audio Kopfhörern hörbar gemacht
 werden. Die andere Idee basiert darauf, so ähnlich wie eine Fledermaus Ultraschall 
 Impulse zu senden und deren Reflektionen bzw. Echos hörbar zu machen, sodass man
 sich mit Klicklauten orientieren kann. Letzteres basiert auf der Technik der aktiven
@@ -40,7 +40,6 @@ menschlichen Echoortung.
 \tableofcontents
 
 \newpage
-
 
 \section{Einleitung}
 
@@ -89,10 +88,63 @@ für Orientierung und Erkennung der Umwelt zu geben.
  
 \newpage
 
+\section{Echoortungsstrategie}
 
-\section{Funktionsweise}
+\subsection{Funktionsweise}
+
+\subsection{Fazit}
+
+\newpage
+
+\section{3D Kamera Strategie}
+
+\subsection{Funktionsweise}
+
+In diesem Teilprojekt werden die Daten einer 3D Kamera als Töne kodiert, die der Träger des Geräts
+dann verwenden kann um ein Gefühl für den ihn umgebenden Raum zu bekommen. 
+
+\subsubsection{Verwendete Technologien}
+
+Der wichtigste Teil dieses Projekts ist eine \href{https://de.wikipedia.org/wiki/TOF-Kamera}
+{ToF Kamera} (Time of Flight Kamera), die neben normalen Fotos auch sogenannte Tiefenbilder aufnehmen kann.
+In einem Tiefenbild bekommt jeder Pixel einen Wert, der die Entfernung zur Kameralinse in mm angibt.
+Der von uns verwendete \href{http://www.cube-eye.co.kr/en/#/spec/product_MDC500d.html}{Cube Eye MDC500C}
+Sensor hat eine Reichweite von 0.8 bis 5.3 Metern und einer Auflösung von 320x240 Tiefenpixeln. 
+Time of Flight Kameras messen die Entfernung mit Infrarotlicht. Deshalb funktioniert der Sensor auch 
+im Dunkeln und wird von normalen Lichtreflektionen nicht gestört. Trotzdem hat der Sensor Probleme beim
+Erkennen von lichtdurchlässigen oder reflektierenden Objekten (z.B. Glasscheiben oder Spiegel). Für einen
+Prototypen ist das aber kein großes Problem. Wir haben diese Kamera ausgewählt, weil sie uns von einem 
+Familienmitglied\footnote{Jan Nicklisch, Vater von Yorick Zeschke, arbeitet in der Firma
+\href{https://www.dilax.com/de/}{DILAX}, die diese Sensoren für Personenzählsysteme verwendet} 
+empfohlen wurde.\par
+Einen weiterer wichtiger Teil des Projekts stellen \href{https://en.wikipedia.org/wiki/3D_audio_effect}
+{3D-Audio} Kopfhörer dar. Diese können den Eindruck erzeugen, dass sich eine Tonquelle im dreidimensionalen
+Raum befindet, bzw. sich bewegt. Dieses Verfahren benutzen wir um dem Träger des Geräts einen Eindruck
+davon zu geben in welcher Richtung sich ein Objekt befindet.\par 
+Die dritte Komponente ist ein \href{https://de.wikipedia.org/wiki/Raspberry_Pi}{Raspberry Pi}, ein 
+Einplatinencomputer auf dem ein Linux Betriebssystem läuft. Dieser ist mit Kopfhörern und ToF Sensor 
+verbunden und führt unser Programm aus. Wir verwenden den Raspberry Pi, weil er klein, mobil und 
+stromsparend ist.\par 
+Zusammen ergeben die drei Bestandteile (und eine mobile Stromquelle) einen Prototypen, den Sie hier 
+in der Abbildung sehen können.
+\par 
+TODO: Bild hier 
+
+\subsubsection{Software}
+
+Das Programm ist in C++ geschrieben, weil die API des ToF Sensors C++ erfordert und C++ eine schnelle
+Sprache mit vielen Möglichkeiten ist. Es läuft unter Windows und Linux. Wir verwenden folgende Libraries:
+\begin{enumerate}
+\item \enquote{MTF API} - eine Schnittstelle mit der man den Cube Eye Sensor ansteuern kann
+\item \enquote{\href{http://pointclouds.org/}{PCL}} - eine Bibliothek um mit Punktwolken\footnote{Punktwolken sind (ggf. geordnete) Mengen von Punkten im dreidimensionalen Raum, 
+wobei jeder Punkt eine x, y und z Koordinate und einen Index bekommt} zu arbeiten, wir benutzen 
+sie für Bildverarbeitung der 3D Daten
+\item \enquote{\href{https://www.sfml-dev.org/}{SFML}} - eine einfache Multimedia Bibliothek, 
+die wir für das Abspielen von 3D Sounds verwenden 
+\end{enumerate} 
 
 
+\subsection{Praxistest}
 
 \newpage
 
@@ -106,7 +158,7 @@ für Orientierung und Erkennung der Umwelt zu geben.
 
 \newpage
 
-
+\section{Anhang}
 
 
 \end{document}

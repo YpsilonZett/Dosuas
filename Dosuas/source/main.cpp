@@ -15,7 +15,7 @@ int main(int argc, char** argv) {
 			pcl::PointCloud<pcl::PointXYZ>::Ptr pImgCloud = sr.getImg();
 			std::vector<Voxel> imgVoxels = ip.getVoxelsForAudioSwipe(pImgCloud);
 			ap.playSoundSwipe(imgVoxels, 5.0f);
-			std::printf("Taking image\n");
+			std::printf("Taking image and transforming to sound\n");
 		} catch (const std::out_of_range& e) {
 			std::printf("Bad image! Either the camera is too near to an object or to far from anything.\n");
 			ap.playErrorTone(1.0f);
