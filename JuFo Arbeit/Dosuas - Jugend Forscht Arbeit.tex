@@ -9,10 +9,13 @@
 % additional but often needed packages
 \usepackage[colorlinks=true,linkcolor=black,urlcolor=blue,
             citecolor=blue,anchorcolor=blue]{hyperref}
+\usepackage{amsmath}
 \usepackage{csquotes}
 
 % special packages for this document
 \usepackage[official]{eurosym}
+\usepackage{tikz}
+\usetikzlibrary{shapes,arrows}
 
 % meta information
 \title{Dosuas - Die Symphonie des Sehens}
@@ -44,8 +47,8 @@ menschlichen Echoortung.
 \section{Einleitung}
 
 Blinde Menschen haben schon immer Probleme damit, sich im Raum zu orientieren.
-Manche von ihnen, zum Beispiel \href{https://en.wikipedia.org/wiki/Daniel_Kish}
-{Daniel Kish} benutzen die Technik der \href{https://de.wikipedia.org/wiki/Menschliche_Echoortung}{menschlichen Echoortung}, ein Verfahren, bei dem
+Manche von ihnen, zum Beispiel \textit{Daniel Kish} benutzen die Technik der 
+\textit{menschlichen Echoortung}, ein Verfahren, bei dem
 man regelmäßig mit dem Mund Klicklaute erzeugt und das Gehör darauf trainiert 
 anhand der Reflektionen ein genaues Bild der Umgebung im Kopf zu erzeugen.
 Forscher haben herausgefunden, dass sich dabei die Struktur des Gehirns verändert 
@@ -59,8 +62,7 @@ Technologie ins Spiel. Von Tag zu Tag ergeben sich neue Möglichkeiten mithilfe
 der verschiedensten technischen Hilfsmittel Menschen das Leben zu erleichtern.
 Geräte wie 3D-Sensoren oder Kameras können heutzutage schon oft sehr realistische
 und detaillierte Bilder aufnehmen, die dem menschlichen Sehen sehr nahe kommen. \par 
-Relativ neu ist zum Beispiel die Technologie der 
-\href{https://de.wikipedia.org/wiki/Retina-Implantat}{Retina Implantate}, die sich 
+Relativ neu ist zum Beispiel die Technologie der Retina Implantate, die sich 
 momentan aber noch im Anfangsstadium der Entwicklung befinden. Mit ihnen soll es in 
 Zukunft möglich sein, dass Blinde wie nicht sehbehinderte Menschen sehen, jedoch
 können die Kosten von 75.000 \euro{} aufwärts selten von den Blinden selbst getragen
@@ -69,7 +71,7 @@ blinde und sehbehinderte Menschen, als das es möglich wäre jeden mit einem so
 teuren Gerät zu versorgen.\par 
 Andere Firmen versuchen das Sehen technisch durch andere Sinne zu ersetzen.
 Ein berühmtes Beispiel dafür ist der 
-\enquote{\href{https://www.wicab.com/brainport-v100}{BrainPort V100}}, welcher 
+\enquote{BrainPort V100}\footnote{https://www.wicab.com/brainport-v100}, welcher 
 Kamerasignale in elektronische Impulse umwandelt, die auf der Zunge spürbar
 gemacht werden. Nachteile dieser
 Technologie sind vor allem lange Lernprozesse, die nur mit ärztlicher Unterstützung
@@ -105,23 +107,23 @@ dann verwenden kann um ein Gefühl für den ihn umgebenden Raum zu bekommen.
 
 \subsubsection{Verwendete Technologien}
 
-Der wichtigste Teil dieses Projekts ist eine \href{https://de.wikipedia.org/wiki/TOF-Kamera}
-{ToF Kamera} (Time of Flight Kamera), die neben normalen Fotos auch sogenannte Tiefenbilder aufnehmen kann.
+Der wichtigste Teil dieses Projekts ist eine ToF (Time of Flight) Kamera, die neben normalen Fotos 
+auch sogenannte Tiefenbilder aufnehmen kann.
 In einem Tiefenbild bekommt jeder Pixel einen Wert, der die Entfernung zur Kameralinse in mm angibt.
-Der von uns verwendete \href{http://www.cube-eye.co.kr/en/#/spec/product_MDC500d.html}{Cube Eye MDC500C}
+Der von uns verwendete \enquote{Cube Eye MDC500C}\footnote{http://www.cube-eye.co.kr/en/\#/spec/product\_MDC500d.html}
 Sensor hat eine Reichweite von 0.8 bis 5.3 Metern und einer Auflösung von 320x240 Tiefenpixeln. 
 Time of Flight Kameras messen die Entfernung mit Infrarotlicht. Deshalb funktioniert der Sensor auch 
 im Dunkeln und wird von normalen Lichtreflektionen nicht gestört. Trotzdem hat der Sensor Probleme beim
 Erkennen von lichtdurchlässigen oder reflektierenden Objekten (z.B. Glasscheiben oder Spiegel). Für einen
 Prototypen ist das aber kein großes Problem. Wir haben diese Kamera ausgewählt, weil sie uns von einem 
 Familienmitglied\footnote{Jan Nicklisch, Vater von Yorick Zeschke, arbeitet in der Firma
-\href{https://www.dilax.com/de/}{DILAX}, die diese Sensoren für Personenzählsysteme verwendet} 
+\enquote{DILAX}, die diese Sensoren für Personenzählsysteme verwendet} 
 empfohlen wurde.\par
-Einen weiterer wichtiger Teil des Projekts stellen \href{https://en.wikipedia.org/wiki/3D_audio_effect}
-{3D-Audio} Kopfhörer dar. Diese können den Eindruck erzeugen, dass sich eine Tonquelle im dreidimensionalen
+Einen weiterer wichtiger Teil des Projekts stellen 3D-Audio Kopfhörer dar. Diese können den Eindruck
+erzeugen, dass sich eine Tonquelle im dreidimensionalen
 Raum befindet, bzw. sich bewegt. Dieses Verfahren benutzen wir um dem Träger des Geräts einen Eindruck
 davon zu geben in welcher Richtung sich ein Objekt befindet.\par 
-Die dritte Komponente ist ein \href{https://de.wikipedia.org/wiki/Raspberry_Pi}{Raspberry Pi}, ein 
+Die dritte Komponente ist ein enquote{Raspberry Pi}, ein 
 Einplatinencomputer auf dem ein Linux Betriebssystem läuft. Dieser ist mit Kopfhörern und ToF Sensor 
 verbunden und führt unser Programm aus. Wir verwenden den Raspberry Pi, weil er klein, mobil und 
 stromsparend ist.\par 
@@ -130,21 +132,100 @@ in der Abbildung sehen können.
 \par 
 TODO: Bild hier 
 
-\subsubsection{Software}
+\subsubsection{Struktur der Software}
 
 Das Programm ist in C++ geschrieben, weil die API des ToF Sensors C++ erfordert und C++ eine schnelle
 Sprache mit vielen Möglichkeiten ist. Es läuft unter Windows und Linux. Wir verwenden folgende Libraries:
 \begin{enumerate}
-\item \enquote{MTF API} - eine Schnittstelle mit der man den Cube Eye Sensor ansteuern kann
-\item \enquote{\href{http://pointclouds.org/}{PCL}} - eine Bibliothek um mit Punktwolken\footnote{Punktwolken sind (ggf. geordnete) Mengen von Punkten im dreidimensionalen Raum, 
+\item \textit{MTF API} - eine Schnittstelle mit der man den Cube Eye Sensor ansteuern kann
+\item \textit{PCL} - eine Bibliothek um mit Punktwolken\footnote{Punktwolken sind (ggf. geordnete) Mengen von Punkten im dreidimensionalen Raum, 
 wobei jeder Punkt eine x, y und z Koordinate und einen Index bekommt} zu arbeiten, wir benutzen 
 sie für Bildverarbeitung der 3D Daten
-\item \enquote{\href{https://www.sfml-dev.org/}{SFML}} - eine einfache Multimedia Bibliothek, 
+\item \textit{SFML} - eine einfache Multimedia Bibliothek, 
 die wir für das Abspielen von 3D Sounds verwenden 
 \end{enumerate} 
+Die Software selbst besteht im Moment aus 3 Modulen, die sich aber bis zur Ausstellung noch verändern 
+können.
+\begin{enumerate}
+\item \textit{sensorReader.cpp} - ein Modul, das die Schnittstelle zum ToF Sensor benutzt um Daten zu 
+lesen und in eine Struktur für die weitere Verarbeitung zu bringen
+\item \textit{imageProcessor.cpp} - ein Modul zum Umwandeln der 3D Daten in eine Punktwolke und 
+Vorbereiten bzw. Verarbeiten der Punktwolke
+\item \textit{audioPlayer.cpp} - ein Modul, welches die Vorbereiteten Daten in Töne umrechnet und 
+diese dann abspielt
+\end{enumerate}
+
+\subsubsection{Programm}
+
+Die Software läuft kontinuierlich in einer Schleife, bis sie beendet wird und macht alle 6 Sekunden ein 
+Tiefenbild. Dieses wird vom Sensor als 2D Matrix von 320x240 (=76.800) natürlichen Zahlen dargestellt.
+In diesem Tiefenbild gibt jeder Pixel den Abstand zur nächsten lichtreflektierenden Region in mm an. 
+Dadurch erscheint eine grade Fläche direkt vor dem Sensor jedoch auf dem Bild als nach außen gekrümmt, 
+weil das vom Sensor gesendete Infrarotlicht zu den Seiten der Fläche (und zurück) ein bisschen länger
+braucht, als zur Mitte. Wegen der kugelförmigen Ausbreitung der Lichtstrahlen von der Kameralinse hat das
+Bild außerdem ein Polarkoordinatensystem\footnote{jeder Pixel gibt eigentlich einen Winkel zwischen
+0$^{\circ}$ und 75$^{\circ}$ an, weil der Sensor ein Sichtfeld von 75$^{\circ}$ hat}, mit dem wir nicht
+gut weiterarbeiten können. Um das Problem der Verzerrung zu beheben und das Bild in ein kartesisches
+Koordinatensystem zu umzurechnen verwenden wir einen Undistortion\footnote{in unserem Fall einen
+vom Hersteller mitgelieferten, den man direkt in der Sensorkonfiguration einstellen kann} Algorithmus.\par
+Danach wird das Bild in eine Punktwolke mit kartesischem Koordinatensystem umgerechnet, indem jeder Pixel
+zu einem Punkt im dreidimensionalem Raum wird. Die Punktwolke wird nun gefiltert (z.B. werden Boden und
+Decke des Raumes (falls vorhanden) algorithmisch entfernt, weil diese sich negativ auf das Gehörte 
+auswirken würden. Das Bild wird in 320 vertikale Spalten unterteilt, die jeweils 240 Pixel hoch sind. 
+Für jede Spalte wird aus den 5 \enquote{nächsten} (auf den den Träger bezogen) Voxels 
+\footnote{so bezeichnet man einen dreidimensionalen Pixel mit x, y und z-Koordinaten} ein Voxel berechnet,
+dessen z-Koordinate (Tiefe) der Durchschnitt der 5 anderen Voxel ist. Seine x-Koordinate entspricht
+der Spaltennummer und die y-Koordinate ist ebensfalls der Durchschnitt der anderen 5 y-Koordinaten. 
+320 dieser Voxel ergeben einen radarscannähnlichen Streifen (horizontal) mit Tiefen- und 
+Breiteninformationen. Dieser wird für das Tonabspielen benutzt.\par 
+Ein Ton, wir nennen ihn \enquote{Radar Swipe}, weil er einem Radarscann durch das ganze Bild ähnelt, 
+bewegt sich immer vom linken zum rechten Rand des Sicht-, bwz. Hörfeldes und ändert dabei (meistens) fortwährend
+seine Höhe. Durch die Tonhöhe wird eine Entfernung angegeben\footnote{tiefe Töne entsprechen großer 
+Entfernung und hohe Töne einem nahen Objekt}. Zusammen mit der Position\footnote{diese ist virtuell,
+hört sich aber wegen der Kopfhörer sehr realistisch an}, welche man über
+die 3D-Audio Kopfhörer mitbekommt kann man sich mit etwas Übung ein gutes Bild der Umgebung und ihrer
+Beschaffenheit machen. Zum Beispiel könnte ein Ton, der in der linken Bildhälfte langsam tiefer wird und 
+in der rechten Bildhälfte gleich bleibt eine schräge Wand darstellen, die in einiger Entfernung in eine
+zum Nutzer parallele Wand übergeht. So ein einfaches Beispiel kommt zwar selten vor, und meistens gibt es
+noch eine Menge Störgeräusche, aber näheres dazu im Abschnitt \ref{testsAndResults}.\par 
+Momentan beträgt die Dauer zum Abspielen eines Bildes fünf Sekunden, gefolgt von einer Sekunde 
+Pause. Bis zum Wettbewerb wollen wir die Dauer noch verkürzen, jedoch erfordert das ein gewisses 
+Training, weil der Mensch üben muss, mehr Informationen in kürzerer Zeit zu verarbeiten. Zusammen mit 
+einer Verkürzung der Pausen zwischen Aufnahmen hoffen wir die Zeit für einen Programmzyklus auf ungefähr
+eineinhalb bis drei Sekunden zu reduzieren. Im folgenden Programmablaufplan wird der Ablauf etwas 
+präziser beschrieben.\newline
+
+% Define block styles
+\tikzstyle{decision} = [diamond, draw, fill=white, 
+    text width=4.5em, text badly centered, node distance=3cm, inner sep=0pt]
+\tikzstyle{block} = [rectangle, draw, fill=white, 
+    text width=5em, text centered, rounded corners, minimum height=4em]
+\tikzstyle{line} = [draw, -latex']
+\tikzstyle{cloud} = [draw, ellipse,fill=white, node distance=3cm,
+    minimum height=2em]
+    
+\begin{tikzpicture}[node distance = 2cm, auto]
+    % Place nodes
+    \node [block] (initSensor) {Sensor initialisieren};
+    \node [block, below of=initSensor] (takePicture) {Tiefenbild aufnehmen};
+    \node [block, below of=takePicture] (convertImg) {Tiefenbild in Punktwolke umwandeln};
+ 	\node [bolck, below of=convertImg] (removeFloor) {Boden und Decke entfernen}
+ 	\node [block, below of=removeFloor] (
+    % Draw edges
+    \path [line] (init) -- (identify);
+    \path [line] (identify) -- (evaluate);
+    \path [line] (evaluate) -- (decide);
+    \path [line] (decide) -| node [near start] {yes} (update);
+    \path [line] (update) |- (identify);
+    \path [line] (decide) -- node {no}(stop);
+    \path [line,dashed] (expert) -- (init);
+    \path [line,dashed] (system) -- (init);
+    \path [line,dashed] (system) |- (evaluate);
+\end{tikzpicture}
 
 
-\subsection{Praxistest}
+
+\subsection{Praxistest und Ergebnisse} \label{testsAndResults}
 
 \newpage
 
