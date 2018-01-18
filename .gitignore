@@ -1,2 +1,8 @@
 .vs/
 
+*.toc
+*.aux
+*.log
+*.out
+*.synctex
+*.pdb
