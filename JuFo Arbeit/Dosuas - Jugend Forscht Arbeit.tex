@@ -238,7 +238,7 @@ einer Verkürzung der Pausen zwischen Aufnahmen hoffen wir die Zeit für einen P
 eineinhalb bis drei Sekunden zu reduzieren. Im folgenden Programmablaufplan wird der Ablauf etwas 
 präziser beschrieben.\textbf{TODO: PaP} \newline
 
-\subsection{Praxistest und Ergebnisse} \label{testsAndResults}
+\subsection{Praxistests} \label{testsAndResults}
 
 Wir haben Dosuas in verschiedenen Umgebungen getestet und planen eine Vorführung am Ausstellungstag.
 Es stellte sich heraus, dass sich zum Üben der Handhabung des Gerätes mittelgroße Räume mit einfachen
@@ -253,14 +253,14 @@ Nehmen wir als Beispiel den Raum, den man in Abb. \ref{before_filtering} als Pun
 	\label{normal_picture}
 \end{figure} \par
 Man hört beim Betrachten dieses Raumes einen Ton, der ungefähr eine halbe Sekunde die Frequenz (von ca. 550Hz) nicht verändert und sich so anhört, als würde er von links kommen. Dieser Ton wird durch das Bett
-erzeugt. Als nächstes wird der Ton über ungefähr eine eine halbe Sekunde gleichmäßig Tiefer (bis auf 340Hz), 
-jetzt ist unsere virtuelle Tonquelle an der Wand des Raumes angekommen, und steigt dann über $1\frac{1}{2}$ Sekunden sehr langsam an (bis ca. 360Hz), denn die Wand hat eine leichte Neigung. 
-Nun hört man eine Art Sprung, bei dem der Ton ruckartig von 360Hz zurück auf 550Hz wechselt. An solchen Auffälligkeiten kann man Kanten, Öffnungen oder spitze Gegenstände erkennen, was sehr wichtig für blinde
+erzeugt. Als nächstes wird der Ton über ungefähr eine halbe Sekunde gleichmäßig Tiefer (bis auf 340Hz), 
+jetzt ist unsere virtuelle Tonquelle an der Wand des Raumes angekommen. Der Ton steigt nun über $1\frac{1}{2}$ Sekunden sehr langsam an (bis ca. 360Hz), denn die Wand hat eine leichte Neigung. 
+Nun hört man eine Art Sprung, bei dem der Ton ruckartig von 360Hz zurück auf 550Hz wechselt. An solchen Auffälligkeiten kann man Kanten, Öffnungen oder spitze Gegenstände erkennen, was sehr wichtig für Blinde
 ist. Dieser Ton repräsentierte nämlich den Übergang von der Wand zum Schrank, der weiter vorne ist. Außerdem hört
 man die virtuelle Tonquelle in diesem Moment direkt in der Mitte des Hörfeldes, was dem Nutzer anzeigt, das sich
 die Kante fast genau vor ihm befindet. Über ungefähr eine Sekunde bleibt die Tonhöhe wieder gleich, nur die Position
 verändert sich; man hört die Fläche des Schranks. Über die restlichen $1\frac{1}{2}$ Sekunden steigt der Ton mit 
-ungefähr der selben Geschwindigkeit, wie beim Übergang von Bett zur Wand, an und die Tonquelle wandert nach rechts.
+gleichbleibender Geschwindigkeit an und die Tonquelle wandert nach rechts.
 Hier hört man die Tür und am Ende eine kurze \enquote{Spitze}, die die Türklinke darstellt. Am Ende hat der Ton
 eine Frequenz von ca. 790Hz.\par 
 Wir hoffen, dass Sie sich nun ein Bild davon machen können, wie sich die Welt mit Dosuas anhört. Nach einem
@@ -296,11 +296,54 @@ Möglichkeiten. Doch das Gerät ist und bleibt momentan nur ein Prototyp. \textb
 
 \section{Diskussion}
 
-\subsection{Entwicklung}
+Im folgenden wollen wir kurz diskutieren, was wir für das Projekt planen und inwiefern man das
+Gerät benutzten und weiterentwickeln kann und sollte. Außerdem fassen wir die durch die Entwicklung und Forschung am Projekt Dosuas gewonnenen Erkenntnisse im Fazit zusammen. 
 
 \subsection{Ausblick}
 
-\subsection{Nutzen und Fazit}
+Es gibt noch sehr viele Möglichkeiten das Projekt weiterzuentwickeln. Einige vielversprechende,
+möchten wir hier auflisten. Die Entwicklungen sind nach ihrer Schwierigkeit und Entwicklungsaufwand geordnet. Einige sind auch nur Ideen.
+\begin{enumerate}
+	\item algorithmisches Entfernen von Decke, Boden und störenden Objekten
+	\item Verbesserung der Genauigkeit des Tons, z.B durch größeres Frequenzspektrum, kein 
+	VoxelGrid Filter mehr
+	\item Einbauen von Höhenwahrnehmung durch besseres 3D Audio oder andere Effekte
+	\item Erfassen des ganzen Bildes und nicht nur eines Streifens (die im Moment gehörten
+	Voxel bilden einen Streifen, weil pro Spalte im Bild nur ein Voxel genommen wird), dies
+	kann z.B. durch Tonüberlagerungen, Schwebungen, Akkorde Tonlautstärke oder unterschiedliche
+	Klangfarben realisiert werden
+	\item Benutzten eines auf das Projekt angepassten Sensors, der dadurch günstiger wird
+	\item Benutzten mehrerer Sensoren für 3d Sichtfeld (wir können aus jeder Richtung Töne hören,
+	warum nicht diese Fähigkeit verwenden?)
+	\item Verkleinern und besser portabel machen des Geräts 
+	\item und vieles mehr...
+\end{enumerate}
+Viele der hier aufgezählten Entwicklungen werden wir bis zum Wettbewerb wahrscheinlich nicht 
+mehr schaffen. Aber dieser Ausblick dient auch als Ideen für Leute, die nach Jugend Forscht 
+daran interessiert sind, das Projekt weiter zu entwickeln. Vermutlich werden wir das Projekt
+dann als Open Source Projekt veröffentlichen.
+
+\subsection{Fazit}
+
+Im Moment fehlen uns noch genügend Messdaten um eine aussagekräftige Statistik zu machen. Jedoch
+können wir mit Sicherheit sagen, das erste Schritte wie das Herumlaufen in fremden Räumen mit
+dem jetzigen Stand möglich sein sollten. Wirklich \enquote{Sehen} können Leute mit dem Gerät
+noch nicht und der Weg bis dahin ist noch weit, aber etwas ebenfalls sehr wichtiges
+ist bereits möglich: Erkennen. Mit Dosuas kann man sich im Raum orientieren, Strukturen einfacher und später auch komplexerer Objekte erkennen und die Form von Gegenständen erahnen. Also tut das Gerät genau das, was sein Name sagt, es ist ein Gerät zur Orientierung im Raum mithilfe von Audio
+Signalen, ein \enquote{\textbf{D}evice for \textbf{O}rientation in \textbf{S}pace \textbf{U}sing 
+	\textbf{A}udio \textbf{S}ignals}.\par 
+Das Gerät ist natürlich kein Ersatz für menschliches Sehen, aber das war am Anfang der Entwicklung
+auch gar nicht beabsichtigt. Das Projekt Dosuas sollte eine Hilfestellung für Blinde sein, die ihnen das Leben einfacher macht. Kleine und genaue Gegenstände kann man mit unserem jetzigen Sensor nicht besonders gut erkennen. Das muss man aber auch nicht, denn dazu besitzen wir Menschen den Tastsinn, der wesentlich genauer ist. Auch sonst ist es nicht beabsichtigt, sich auf 
+ein Gerät wie dieses zu verlassen. Man kann alltägliche Prozesse mit Dosuas einfacher machen. 
+Wir hoffen das dieses oder ähnliche Projekte mehr blinde Menschen dazu motiviert, sich nicht 
+mit ihrer Behinderung wie mit einer Last abzumühen, sondern Geräte oder Techniken
+,wie z.B. menschliche Echoortung, zu verwenden um nicht mehr auf ständige Hilfe angewiesen 
+zu sein und selbständiger zu werden. Wie Daniel Kish in einem TED-Talk\footnote{https://www.ted.com/talks/daniel\_kish\_how\_i\_use\_sonar\_to\_navigate\_the\_world} sagte, 
+empfindet er Blindheit nicht als Problem, sondern als Eigenschaft, die ihn von anderen Menschen
+unterscheidet. Diesem Beispiel sollten unserer Meinung nach mehr Blinde folgen.\par 
+Vielleicht wird Dosuas irgendwann die Grundlage für ein weiteres
+Forschungsprojekt sein, das es blinden Menschen vollständig ermöglicht zu sehen. Bis dahin
+warten wir gespannt und versuchen mit unserem Projekt den Grundstein dafür zu legen. 
 
 \newpage
 
