@@ -70,7 +70,7 @@ momentan aber noch im Anfangsstadium der Entwicklung befinden. Mit ihnen soll es
 Zukunft möglich sein, dass Blinde wie nicht sehbehinderte Menschen sehen, jedoch
 können die Kosten von 75.000 \euro{} aufwärts selten von den Blinden selbst getragen
 werden und werden nur manchmal von Krankenkassen übernommen. Auch gibt es zu viele
-blinde und sehbehinderte Menschen, als das es möglich wäre jeden mit einem so 
+blinde und sehbehinderte Menschen, als dass es möglich wäre jeden mit einem so 
 teuren Gerät zu versorgen.\par 
 Andere Firmen versuchen das Sehen technisch durch andere Sinne zu ersetzen.
 Ein berühmtes Beispiel dafür ist der 
@@ -79,8 +79,8 @@ Kamerasignale in elektronische Impulse umwandelt, die auf der Zunge spürbar
 gemacht werden. Nachteile dieser
 Technologie sind vor allem lange Lernprozesse, die nur mit ärztlicher Unterstützung
 möglich sind, Probleme bei zu vielen Reizen oder große Ungenauigkeiten.
-Beispielsweise kann es passieren, dass ein Blinder beim betrachten des Geschehens auf 
-einer großen Straße nichts mehr wahrnimmt, weil die der Tastsinn der zunge
+Beispielsweise kann es passieren, dass ein Blinder beim Betrachten des Geschehens auf 
+einer großen Straße nichts mehr wahrnimmt, weil der Tastsinn der Zunge
 nicht für eine 
 solche Reizüberlastung ausgelegt ist. Im Gegensatz dazu wird es vermutlich auch nicht
 möglich sein kleine oder komplexere Objekte zu erkennen, weil der Tastsinn der Zunge
@@ -97,7 +97,56 @@ für Orientierung und Erkennung der Umwelt zu geben.
 
 \subsection{Funktionsweise}
 
+Die Echoortungsstrategie funktioniert ähnlich einem Sonar. Hierbei werden im einfachsten 
+Fall Schallwellen in eine Richtung ausgesendet, von verschiedenen Oberflächen reflektiert,
+und danach wieder empfangen. Über die Zeit, die die Schallwellen benötigen, kann die 
+Entfernung zu einem Gegenstand nach der Formel $d = \frac{t \cdot c}{2}$ ermittelt werden,
+wobei $d$ die Entfernung, $t$ die gemessene Zeit, und $c$ die Schallgeschwindigkeit (in 
+diesem Fall im Medium Luft) sind. Die Halbierung kommt daher, dass der Schall die 
+Entfernung zum Objekt doppelt zurücklegt (hin und zurück). \par
+In unserem Fall wurde zur Messung zunächst ein einfacher Ultraschallsensor\footnote{HC-SR04} 
+verwendet. Dieser wird über eine fallende Eingangsflanke getriggert, und gibt nach einer 
+kurzen Zeit einen Puls mit der Länge der gemessenen Zeit aus. Die Triggerung übernimmt 
+beim Prototypen der Einfachheit halber ein Microcontroller\footnote{Arduino Micro}, die 
+Ausgabe erfolgt direkt über einfache Kopfhörer. Der Puls, der hier gehört werden kann, 
+wird je nach Entfernung als ein (bei sehr kurzen Enfternungen, $0,03m < d < 0,2m$) oder 
+zwei schnell aufeinanderfolgende (bei größeren Enfternungen, $0,2m < d < 4m$) klick-ähnliche 
+Laute wahrgenommen. Diese Laute werden bei den beiden Flanken des Pulses erzeugt, die Dauer 
+dazwischen verhält sich somit proportional zur gemessenen Entfernung. Mit etwas Übung kann 
+diese Entfernung grob geschätzt werden, sodass Objekte mit ausreichender Größe vor einer 
+Person erkannt werden. \par
+Dieser Puls enthält aber nur noch Informationen über den dichtesten Gegenstand, dessen 
+reflektiertes Signal einen Schwellwert überschreitet. Grund hierfür ist die Filterung im 
+Ultraschallsensor. Im zweiten Schritt soll nun diese Filterung übergangen werden, indem 
+das Ausgangssignal davor abgegriffen wird. Somit werden auch kleinere Pulse (also von 
+kleineren Flächen) sowie insgesamt mehrere Pulse (bei mehreren Objekten) an die Kopfhörer 
+ausgegeben. Außerdem hat der Ausgangspuls des Sensors normalerweise eine festgelegte 
+Intensität, welche hier jedoch je nach Größe der Fläche variieren kann. Um sich hiermit 
+orientieren zu können ist allerdings mehr Übung erforderlich. \textbf{TODO: Praxistest} \par
+Der dritte Schritt ist nun ein Stereosound. Bisher wurde nur erkannt, ob sich in einer 
+gewissen Entfernung ein Gegenstand befindet. Man weiß hierbei aber nicht, ob dieser direkt 
+vor einem, eher auf der linken oder eher auf der rechten Seite ist. Um dieses Problem zu 
+lösen wird ein zweiter Empfänger verwendet, wobei die Empfänger nun direkt über den Ohren 
+platziert werden müssen (aber trotzdem nach vorne zeigen). Der Transmitter befindet sich 
+mittig auf der Stirn. Somit wird ein ausgesendetes Signal von beiden Seiten empfangen, je 
+nach Position der reflektierenden Fläche jedoch mit leicht abweichenden Intensitäten und 
+Verzögerungen. Das menschliche Gehör funktioniert ähnlich, indem es durch diese 
+Intensitätsdifferenzen und Laufzeitunterschiede die Richtung einer Audioquelle ermitteln 
+kann\footnote{Es gibt noch eine dritte Methode, die vom Gehör verwendet wird. Hierbei wird 
+durch feine Klangvariationen, die durch Reflexionen am Kopf und an den Ohren auftreten, die 
+Richtung noch genauer bestimmt. Nur dadurch kann zwischen vorne-rechts und hinten-rechts 
+sowie oben und unten unterschieden werden. Da die Messungen jedoch zunächst nur nach vorne 
+gehen, wird diese Methode vernachlässigt.}. Somit sollte es auch mit dem Ultraschall noch 
+relativ schnell möglich sein, seine Umgebung zu ''sehen''. \textbf{TODO: Praxistest}
+
 \subsection{Fazit}
+
+Das Verfahren ist der menschlichen Echoortung sehr ähnlich, jedoch muss der Mensch hierbei 
+die Laute nicht selbst erzeugen. Da in diesem Fall Ultraschall verwendet wird, kann das 
+Verfahren auch in lauten Umgebungen eingesetzt werden, und stört in ruhigen Situationen 
+niemanden. Die Echoortung ist preisgünstig und einfach umzusetzen, kann aber je nach 
+Umfang nur ungenaue Angaben treffen. Die komplexeren Varianten benötigen wiederum eine 
+längere Übungszeit.
 
 \newpage
 
@@ -114,7 +163,7 @@ Der wichtigste Teil dieses Projekts ist eine ToF (Time of Flight) Kamera, die ne
 auch sogenannte Tiefenbilder aufnehmen kann.
 In einem Tiefenbild bekommt jeder Pixel einen Wert, der die Entfernung zur Kameralinse in mm angibt.
 Der von uns verwendete \enquote{Cube Eye MDC500C}\footnote{http://www.cube-eye.co.kr/en/\#/spec/product\_MDC500d.html}
-Sensor hat eine Reichweite von 0.8 bis 5.3 Metern und einer Auflösung von 320x240 Tiefenpixeln. 
+Sensor hat eine Reichweite von 0.8 bis 5.3 Metern und eine Auflösung von 320x240 Tiefenpixeln. 
 Time of Flight Kameras messen die Entfernung mit Infrarotlicht. Deshalb funktioniert der Sensor auch 
 im Dunkeln und wird von normalen Lichtreflektionen nicht gestört. Trotzdem hat der Sensor Probleme beim
 Erkennen von lichtdurchlässigen oder reflektierenden Objekten (z.B. Glasscheiben oder Spiegel). Für einen
@@ -122,12 +171,12 @@ Prototypen ist das aber kein großes Problem. Wir haben diese Kamera ausgewählt
 Familienmitglied\footnote{Jan Nicklisch, Vater von Yorick Zeschke, arbeitet in der Firma
 	\enquote{DILAX}, die diese Sensoren für Personenzählsysteme verwendet} 
 empfohlen wurde.\par
-Einen weiterer wichtiger Teil des Projekts stellen 3D-Audio Kopfhörer dar. Diese können den Eindruck
+Einen weiteren wichtigen Teil des Projekts stellen 3D-Audio Kopfhörer dar. Diese können den Eindruck
 erzeugen, dass sich eine Tonquelle im dreidimensionalen
 Raum befindet, bzw. sich bewegt. Dieses Verfahren benutzen wir um dem Träger des Geräts einen Eindruck
 davon zu geben in welcher Richtung sich ein Objekt befindet.\par 
-Die dritte Komponente ist ein enquote{Raspberry Pi}, ein 
-Einplatinencomputer auf dem ein Linux Betriebssystem läuft. Dieser ist mit Kopfhörern und ToF Sensor 
+Die dritte Komponente ist ein \enquote{Raspberry Pi}, ein 
+Einplatinencomputer, auf dem ein Linux-Betriebssystem läuft. Dieser ist mit Kopfhörern und dem ToF Sensor 
 verbunden und führt unser Programm aus. Wir verwenden den Raspberry Pi, weil er klein, mobil und 
 stromsparend ist.\par 
 Zusammen ergeben die drei Bestandteile (und eine mobile Stromquelle) einen Prototypen, den Sie hier 
@@ -137,12 +186,12 @@ TODO: Bild hier
 
 \subsubsection{Softwarestruktur}
 
-Das Programm ist in C++ geschrieben, weil die API des ToF Sensors C++ erfordert und C++ eine schnelle
+Das Programm ist in C++ geschrieben, weil die API des ToF Sensors C++ erfordert und C++ eine hardwarenahe
 Sprache mit vielen Möglichkeiten ist. Wir verwenden folgende Libraries:
 \begin{enumerate}
 	\item \textit{MTF API} - eine Schnittstelle mit der man den Cube Eye Sensor ansteuern kann
 	\item \textit{PCL} - eine Bibliothek um mit Punktwolken\footnote{Punktwolken sind (ggf. geordnete) Mengen von Punkten im dreidimensionalen Raum, 
-		wobei jeder Punkt eine x, y und z Koordinate und einen Index bekommt} zu arbeiten, wir benutzen 
+		wobei jeder Punkt eine x-, y- und z-Koordinate und einen Index bekommt} zu arbeiten, wir benutzen 
 	sie für Bildverarbeitung der 3D Daten
 	\item \textit{SFML} - eine einfache Multimedia Bibliothek, 
 	die wir für das Abspielen von 3D Sounds verwenden 
@@ -163,9 +212,9 @@ können.
 Die Software läuft kontinuierlich in einer Schleife, bis sie beendet wird und macht alle 6 Sekunden ein 
 Tiefenbild. Dieses wird vom Sensor als 2D Matrix von 320x240 (=76.800) natürlichen Zahlen dargestellt.
 In diesem Tiefenbild gibt jeder Pixel den Abstand zur nächsten lichtreflektierenden Region in mm an. 
-Dadurch erscheint eine grade Fläche direkt vor dem Sensor jedoch auf dem Bild als nach außen gekrümmt, 
+Dadurch erscheint eine gerade Fläche direkt vor dem Sensor jedoch auf dem Bild als nach außen gekrümmt, 
 weil das vom Sensor gesendete Infrarotlicht zu den Seiten der Fläche (und zurück) ein bisschen länger
-braucht, als zur Mitte. Wegen der kugelförmigen Ausbreitung der Lichtstrahlen von der Kameralinse hat das
+braucht als zur Mitte. Wegen der kugelförmigen Ausbreitung der Lichtstrahlen von der Kameralinse hat das
 Bild außerdem ein Polarkoordinatensystem\footnote{jeder Pixel gibt eigentlich einen Winkel zwischen
 	0$^{\circ}$ und 75$^{\circ}$ an, weil der Sensor ein Sichtfeld von 75$^{\circ}$ hat}, mit dem wir nicht
 gut weiterarbeiten können. Um das Problem der Verzerrung zu beheben und das Bild in ein kartesisches
@@ -178,9 +227,9 @@ Koordinatensystem umzurechnen verwenden wir einen Undistortion\footnote{in unser
 	\label{distorted_pointcloud_img}
 \end{figure}
 \textbf{TODO: Bild vom selben Zimmer!}
-Wie in Abb. \ref{distorted_pointcloud_img} zu sehen, wirkt ein ebene Fläche, in diesem Fall 
+Wie in Abb. \ref{distorted_pointcloud_img} zu sehen ist, wirkt ein ebene Fläche, in diesem Fall 
 eine Wand, wie ein Teil der Oberfläche einer Kugel. In der nächsten Abbildung (Abb. \ref{before_filtering}) sieht
-man die Aufnahme des selben Zimmers, in der die Wand grade erscheint. Hier sind auch
+man die Aufnahme des selben Zimmers, in der die Wand gerade erscheint. Hier sind auch
 Schrank (rechts in der Ecke) und Decke besser zu erkennen. 
 \begin{figure}[h]
 	\centering
@@ -204,9 +253,9 @@ Diese Art von Filterung nennt man Downsampling. Wir verwenden dafür den \enquot
 Weil VoxelGrid die Punktwolke mithilfe eines Durchschnittsverfahrens reduziert, 
 werden statistische Anomalien und Extremwerte ausgefiltert. Ein Bild mit genauer Auflösung eignet sich für unseren Zweck nicht so gut, wie ein niedriger
 auflösendes, denn bei hoher Auflösung können kleine oder ungewöhnlich geformte Regionen (z.B. Messfehler, kleine Gegenstände, Kanten, Ecken, etc.) beim Hören
-einen ungewollten Eindruck erzeugen. Das Geschieht, weil unser Ohr sehr stark auf 
+einen ungewollten Eindruck erzeugen. Das geschieht, weil unser Gehör sehr stark auf 
 Änderungen in einem regelmäßigen Ton, wie wir ihn im Normalfall hören wollen, reagiert. 
-Hier sehen Sie wieder den selben Raum, nur das die Punktwolke diesmal nur noch aus ungefähr 15650 (also ca. ein Fünftel der ursprünglichen Größe) Punkten besteht. 
+Hier sehen Sie wieder den selben Raum, nur dass die Punktwolke diesmal nur noch aus ungefähr 15650 (also ca. ein Fünftel der ursprünglichen Größe) Punkten besteht. 
 \begin{figure}[h]
 	\centering
 	\includegraphics[width=0.6\textwidth]{pointcloud_nach_downsampling_15650_punkte}
@@ -215,18 +264,17 @@ Hier sehen Sie wieder den selben Raum, nur das die Punktwolke diesmal nur noch a
 \end{figure}
 \par 
 Nach der Filterung wird das Bild in 320 vertikale Spalten unterteilt, die jeweils 240 Pixel hoch sind. 
-Für jede Spalte wird aus den 5 \enquote{nächsten} (auf den den Träger bezogen) Voxels 
-\footnote{so bezeichnet man einen dreidimensionalen Pixel mit x, y und z-Koordinaten} ein Voxel berechnet,
+Für jede Spalte wird aus den 5 \enquote{nächsten} (auf den den Träger bezogen) Voxels\footnote{so bezeichnet man einen dreidimensionalen Pixel mit x, y und z-Koordinaten} ein Voxel berechnet,
 dessen z-Koordinate (Tiefe) der Durchschnitt der 5 anderen Voxel ist. Seine x-Koordinate entspricht
 der Spaltennummer und die y-Koordinate ist ebensfalls der Durchschnitt der anderen 5 y-Koordinaten. 
 320 dieser Voxel ergeben einen radarscannähnlichen Streifen (horizontal) mit Tiefen- und 
-Breiteninformationen. Dieser wird für das Tonabspielen benutzt.\par 
+Höheninformationen. Dieser wird für das Tonabspielen benutzt.\par 
 Ein Ton, wir nennen ihn \enquote{Radar Swipe}, weil er einem Radarscann durch das ganze Bild ähnelt, 
 bewegt sich immer vom linken zum rechten Rand des Sicht-, bwz. Hörfeldes und ändert dabei (meistens) fortwährend
 seine Frequenz. Durch diese wird eine Entfernung angegeben\footnote{tiefe Töne entsprechen großer 
 	Entfernung und hohe Töne einem nahen Objekt}. Zusammen mit der Position\footnote{diese ist virtuell,
 	hört sich aber wegen der Kopfhörer sehr realistisch an}, welche man über
-die 3D-Audio Kopfhörer mitbekommt kann man sich mit etwas Übung ein gutes Bild der Umgebung und ihrer
+die 3D-Audio Kopfhörer mitbekommt, kann man sich mit etwas Übung ein gutes Bild der Umgebung und ihrer
 Beschaffenheit machen. Zum Beispiel könnte ein Ton, der in der linken Bildhälfte langsam tiefer wird und 
 in der rechten Bildhälfte gleich bleibt eine schräge Wand darstellen, die in einiger Entfernung in eine
 zum Nutzer parallele Wand übergeht. So ein einfaches Beispiel kommt zwar selten vor, und meistens gibt es
@@ -253,8 +301,13 @@ Nehmen wir als Beispiel den Raum, den man in Abb. \ref{before_filtering} als Pun
 	\label{normal_picture}
 \end{figure} \par
 Man hört beim Betrachten dieses Raumes einen Ton, der ungefähr eine halbe Sekunde die Frequenz (von ca. 550Hz) nicht verändert und sich so anhört, als würde er von links kommen. Dieser Ton wird durch das Bett
+<<<<<<< HEAD
 erzeugt. Als nächstes wird der Ton über ungefähr eine halbe Sekunde gleichmäßig Tiefer (bis auf 340Hz), 
 jetzt ist unsere virtuelle Tonquelle an der Wand des Raumes angekommen. Der Ton steigt nun über $1\frac{1}{2}$ Sekunden sehr langsam an (bis ca. 360Hz), denn die Wand hat eine leichte Neigung. 
+=======
+erzeugt. Als nächstes wird der Ton über ungefähr eine eine halbe Sekunde gleichmäßig tiefer (bis auf 340Hz), 
+jetzt ist unsere virtuelle Tonquelle an der Wand des Raumes angekommen, und steigt dann über $1\frac{1}{2}$ Sekunden sehr langsam an (bis ca. 360Hz), denn die Wand hat eine leichte Neigung. 
+>>>>>>> c8c88e057249f8762cbe6d9b1563151b86f5d70e
 Nun hört man eine Art Sprung, bei dem der Ton ruckartig von 360Hz zurück auf 550Hz wechselt. An solchen Auffälligkeiten kann man Kanten, Öffnungen oder spitze Gegenstände erkennen, was sehr wichtig für Blinde
 ist. Dieser Ton repräsentierte nämlich den Übergang von der Wand zum Schrank, der weiter vorne ist. Außerdem hört
 man die virtuelle Tonquelle in diesem Moment direkt in der Mitte des Hörfeldes, was dem Nutzer anzeigt, das sich
