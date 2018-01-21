@@ -97,7 +97,56 @@ für Orientierung und Erkennung der Umwelt zu geben.
 
 \subsection{Funktionsweise}
 
+Die Echoortungsstrategie funktioniert ähnlich einem Sonar. Hierbei werden im einfachsten 
+Fall Schallwellen in eine Richtung ausgesendet, von verschiedenen Oberflächen reflektiert,
+und danach wieder empfangen. Über die Zeit, die die Schallwellen benötigen, kann die 
+Entfernung zu einem Gegenstand nach der Formel $d = \frac{t \cdot c}{2}$ ermittelt werden,
+wobei $d$ die Entfernung, $t$ die gemessene Zeit, und $c$ die Schallgeschwindigkeit (in 
+diesem Fall im Medium Luft) sind. Die Halbierung kommt daher, dass der Schall die 
+Entfernung zum Objekt doppelt zurücklegt (hin und zurück). \par
+In unserem Fall wurde zur Messung zunächst ein einfacher Ultraschallsensor\footnote{HC-SR04} 
+verwendet. Dieser wird über eine fallende Eingangsflanke getriggert, und gibt nach einer 
+kurzen Zeit einen Puls mit der Länge der gemessenen Zeit aus. Die Triggerung übernimmt 
+beim Prototypen der Einfachheit halber ein Microcontroller\footnote{Arduino Micro}, die 
+Ausgabe erfolgt direkt über einfache Kopfhörer. Der Puls, der hier gehört werden kann, 
+wird je nach Entfernung als ein (bei sehr kurzen Enfternungen, $0,03m < d < 0,2m$) oder 
+zwei schnell aufeinanderfolgende (bei größeren Enfternungen, $0,2m < d < 4m$) klick-ähnliche 
+Laute wahrgenommen. Diese Laute werden bei den beiden Flanken des Pulses erzeugt, die Dauer 
+dazwischen verhält sich somit proportional zur gemessenen Entfernung. Mit etwas Übung kann 
+diese Entfernung grob geschätzt werden, sodass Objekte mit ausreichender Größe vor einer 
+Person erkannt werden. \par
+Dieser Puls enthält aber nur noch Informationen über den dichtesten Gegenstand, dessen 
+reflektiertes Signal einen Schwellwert überschreitet. Grund hierfür ist die Filterung im 
+Ultraschallsensor. Im zweiten Schritt soll nun diese Filterung übergangen werden, indem 
+das Ausgangssignal davor abgegriffen wird. Somit werden auch kleinere Pulse (also von 
+kleineren Flächen) sowie insgesamt mehrere Pulse (bei mehreren Objekten) an die Kopfhörer 
+ausgegeben. Außerdem hat der Ausgangspuls des Sensors normalerweise eine festgelegte 
+Intensität, welche hier jedoch je nach Größe der Fläche variieren kann. Um sich hiermit 
+orientieren zu können ist allerdings mehr Übung erforderlich. \textbf{TODO: Praxistest} \par
+Der dritte Schritt ist nun ein Stereosound. Bisher wurde nur erkannt, ob sich in einer 
+gewissen Entfernung ein Gegenstand befindet. Man weiß hierbei aber nicht, ob dieser direkt 
+vor einem, eher auf der linken oder eher auf der rechten Seite ist. Um dieses Problem zu 
+lösen wird ein zweiter Empfänger verwendet, wobei die Empfänger nun direkt über den Ohren 
+platziert werden müssen (aber trotzdem nach vorne zeigen). Der Transmitter befindet sich 
+mittig auf der Stirn. Somit wird ein ausgesendetes Signal von beiden Seiten empfangen, je 
+nach Position der reflektierenden Fläche jedoch mit leicht abweichenden Intensitäten und 
+Verzögerungen. Das menschliche Gehör funktioniert ähnlich, indem es durch diese 
+Intensitätsdifferenzen und Laufzeitunterschiede die Richtung einer Audioquelle ermitteln 
+kann\footnote{Es gibt noch eine dritte Methode, die vom Gehör verwendet wird. Hierbei wird 
+durch feine Klangvariationen, die durch Reflexionen am Kopf und an den Ohren auftreten, die 
+Richtung noch genauer bestimmt. Nur dadurch kann zwischen vorne-rechts und hinten-rechts 
+sowie oben und unten unterschieden werden. Da die Messungen jedoch zunächst nur nach vorne 
+gehen, wird diese Methode vernachlässigt.}. Somit sollte es auch mit dem Ultraschall noch 
+relativ schnell möglich sein, seine Umgebung zu ''sehen''. \textbf{TODO: Praxistest}
+
 \subsection{Fazit}
+
+Das Verfahren ist der menschlichen Echoortung sehr ähnlich, jedoch muss der Mensch hierbei 
+die Laute nicht selbst erzeugen. Da in diesem Fall Ultraschall verwendet wird, kann das 
+Verfahren auch in lauten Umgebungen eingesetzt werden, und stört in ruhigen Situationen 
+niemanden. Die Echoortung ist preisgünstig und einfach umzusetzen, kann aber je nach 
+Umfang nur ungenaue Angaben treffen. Die komplexeren Varianten benötigen wiederum eine 
+längere Übungszeit.
 
 \newpage
 
