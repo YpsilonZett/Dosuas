@@ -1,8 +1,7 @@
 \documentclass[a4paper,12pt,ngerman]{scrartcl}
 
 % standard packages
-\usepackage{babel}
-\usepackage[T1]{fontenc}
+\usepackage[german]{babel}
 \usepackage[utf8x]{inputenc}
 \usepackage[a4paper,margin=2.5cm]{geometry}
 
@@ -12,6 +11,7 @@
 \usepackage{amsmath}
 \usepackage{csquotes}
 \usepackage{graphicx}
+\usepackage{float}
 \graphicspath{{bilder/}}
 
 % specific packages which are less often needed
@@ -179,10 +179,7 @@ Die dritte Komponente ist ein \enquote{Raspberry Pi}, ein
 Einplatinencomputer, auf dem ein Linux-Betriebssystem läuft. Dieser ist mit Kopfhörern und dem ToF Sensor 
 verbunden und führt unser Programm aus. Wir verwenden den Raspberry Pi, weil er klein, mobil und 
 stromsparend ist.\par 
-Zusammen ergeben die drei Bestandteile (und eine mobile Stromquelle) einen Prototypen, den Sie hier 
-in der Abbildung sehen können.
-\par 
-TODO: Bild hier 
+Zusammen ergeben die drei Bestandteile (und eine mobile Stromquelle) einen Prototypen, den wir zum Ausstellungstag vorführen werden.
 
 \subsubsection{Softwarestruktur}
 
@@ -207,10 +204,12 @@ können.
 	diese dann abspielt
 \end{enumerate}
 
+Den Sourcecode finden Sie auf https://github.com/YpsilonZett/Dosuas.
+
 \subsubsection{Programmablauf}
 
 Die Software läuft kontinuierlich in einer Schleife, bis sie beendet wird und macht alle 6 Sekunden ein 
-Tiefenbild. Dieses wird vom Sensor als 2D Matrix von 320x240 (=76.800) natürlichen Zahlen dargestellt.
+Tiefenbild. Dieses wird vom Sensor als 2D Matrix von 320$\,$x$\,$240 (=76.800) natürlichen Zahlen dargestellt.
 In diesem Tiefenbild gibt jeder Pixel den Abstand zur nächsten lichtreflektierenden Region in mm an. 
 Dadurch erscheint eine gerade Fläche direkt vor dem Sensor jedoch auf dem Bild als nach außen gekrümmt, 
 weil das vom Sensor gesendete Infrarotlicht zu den Seiten der Fläche (und zurück) ein bisschen länger
@@ -220,31 +219,37 @@ Bild außerdem ein Polarkoordinatensystem\footnote{jeder Pixel gibt eigentlich e
 gut weiterarbeiten können. Um das Problem der Verzerrung zu beheben und das Bild in ein kartesisches
 Koordinatensystem umzurechnen verwenden wir einen Undistortion\footnote{in unserem Fall einen
 	vom Hersteller mitgelieferten, den man direkt in der Sensorkonfiguration einstellen kann} Algorithmus. Danach wird das Bild in eine Punktwolke mit kartesischem Koordinatensystem umgerechnet.\par
-\begin{figure}[h]
+\begin{figure}[H]
 	\centering
-	\includegraphics[width=0.6\textwidth]{distorted_pointcloud}
+	\includegraphics[width=0.6\textwidth]{no_undistortion2}
 	\caption{verzerrte Punktwolke mit Messfehlern, vor dem Undistortion-Algorithmus}
 	\label{distorted_pointcloud_img}
 \end{figure}
-\textbf{TODO: Bild vom selben Zimmer!}
-Wie in Abb. \ref{distorted_pointcloud_img} zu sehen ist, wirkt ein ebene Fläche, in diesem Fall 
-eine Wand, wie ein Teil der Oberfläche einer Kugel. In der nächsten Abbildung (Abb. \ref{before_filtering}) sieht
-man die Aufnahme des selben Zimmers, in der die Wand gerade erscheint. Hier sind auch
-Schrank (rechts in der Ecke) und Decke besser zu erkennen. 
-\begin{figure}[h]
+Wie in Abb. \ref{distorted_pointcloud_img} zu sehen ist, wirkt ein ebene Fläche wie ein Teil der Oberfläche einer Kugel. Mit Rot sind hier ungefähr die Flächen im Bild
+markiert, damit Sie ein Gefühl für die Orientierung bekommen. Dieser Raum enthält eine Menge 
+Flächen und ist relativ einfach aufgebaut. Deshalb eignet er sich gut als Testumgebung.
+\begin{figure}[H]
 	\centering
-	\includegraphics[width=0.6\textwidth]{pointcloud_vor_filterung_76800_punkte}
+	\includegraphics[angle=180,width=0.6\textwidth]{20180125_171703}
+	\caption{Kamerabild des Raumes aus Abb. 1}
+	\label{room_at_school}
+\end{figure}
+\par In der nächsten Abbildung (Abb. \ref{before_filtering}) sieht
+man die Aufnahme des selben Zimmers, in der die Wände gerade erscheinen.
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.6\textwidth]{before_filtering}
 	\caption{algorithmisch korrigierte Punktwolke ohne Verzerrung}
 	\label{before_filtering}
-\end{figure}
-\par
-Nachdem die Punktwolke korrigiert wurde, werden Boden und Decke entfernt. Momentan filtern
+\end{figure} \par
+Nachdem die Punktwolke korrigiert wurde, werden Boden und Decke entfernt, weil diese Fehler in 
+der späteren Bildverarbeitung hervorrufen würden. Momentan filtern
 wir einfach alle Voxel heraus, deren y-Koordinate kleiner als 40 oder größer als 200 ist\footnote{Koordinaten auf der y-Achse gehen von 0 (oberer Bildrand) bis 240 (unterer Bildrand)}. Diese naive Methode soll später durch das Entfernen von Boden und Decke mit dem Flächenfindungsalgorithmus RANSAC geschehen. Hier sehen Sie eine Punktwolke nach der
 Filterung. Diese enthält nur noch ungefähr 62800 Punkte.
 \begin{figure}[h]
 	\centering
-	\includegraphics[width=0.6\textwidth]{pointcloud_nach_filterung_62800_punkte}
-	\caption{Punktwolke nach Entfernen von Decke bzw. Boden}
+	\includegraphics[width=0.6\textwidth]{after_filtering}
+	\caption{Punktwolke nach Filtern und Entfernen von Decke bzw. Boden}
 	\label{after_filtering}
 \end{figure}
 \par
@@ -258,8 +263,8 @@ einen ungewollten Eindruck erzeugen. Das geschieht, weil unser Gehör sehr stark
 Hier sehen Sie wieder den selben Raum, nur dass die Punktwolke diesmal nur noch aus ungefähr 15650 (also ca. ein Fünftel der ursprünglichen Größe) Punkten besteht. 
 \begin{figure}[h]
 	\centering
-	\includegraphics[width=0.6\textwidth]{pointcloud_nach_downsampling_15650_punkte}
-	\caption{Punktwolke nach Downsampling, geringere Auflösung}
+	\includegraphics[width=0.6\textwidth]{after_downsampling}
+	\caption{Punktwolke nach Downsampling mit geringerer Auflösung}
 	\label{after_downsampling}
 \end{figure}
 \par 
@@ -292,21 +297,19 @@ Es stellte sich heraus, dass sich zum Üben der Handhabung des Gerätes mittelgr
 Formen besser eigenen. Die Räume dürfen aber nicht zu groß sein, weil der Sensor eine maximale Reichweite
 von 5,3 Metern hat. Auch in zu kleinen Räumen eignet sich das Gerät nicht, denn der Sensor hat eine  Mindestreichweite von 0,8 Metern. Am Anfang sind Räume ohne viele kleine Objekte und mit großen 
 Flächen wie Wänden einfacher, weil die Töne gleichmäßiger sind.
-Nehmen wir als Beispiel den Raum, den man in Abb. \ref{before_filtering} als Punktwolke sieht. 
+Hier sieht man einen anderen Raum, an dessen Beispiel wir die Töne beschreiben wollen, die man
+mit unserem Gerät hören würde.
 \begin{figure}[h]
 	\centering
 	\includegraphics[angle=180,width=0.6\textwidth]{20180120_114953}
-	\caption{Kamerabild des Raumes}
+	\caption{Kamerabild eines anderen Raumes}
 	\label{normal_picture}
 \end{figure} \par
 Man hört beim Betrachten dieses Raumes einen Ton, der ungefähr eine halbe Sekunde die Frequenz (von ca. 550Hz) nicht verändert und sich so anhört, als würde er von links kommen. Dieser Ton wird durch das Bett
-<<<<<<< HEAD
 erzeugt. Als nächstes wird der Ton über ungefähr eine halbe Sekunde gleichmäßig Tiefer (bis auf 340Hz), 
 jetzt ist unsere virtuelle Tonquelle an der Wand des Raumes angekommen. Der Ton steigt nun über $1\frac{1}{2}$ Sekunden sehr langsam an (bis ca. 360Hz), denn die Wand hat eine leichte Neigung. 
-=======
 erzeugt. Als nächstes wird der Ton über ungefähr eine eine halbe Sekunde gleichmäßig tiefer (bis auf 340Hz), 
 jetzt ist unsere virtuelle Tonquelle an der Wand des Raumes angekommen, und steigt dann über $1\frac{1}{2}$ Sekunden sehr langsam an (bis ca. 360Hz), denn die Wand hat eine leichte Neigung. 
->>>>>>> c8c88e057249f8762cbe6d9b1563151b86f5d70e
 Nun hört man eine Art Sprung, bei dem der Ton ruckartig von 360Hz zurück auf 550Hz wechselt. An solchen Auffälligkeiten kann man Kanten, Öffnungen oder spitze Gegenstände erkennen, was sehr wichtig für Blinde
 ist. Dieser Ton repräsentierte nämlich den Übergang von der Wand zum Schrank, der weiter vorne ist. Außerdem hört
 man die virtuelle Tonquelle in diesem Moment direkt in der Mitte des Hörfeldes, was dem Nutzer anzeigt, das sich
@@ -342,7 +345,7 @@ Wir wollen das Gerät noch mit
 anderen Leuten testen und sehen, wie schnell jemand lernt, damit umzugehen. Wir vermuten, dass man nach einigen 
 Tagen Selbsttraining im Stande ist, ohne Hilfe durch noch nie gesehene Räume zu gehen, ohne dabei irgendwo an zu
 stoßen und den Weg nach draußen wieder zu finden. Längeres Üben oder technische Verbesserungen bieten ungeahnte
-Möglichkeiten. Doch das Gerät ist und bleibt momentan nur ein Prototyp. \textbf{TODO: bild hier}
+Möglichkeiten. Doch das Gerät ist und bleibt momentan nur ein Prototyp. 
 
 \newpage
 

@@ -60,12 +60,8 @@ std::pair<std::vector<sf::Int16>, double> AudioPlayer::getSweepSamples(float fSt
 
 
 float AudioPlayer::depthToFrequency(int depth) {
-	/* converts depth in cm to frequency in Hz; 450 cm conforms 294 Hz (from 294 to 588); 
-	depth is a value between 80 and 530 (sensor depth range) */
-
-	return -0.653333 * (depth - 80) + 882;
+	
 }
-
 
 void AudioPlayer::configureSoundSource(sf::SoundBuffer& buffer, sf::Sound& sound, 
 	std::vector<sf::Int16> samples, int sampleRate) {

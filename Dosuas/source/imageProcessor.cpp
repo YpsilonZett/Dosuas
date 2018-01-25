@@ -12,7 +12,7 @@ pcl::PointCloud<pcl::PointXYZ>::Ptr ImageProcessor::filterPointCloud(pcl::PointC
 	// remove floor and ceiling by height filtering
 	pass.setInputCloud(pCloud);
 	pass.setFilterFieldName("y");
-	pass.setFilterLimits(60.0, 240.0);
+	pass.setFilterLimits(0.0, 180.0);
 	pass.filter(*pVerticallyFilteredCloud);
 
 	// remove measurement errors (outliners) by depth filtering
@@ -82,8 +82,11 @@ std::vector<Voxel> ImageProcessor::getVoxelsForAudioSwipe(pcl::PointCloud<pcl::P
 	/* calculates voxels, which are played in the audio swipe; takes image buffer (filtered pointcloud in 
 	2d matrix form) as input */
 
+	//showPointCloud(pCloud);
 	pcl::PointCloud<pcl::PointXYZ>::Ptr pFilteredCloud = filterPointCloud(pCloud);
 	//showPointCloud(pFilteredCloud);
+	//pcl::PointCloud<pcl::PointXYZ>::Ptr pDownsampledCloud = downSamplePointCloud(pFilteredCloud);
+	//showPointCloud(pDownsampledCloud);
 	std::array<int, 320 * 240> imgMat = pcToImgMat(pCloud);
 	std::vector<Voxel> voxels;
 	for (int i = 0; i < 320; i++) {
