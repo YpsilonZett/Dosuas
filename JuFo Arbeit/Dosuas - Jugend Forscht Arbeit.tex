@@ -35,10 +35,10 @@
 	\textbf{A}udio \textbf{S}ignals) ist ein Gerät, welches blinden Menschen ermöglicht
 	sich mithilfe von Tonsignalen im Raum zu orientieren und Objekte zu erkennen.\par
 	Das Projekt besteht aus zwei Unterprojekten, die beide bis zum 
-	Wettbewerb als Prototypen umgesetzt werden sollen. Einmal werden Bilder eines 3D Kamera
+	Wettbewerb als Prototypen umgesetzt werden sollen. Einmal werden Bilder einer 3D Kamera
 	mit einem Programm in Töne umgewandelt, die dann mit 3D-Audio Kopfhörern hörbar gemacht
 	werden. Die andere Idee basiert darauf, so ähnlich wie eine Fledermaus Ultraschall 
-	Impulse zu senden und deren Reflektionen bzw. Echos hörbar zu machen, sodass man
+	Impulse zu senden und deren Reflexionen bzw. Echos hörbar zu machen, sodass man
 	sich mit Klicklauten orientieren kann. Letzteres basiert auf der Technik der aktiven
 	menschlichen Echoortung.
 \end{abstract}
@@ -50,10 +50,10 @@
 \section{Einleitung}
 
 Blinde Menschen haben schon immer Probleme damit, sich im Raum zu orientieren.
-Manche von ihnen, zum Beispiel \textit{Daniel Kish} benutzen die Technik der 
+Manche von ihnen, zum Beispiel \textit{Daniel Kish}, benutzen die Technik der 
 \textit{menschlichen Echoortung}, ein Verfahren, bei dem
-man regelmäßig mit dem Mund Klicklaute erzeugt und das Gehör darauf trainiert 
-anhand der Reflektionen ein genaues Bild der Umgebung im Kopf zu erzeugen.
+man regelmäßig mit dem Mund Klicklaute erzeugt und das Gehör darauf trainiert,
+anhand der Reflexionen ein genaues Bild der Umgebung im Kopf zu erzeugen.
 Forscher haben herausgefunden, dass sich dabei die Struktur des Gehirns verändert 
 und Signale von den Ohren im Sehzentrum verarbeitet werden.
 Mit genügend Übung schaffen es Blinde so zu \enquote{sehen} und können Fahrrad 
@@ -66,7 +66,7 @@ der verschiedensten technischen Hilfsmittel Menschen das Leben zu erleichtern.
 Geräte wie 3D-Sensoren oder Kameras können heutzutage schon oft sehr realistische
 und detaillierte Bilder aufnehmen, die dem menschlichen Sehen sehr nahe kommen. \par 
 Relativ neu ist zum Beispiel die Technologie der Retina Implantate, die sich 
-momentan aber noch im Anfangsstadium der Entwicklung befinden. Mit ihnen soll es in 
+momentan aber noch im Anfangsstadium der Entwicklung befindet. Mit ihnen soll es in 
 Zukunft möglich sein, dass Blinde wie nicht sehbehinderte Menschen sehen, jedoch
 können die Kosten von 75.000 \euro{} aufwärts selten von den Blinden selbst getragen
 werden und werden nur manchmal von Krankenkassen übernommen. Auch gibt es zu viele
@@ -78,17 +78,18 @@ Ein berühmtes Beispiel dafür ist der
 Kamerasignale in elektronische Impulse umwandelt, die auf der Zunge spürbar
 gemacht werden. Nachteile dieser
 Technologie sind vor allem lange Lernprozesse, die nur mit ärztlicher Unterstützung
-möglich sind, Probleme bei zu vielen Reizen oder große Ungenauigkeiten.
+möglich sind, Probleme bei zu vielen Reizen oder große Ungenauigkeiten. Der Brainport V100 ermöglicht
+zwar relativ genaues Erkennen von kleinen Objekten, wie Tassen oder Bücher, eignet sich aber weniger zum
+Erkennen großer Räume und hilft daher der Orientierung nicht besonders.
 Beispielsweise kann es passieren, dass ein Blinder beim Betrachten des Geschehens auf 
 einer großen Straße nichts mehr wahrnimmt, weil der Tastsinn der Zunge
-nicht für eine 
-solche Reizüberlastung ausgelegt ist. Im Gegensatz dazu wird es vermutlich auch nicht
-möglich sein kleine oder komplexere Objekte zu erkennen, weil der Tastsinn der Zunge
-dazu wiederum nicht sensibel genug ist. \par
+nicht für eine solche Reizüberlastung ausgelegt ist. Unser Gerät funktioniert gegensätzlich: Es ermöglicht 
+Orientierung im Raum und eignet sich weniger gut für kleine Objekte. Aber mit dem Tastsinn können Menschen
+sowieso Gegenstände viel genauer erfühlen, als man sie mit einem Sensor wie unserem sehen könnte.\par
 Weil unser Gehirn sehr anpassungsfähig ist und beeindruckende
 Leistungen im Finden von Regelmäßigkeiten oder Mustern erbringt, ist der Ansatz
 andere Sinne zu verwenden eine vielversprechende Strategie. Darauf setzt auch 
-unser Projekt, Dosuas, welches den Hörsinn verwenden möchte um Blinden eine Hilfe
+unser Projekt, DOSUAS, welches den Hörsinn verwenden möchte um Blinden eine Hilfe
 für Orientierung und Erkennung der Umwelt zu geben.
 
 \newpage
@@ -106,11 +107,12 @@ diesem Fall im Medium Luft) sind. Die Halbierung kommt daher, dass der Schall di
 Entfernung zum Objekt doppelt zurücklegt (hin und zurück). \par
 In unserem Fall wurde zur Messung zunächst ein einfacher Ultraschallsensor\footnote{HC-SR04} 
 verwendet. Dieser wird über eine fallende Eingangsflanke getriggert, und gibt nach einer 
-kurzen Zeit einen Puls mit der Länge der gemessenen Zeit aus. Die Triggerung übernimmt 
+kurzen Zeit einen Puls mit der Länge der gemessenen Zeit aus. Die Triggerung\footnote{Aktivierung des
+Sensors durch ein elektrisches Signal} übernimmt 
 beim Prototypen der Einfachheit halber ein Microcontroller\footnote{Arduino Micro}, die 
-Ausgabe erfolgt direkt über einfache Kopfhörer. Der Puls, der hier gehört werden kann, 
-wird je nach Entfernung als ein (bei sehr kurzen Enfternungen, $0,03m < d < 0,2m$) oder 
-zwei schnell aufeinanderfolgende (bei größeren Enfternungen, $0,2m < d < 4m$) klick-ähnliche 
+Ausgabe erfolgt direkt über gewöhnliche Kopfhörer. Der Puls, der hier gehört werden kann, 
+wird je nach Entfernung als ein (bei sehr kurzen Entfernungen, $0,03m < d < 0,2m$) oder 
+zwei schnell aufeinanderfolgende (bei größeren Entfernungen, $0,2m < d < 4m$) klick-ähnliche 
 Laute wahrgenommen. Diese Laute werden bei den beiden Flanken des Pulses erzeugt, die Dauer 
 dazwischen verhält sich somit proportional zur gemessenen Entfernung. Mit etwas Übung kann 
 diese Entfernung grob geschätzt werden, sodass Objekte mit ausreichender Größe vor einer 
@@ -137,7 +139,7 @@ durch feine Klangvariationen, die durch Reflexionen am Kopf und an den Ohren auf
 Richtung noch genauer bestimmt. Nur dadurch kann zwischen vorne-rechts und hinten-rechts 
 sowie oben und unten unterschieden werden. Da die Messungen jedoch zunächst nur nach vorne 
 gehen, wird diese Methode vernachlässigt.}. Somit sollte es auch mit dem Ultraschall noch 
-relativ schnell möglich sein, seine Umgebung zu ''sehen''. \textbf{TODO: Praxistest}
+relativ schnell möglich sein, seine Umgebung zu \enquote{sehen}. \textbf{TODO: Praxistest}
 
 \subsection{Fazit}
 
@@ -154,7 +156,7 @@ längere Übungszeit.
 
 \subsection{Funktionsweise}
 
-In diesem Teilprojekt werden die Daten einer 3D Kamera als Töne kodiert, die der Träger des Geräts
+In diesem Teilprojekt werden die Daten einer 3D-Kamera als Töne kodiert, die der Träger des Geräts
 dann verwenden kann um ein Gefühl für den ihn umgebenden Raum zu bekommen. 
 
 \subsubsection{Verwendete Technologien}
@@ -165,7 +167,7 @@ In einem Tiefenbild bekommt jeder Pixel einen Wert, der die Entfernung zur Kamer
 Der von uns verwendete \enquote{Cube Eye MDC500C}\footnote{http://www.cube-eye.co.kr/en/\#/spec/product\_MDC500d.html}
 Sensor hat eine Reichweite von 0.8 bis 5.3 Metern und eine Auflösung von 320x240 Tiefenpixeln. 
 Time of Flight Kameras messen die Entfernung mit Infrarotlicht. Deshalb funktioniert der Sensor auch 
-im Dunkeln und wird von normalen Lichtreflektionen nicht gestört. Trotzdem hat der Sensor Probleme beim
+im Dunkeln und wird von normalen Lichtreflexionen nicht gestört. Trotzdem hat der Sensor Probleme beim
 Erkennen von lichtdurchlässigen oder reflektierenden Objekten (z.B. Glasscheiben oder Spiegel). Für einen
 Prototypen ist das aber kein großes Problem. Wir haben diese Kamera ausgewählt, weil sie uns von einem 
 Familienmitglied\footnote{Jan Nicklisch, Vater von Yorick Zeschke, arbeitet in der Firma
@@ -173,7 +175,7 @@ Familienmitglied\footnote{Jan Nicklisch, Vater von Yorick Zeschke, arbeitet in d
 empfohlen wurde.\par
 Einen weiteren wichtigen Teil des Projekts stellen 3D-Audio Kopfhörer dar. Diese können den Eindruck
 erzeugen, dass sich eine Tonquelle im dreidimensionalen
-Raum befindet, bzw. sich bewegt. Dieses Verfahren benutzen wir um dem Träger des Geräts einen Eindruck
+Raum befindet bzw. sich bewegt. Dieses Verfahren benutzen wir um dem Träger des Geräts einen Eindruck
 davon zu geben in welcher Richtung sich ein Objekt befindet.\par 
 Die dritte Komponente ist ein \enquote{Raspberry Pi}, ein 
 Einplatinencomputer, auf dem ein Linux-Betriebssystem läuft. Dieser ist mit Kopfhörern und dem ToF Sensor 
@@ -219,14 +221,13 @@ Bild außerdem ein Polarkoordinatensystem\footnote{jeder Pixel gibt eigentlich e
 gut weiterarbeiten können. Um das Problem der Verzerrung zu beheben und das Bild in ein kartesisches
 Koordinatensystem umzurechnen verwenden wir einen Undistortion\footnote{in unserem Fall einen
 	vom Hersteller mitgelieferten, den man direkt in der Sensorkonfiguration einstellen kann} Algorithmus. Danach wird das Bild in eine Punktwolke mit kartesischem Koordinatensystem umgerechnet.\par
-\begin{figure}[H]
+\begin{figure}[H] \label{distorted_pointcloud_img}
 	\centering
 	\includegraphics[width=0.6\textwidth]{no_undistortion2}
 	\caption{verzerrte Punktwolke mit Messfehlern, vor dem Undistortion-Algorithmus}
-	\label{distorted_pointcloud_img}
 \end{figure}
-Wie in Abb. \ref{distorted_pointcloud_img} zu sehen ist, wirkt ein ebene Fläche wie ein Teil der Oberfläche einer Kugel. Mit Rot sind hier ungefähr die Flächen im Bild
-markiert, damit Sie ein Gefühl für die Orientierung bekommen. Dieser Raum enthält eine Menge 
+Wie in Abb. \ref{distorted_pointcloud_img} zu sehen ist, wirkt ein ebene Fläche wie ein Teil der Oberfläche einer Kugel. Mit Rot sind hier ungefähr die echten Flächen (ohne Verzerrung) markiert, damit man die 
+Abweichung vom Original sehen kann. Dieser Raum enthält eine Menge 
 Flächen und ist relativ einfach aufgebaut. Deshalb eignet er sich gut als Testumgebung.
 \begin{figure}[H]
 	\centering
@@ -235,7 +236,11 @@ Flächen und ist relativ einfach aufgebaut. Deshalb eignet er sich gut als Testu
 	\label{room_at_school}
 \end{figure}
 \par In der nächsten Abbildung (Abb. \ref{before_filtering}) sieht
-man die Aufnahme des selben Zimmers, in der die Wände gerade erscheinen.
+man die Aufnahme des selben Zimmers, in der die Wände gerade erscheinen. Durch die Visualisierung hat man
+den Eindruck, dass die Flächen Streifen (sogenannte Moir\'{e} Muster) enthalten. Das liegt jedoch an der
+Visualisierung und hat nichts mit dem eigentlichen Bild zu tun. Die dünnen Linien rechts im Bild sind Punkte
+mit der z-Koordinate 0, was Messfehler anzeigt. Diese entstehen, wenn etwas zu nah, zu weit oder zu stark
+reflektierend ist. Im späteren werden sie entfernt.
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=0.6\textwidth]{before_filtering}
@@ -243,10 +248,12 @@ man die Aufnahme des selben Zimmers, in der die Wände gerade erscheinen.
 	\label{before_filtering}
 \end{figure} \par
 Nachdem die Punktwolke korrigiert wurde, werden Boden und Decke entfernt, weil diese Fehler in 
-der späteren Bildverarbeitung hervorrufen würden. Momentan filtern
+der späteren Bildverarbeitung hervorrufen würden\footnote{Weil wir im späteren Prozess die (dem Nutzer) nächsten Voxel
+in Töne umrechnen, würde man Teile der Decke oder des Bodens hören, nicht aber die eigentlichen Objekte}.
+ Momentan filtern
 wir einfach alle Voxel heraus, deren y-Koordinate kleiner als 40 oder größer als 200 ist\footnote{Koordinaten auf der y-Achse gehen von 0 (oberer Bildrand) bis 240 (unterer Bildrand)}. Diese naive Methode soll später durch das Entfernen von Boden und Decke mit dem Flächenfindungsalgorithmus RANSAC geschehen. Hier sehen Sie eine Punktwolke nach der
 Filterung. Diese enthält nur noch ungefähr 62800 Punkte.
-\begin{figure}[h]
+\begin{figure}[H]
 	\centering
 	\includegraphics[width=0.6\textwidth]{after_filtering}
 	\caption{Punktwolke nach Filtern und Entfernen von Decke bzw. Boden}
@@ -259,9 +266,10 @@ Weil VoxelGrid die Punktwolke mithilfe eines Durchschnittsverfahrens reduziert,
 werden statistische Anomalien und Extremwerte ausgefiltert. Ein Bild mit genauer Auflösung eignet sich für unseren Zweck nicht so gut, wie ein niedriger
 auflösendes, denn bei hoher Auflösung können kleine oder ungewöhnlich geformte Regionen (z.B. Messfehler, kleine Gegenstände, Kanten, Ecken, etc.) beim Hören
 einen ungewollten Eindruck erzeugen. Das geschieht, weil unser Gehör sehr stark auf 
-Änderungen in einem regelmäßigen Ton, wie wir ihn im Normalfall hören wollen, reagiert. 
+Änderungen in einem regelmäßigen Ton, wie wir ihn im Normalfall hören wollen, reagiert. Später kann man
+die Genauigkeit auch noch vergrößern. Das erfordert für den Benutzer dann aber mehr Übung.
 Hier sehen Sie wieder den selben Raum, nur dass die Punktwolke diesmal nur noch aus ungefähr 15650 (also ca. ein Fünftel der ursprünglichen Größe) Punkten besteht. 
-\begin{figure}[h]
+\begin{figure}[H]
 	\centering
 	\includegraphics[width=0.6\textwidth]{after_downsampling}
 	\caption{Punktwolke nach Downsampling mit geringerer Auflösung}
@@ -271,10 +279,10 @@ Hier sehen Sie wieder den selben Raum, nur dass die Punktwolke diesmal nur noch 
 Nach der Filterung wird das Bild in 320 vertikale Spalten unterteilt, die jeweils 240 Pixel hoch sind. 
 Für jede Spalte wird aus den 5 \enquote{nächsten} (auf den den Träger bezogen) Voxels\footnote{so bezeichnet man einen dreidimensionalen Pixel mit x, y und z-Koordinaten} ein Voxel berechnet,
 dessen z-Koordinate (Tiefe) der Durchschnitt der 5 anderen Voxel ist. Seine x-Koordinate entspricht
-der Spaltennummer und die y-Koordinate ist ebensfalls der Durchschnitt der anderen 5 y-Koordinaten. 
-320 dieser Voxel ergeben einen radarscannähnlichen Streifen (horizontal) mit Tiefen- und 
+der Spaltennummer und die y-Koordinate ist ebenfalls der Durchschnitt der anderen 5 y-Koordinaten. 
+320 dieser Voxel ergeben einen radarscanähnlichen Streifen (horizontal) mit Tiefen- und 
 Höheninformationen. Dieser wird für das Tonabspielen benutzt.\par 
-Ein Ton, wir nennen ihn \enquote{Radar Swipe}, weil er einem Radarscann durch das ganze Bild ähnelt, 
+Ein Ton, wir nennen ihn \enquote{Radar Swipe}, weil er einem Radarscan durch das ganze Bild ähnelt, 
 bewegt sich immer vom linken zum rechten Rand des Sicht-, bwz. Hörfeldes und ändert dabei (meistens) fortwährend
 seine Frequenz. Durch diese wird eine Entfernung angegeben\footnote{tiefe Töne entsprechen großer 
 	Entfernung und hohe Töne einem nahen Objekt}. Zusammen mit der Position\footnote{diese ist virtuell,
@@ -292,24 +300,22 @@ eineinhalb bis drei Sekunden zu reduzieren.
 
 \subsection{Praxistests} \label{testsAndResults}
 
-Wir haben Dosuas in verschiedenen Umgebungen getestet und planen eine Vorführung am Ausstellungstag.
+Wir haben DOSUAS in verschiedenen Umgebungen getestet und planen eine Vorführung am Ausstellungstag.
 Es stellte sich heraus, dass sich zum Üben der Handhabung des Gerätes mittelgroße Räume mit einfachen
 Formen besser eigenen. Die Räume dürfen aber nicht zu groß sein, weil der Sensor eine maximale Reichweite
 von 5,3 Metern hat. Auch in zu kleinen Räumen eignet sich das Gerät nicht, denn der Sensor hat eine  Mindestreichweite von 0,8 Metern. Am Anfang sind Räume ohne viele kleine Objekte und mit großen 
 Flächen wie Wänden einfacher, weil die Töne gleichmäßiger sind.
 Hier sieht man einen anderen Raum, an dessen Beispiel wir die Töne beschreiben wollen, die man
-mit unserem Gerät hören würde.
-\begin{figure}[h]
+mit unserem Gerät hört.
+\begin{figure}[H]
 	\centering
-	\includegraphics[angle=180,width=0.6\textwidth]{20180120_114953}
+	\includegraphics[angle=180,width=0.5\textwidth]{20180120_114953}
 	\caption{Kamerabild eines anderen Raumes}
 	\label{normal_picture}
 \end{figure} \par
 Man hört beim Betrachten dieses Raumes einen Ton, der ungefähr eine halbe Sekunde die Frequenz (von ca. 550Hz) nicht verändert und sich so anhört, als würde er von links kommen. Dieser Ton wird durch das Bett
 erzeugt. Als nächstes wird der Ton über ungefähr eine halbe Sekunde gleichmäßig Tiefer (bis auf 340Hz), 
 jetzt ist unsere virtuelle Tonquelle an der Wand des Raumes angekommen. Der Ton steigt nun über $1\frac{1}{2}$ Sekunden sehr langsam an (bis ca. 360Hz), denn die Wand hat eine leichte Neigung. 
-erzeugt. Als nächstes wird der Ton über ungefähr eine eine halbe Sekunde gleichmäßig tiefer (bis auf 340Hz), 
-jetzt ist unsere virtuelle Tonquelle an der Wand des Raumes angekommen, und steigt dann über $1\frac{1}{2}$ Sekunden sehr langsam an (bis ca. 360Hz), denn die Wand hat eine leichte Neigung. 
 Nun hört man eine Art Sprung, bei dem der Ton ruckartig von 360Hz zurück auf 550Hz wechselt. An solchen Auffälligkeiten kann man Kanten, Öffnungen oder spitze Gegenstände erkennen, was sehr wichtig für Blinde
 ist. Dieser Ton repräsentierte nämlich den Übergang von der Wand zum Schrank, der weiter vorne ist. Außerdem hört
 man die virtuelle Tonquelle in diesem Moment direkt in der Mitte des Hörfeldes, was dem Nutzer anzeigt, das sich
@@ -401,7 +407,5 @@ Forschungsprojekt sein, das es blinden Menschen vollständig ermöglicht zu sehe
 warten wir gespannt und versuchen mit unserem Projekt den Grundstein dafür zu legen. 
 
 \newpage
-
-\section{Anhang}
 
 \end{document}
