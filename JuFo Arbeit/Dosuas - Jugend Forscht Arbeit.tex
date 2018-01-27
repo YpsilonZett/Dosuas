@@ -37,8 +37,8 @@
 	Das Projekt besteht aus zwei Unterprojekten, die beide bis zum 
 	Wettbewerb als Prototypen umgesetzt werden sollen. Einmal werden Bilder einer 3D Kamera
 	mit einem Programm in Töne umgewandelt, die dann mit 3D-Audio Kopfhörern hörbar gemacht
-	werden. Die andere Idee basiert darauf, so ähnlich wie eine Fledermaus Ultraschall 
-	Impulse zu senden und deren Reflexionen bzw. Echos hörbar zu machen, sodass man
+	werden. Die andere Idee basiert darauf, ähnlich einer Fledermaus Ultraschallimpulse 
+	zu senden und deren Reflexionen bzw. Echos hörbar zu machen, sodass man
 	sich mit Klicklauten orientieren kann. Letzteres basiert auf der Technik der aktiven
 	menschlichen Echoortung.
 \end{abstract}
@@ -111,11 +111,11 @@ kurzen Zeit einen Puls mit der Länge der gemessenen Zeit aus. Die Triggerung\fo
 Sensors durch ein elektrisches Signal} übernimmt 
 beim Prototypen der Einfachheit halber ein Microcontroller\footnote{Arduino Micro}, die 
 Ausgabe erfolgt direkt über gewöhnliche Kopfhörer. Der Puls, der hier gehört werden kann, 
-wird je nach Entfernung als ein (bei sehr kurzen Entfernungen, $0,03m < d < 0,2m$) oder 
-zwei schnell aufeinanderfolgende (bei größeren Entfernungen, $0,2m < d < 4m$) klick-ähnliche 
+wird je nach Entfernung als ein (bei sehr kurzen Entfernungen, $0{,}03m < d < 0{,}2m$) oder 
+zwei schnell aufeinanderfolgende (bei größeren Entfernungen, $0{,}2m < d < 4m$) klick-ähnliche 
 Laute wahrgenommen. Diese Laute werden bei den beiden Flanken des Pulses erzeugt, die Dauer 
 dazwischen verhält sich somit proportional zur gemessenen Entfernung. Mit etwas Übung kann 
-diese Entfernung grob geschätzt werden, sodass Objekte mit ausreichender Größe vor einer 
+diese Entfernung grob geschätzt werden, sodass Objekte von ausreichender Größe vor einer 
 Person erkannt werden. \par
 Dieser Puls enthält aber nur noch Informationen über den dichtesten Gegenstand, dessen 
 reflektiertes Signal einen Schwellwert überschreitet. Grund hierfür ist die Filterung im 
@@ -124,7 +124,7 @@ das Ausgangssignal davor abgegriffen wird. Somit werden auch kleinere Pulse (als
 kleineren Flächen) sowie insgesamt mehrere Pulse (bei mehreren Objekten) an die Kopfhörer 
 ausgegeben. Außerdem hat der Ausgangspuls des Sensors normalerweise eine festgelegte 
 Intensität, welche hier jedoch je nach Größe der Fläche variieren kann. Um sich hiermit 
-orientieren zu können ist allerdings mehr Übung erforderlich. \textbf{TODO: Praxistest} \par
+orientieren zu können, wird wohl mehr Übung erfordern. \par
 Der dritte Schritt ist nun ein Stereosound. Bisher wurde nur erkannt, ob sich in einer 
 gewissen Entfernung ein Gegenstand befindet. Man weiß hierbei aber nicht, ob dieser direkt 
 vor einem, eher auf der linken oder eher auf der rechten Seite ist. Um dieses Problem zu 
@@ -148,7 +148,10 @@ die Laute nicht selbst erzeugen. Da in diesem Fall Ultraschall verwendet wird, k
 Verfahren auch in lauten Umgebungen eingesetzt werden, und stört in ruhigen Situationen 
 niemanden. Die Echoortung ist preisgünstig und einfach umzusetzen, kann aber je nach 
 Umfang nur ungenaue Angaben treffen. Die komplexeren Varianten benötigen wiederum eine 
-längere Übungszeit.
+längere Übungszeit. \par
+Um sich auch in komplexeren Umgebungen (in denen mehrere hörbare Reflexionen auftreten)
+ohne einen langen Lernprozess orientieren zu können wird als zweiter Teil eine
+softwaregestützte Lösung entwickelt, die intuitiv nutzbar sein soll.
 
 \newpage
 
