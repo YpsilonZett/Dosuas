@@ -59,9 +59,15 @@ std::pair<std::vector<sf::Int16>, double> AudioPlayer::getSweepSamples(float fSt
 }
 
 
-float AudioPlayer::depthToFrequency(int depth) {
-	
+float AudioPlayer::depthToFrequency(int depth, bool useExpFunc) {
+	/* converts depth in cm to frequency in Hz, so that larger distance means a lower sound */
+	if (useExpFunc) {
+		return exp((double)-(depth - 80) * 0.0045264 + 7.74066);
+	} else {
+		return (-20.0f / 9.0f) * depth + 1300;
+	}
 }
+
 
 void AudioPlayer::configureSoundSource(sf::SoundBuffer& buffer, sf::Sound& sound, 
 	std::vector<sf::Int16> samples, int sampleRate) {

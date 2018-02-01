@@ -1,14 +1,34 @@
+#include <signal.h>
 #include "sensorReader.h"
 #include "audioPlayer.h"  // also includes imageProcessor
 
 
+SensorReader sr;
+
+
+void gracefulShutdown(int sigNum) {
+	sr.close();
+	std::printf("Program stopped. Shutting down gracefully...\n");
+	std::exit(0);  // TODO: improve bad-style exit
+}
+
+
 int main(int argc, char** argv) {
-	SensorReader sr;
 	ImageProcessor ip;
 	AudioPlayer ap;
-	sr.connect();
+
+	if (!sr.connect()) {
+		std::printf("Sensor connection failed! Shutting down...");
+		throw std::runtime_error("Sensor connection failed!");
+	};
+
+	// configure system exit on user-interrupt 
+	signal(SIGINT, gracefulShutdown);
+	// process does not stop (computer does not fall asleep)
+	SetThreadExecutionState(ES_CONTINUOUS | ES_SYSTEM_REQUIRED | ES_AWAYMODE_REQUIRED);
+
 	while (true) {
-		for (int i = 0; i < 5; i++) {  // get a good image 
+		for (int i = 0; i < 3; i++) {  // take multiple images for better integration (light exposure)
 			sr.getImg();
 		}
 		try {
