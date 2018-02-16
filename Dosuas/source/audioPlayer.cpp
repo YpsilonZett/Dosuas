@@ -69,6 +69,15 @@ float AudioPlayer::depthToFrequency(int depth, bool useExpFunc) {
 }
 
 
+float AudioPlayer::depthToVolume(int depth, bool useExpFunc) {
+	if (useExpFunc) {
+		return 0;
+	} else {
+		return (620.0 / 9.0) - ((float)depth / 9.0);
+	}
+}
+
+
 void AudioPlayer::configureSoundSource(sf::SoundBuffer& buffer, sf::Sound& sound, 
 	std::vector<sf::Int16> samples, int sampleRate) {
 	/* configures a sound source, which is later used for playing the swipe; note that source and 
@@ -104,10 +113,6 @@ std::vector<sf::Int16> AudioPlayer::getVoxelSamples(std::vector<Voxel> voxels, f
 		samples.insert(samples.end(), thisVoxel.first.begin(), thisVoxel.first.end());
 		phi0 = thisVoxel.second;
 	}
-	/*std::pair<std::vector<sf::Int16>, double> samples1 = getSweepSamples(500.0f, 1000.0f, 5.0f, 44100);
-	samples = samples1.first;
-	std::pair<std::vector<sf::Int16>, double> samples2 = getSweepSamples(1000.0f, 500.0f, 5.0f, 44100, samples1.second);
-	samples.insert(samples.end(), samples2.first.begin(), samples2.first.end());*/
 	return samples;
 }
 
@@ -143,4 +148,26 @@ void AudioPlayer::playSoundSwipe(std::vector<Voxel> voxels, float duration, int 
 		//std::printf("coords: %f %f %f", xPos, voxels[i].y, voxels[i].z);
 	}
 	sf::sleep(sf::seconds(0.5));
+}
+
+
+void AudioPlayer::playAccordSwipe(std::vector<std::vector<int>> columns, float duration, int sampleRate) {
+	std::array<int, 24> noteFrequencies = {
+		880.00, 830.61, 783.99, 739.99, 698.46, 659.25, 622.25, 587.33, 554.37, 523.25, 493.88, 466.16, 440.00,
+		415.30, 392.00, 369.99, 349.23, 329.63, 311.13, 293.66, 277.81, 261.63, 246.94, 233.08
+	};
+	std::vector<sf::Sound> sounds;
+	std::vector<sf::SoundBuffer> soundBuffers;
+	for (int i = 0; i < noteFrequencies.size(); i++) {
+		sf::Sound sound;
+		sf::SoundBuffer soundBuffer;
+		sounds.push_back(sound);
+		soundBuffers.push_back(soundBuffer);
+		std::vector<sf::Int16> samples = getSineWaveSamples(noteFrequencies[i], duration, sampleRate);
+		configureSoundSource(soundBuffers.back(), sounds.back(), samples, sampleRate);
+	}
+	for (int i = 0; i < sounds.size(); i++) {
+		sounds.at(i).play();
+	}
+	sf::sleep(sf::seconds(duration));
 }

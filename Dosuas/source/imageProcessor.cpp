@@ -39,7 +39,7 @@ pcl::PointCloud<pcl::PointXYZ>::Ptr ImageProcessor::downSamplePointCloud(pcl::Po
 }
 
 
-std::array<int, 320 * 240> ImageProcessor::pcToImgMat(pcl::PointCloud<pcl::PointXYZ>::Ptr pCloud) {
+std::array<int, 320 * 240> ImageProcessor::pcToImgArray(pcl::PointCloud<pcl::PointXYZ>::Ptr pCloud) {
 	std::array<int, 320 * 240> imgMat;
 	for (int i = 0; i < imgMat.size(); i++) {
 		imgMat[i] = 0;
@@ -51,7 +51,7 @@ std::array<int, 320 * 240> ImageProcessor::pcToImgMat(pcl::PointCloud<pcl::Point
 }
 
 
-Voxel ImageProcessor::getVoxel(std::array<pcl::PointXYZ, 240> column) {
+Voxel ImageProcessor::getNearestVoxel(std::array<pcl::PointXYZ, 240> column) {
 	/* gets a single voxel (nearest point), wich represents the column, which is heared */
 	// TODO: filtering 
 	int i = 0, j = 0, sum = 0, num = 0;
@@ -87,7 +87,7 @@ std::vector<Voxel> ImageProcessor::getVoxelsForAudioSwipe(pcl::PointCloud<pcl::P
 	//showPointCloud(pFilteredCloud);
 	//pcl::PointCloud<pcl::PointXYZ>::Ptr pDownsampledCloud = downSamplePointCloud(pFilteredCloud);
 	//showPointCloud(pDownsampledCloud);
-	std::array<int, 320 * 240> imgMat = pcToImgMat(pCloud);
+	std::array<int, 320 * 240> imgMat = pcToImgArray(pCloud);
 	std::vector<Voxel> voxels;
 	for (int i = 0; i < 320; i++) {
 		std::array<pcl::PointXYZ, 240> col;
@@ -98,9 +98,28 @@ std::vector<Voxel> ImageProcessor::getVoxelsForAudioSwipe(pcl::PointCloud<pcl::P
 			point.z = imgMat.at(i + j * 320);
 			col.at(j) = point;
 		}
-		Voxel vxl = getVoxel(col);
+		Voxel vxl = getNearestVoxel(col);
 		//std::printf("Voxel coordinates: %i %i %i\n", vxl.x, vxl.y, vxl.z);
 		voxels.push_back(vxl);
 	}
 	return voxels;
+}
+
+
+std::vector<std::vector<int>> ImageProcessor::getImageForAccordSwipe(pcl::PointCloud<pcl::PointXYZ>::Ptr pCloud) {
+	std::array<int, 320 * 240> imgArray = pcToImgArray(pCloud);
+	std::vector<std::vector<int>> columns(320);
+	int depthSum;
+	for (int i = 0; i < 320; i++) {
+		depthSum = 0;
+		for (int j = 0; j < 240; j++) {
+			if (j % 10 == 0) {
+				columns.at(i).push_back((float)depthSum / 10.0f);
+				depthSum = 0;
+				//std::printf("Depth Sum: %i\n", columns.at(i).back());
+			}
+			depthSum += imgArray.at(i + j * 320);
+		}
+	}
+	return columns;
 }
