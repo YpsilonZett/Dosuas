@@ -15,34 +15,12 @@ std::vector<sf::Int16> AudioPlayer::getSineWaveSamples(float frequency, float du
 }
 
 
-std::vector<sf::Int16> AudioPlayer::getTriangleWaveSamples(float frequency, float duration, int sampleRate) {
-	std::vector<sf::Int16> samples;
-	const int amplitude = 5000;
-	const float period = sampleRate / frequency;
-	float slope = 4 * amplitude * frequency;
-
-	for (int i = 0; i < (duration * sampleRate / period); i++) {
-		for (int x = 0; x < (int)(period / 2.0); x++) {
-			samples.push_back(slope * x + amplitude / 2);
-			//std::printf("y: %i\n", slope * x + amplitude / 2);
-		}
-		slope = -slope;
-		for (int x = 0; x < (int)(period / 2.0); x++) {
-			samples.push_back(slope * x - amplitude / 2);
-			//std::printf("y: %i\n", slope * x - amplitude / 2);
-		}
-	}
-	//std::printf("Sample size: %i", samples.size());
-	return samples;
-}
-
-
 std::pair<std::vector<sf::Int16>, double> AudioPlayer::getSweepSamples(float fStart, float fEnd, double duration, 
-	int sampleRate, double phi0) {
-	/* generates sine sweep from fStart to fEnd; allows multiple sweeps with smooth continuous phase */
+	int sampleRate, double phi0, int amplitude) {
+	/* generates sine sweep from fStart to fEnd; allows multiple sweeps with smooth continuous phase (use phi0
+	for continuous phase, remember phi0 and set phi0 of next sweep to old phi0) */
 	
 	std::vector<sf::Int16> samples;
-	const int amplitude = 20000;
 	const int nValues = sampleRate * duration;
 	const double actualSamplingTime = (double)nValues / (double)sampleRate;
 	//std::printf("sampling time: %f\tnValues: %i\n", actualSamplingTime, nValues);
@@ -69,11 +47,11 @@ float AudioPlayer::depthToFrequency(int depth, bool useExpFunc) {
 }
 
 
-float AudioPlayer::depthToVolume(int depth, bool useExpFunc) {
+int AudioPlayer::depthToAmplitude(int depth, bool useExpFunc) {
 	if (useExpFunc) {
-		return 0;
+		return 20000;  // comming soon
 	} else {
-		return (620.0 / 9.0) - ((float)depth / 9.0);
+		return (-400.0 / 9.0) * depth + (221000.0 / 9.0);
 	}
 }
 
@@ -151,23 +129,29 @@ void AudioPlayer::playSoundSwipe(std::vector<Voxel> voxels, float duration, int 
 }
 
 
-void AudioPlayer::playAccordSwipe(std::vector<std::vector<int>> columns, float duration, int sampleRate) {
+void AudioPlayer::playChordSwipe(std::vector<std::vector<int>> columns, float duration, int sampleRate) {
+	/* plays newer version of sound swipe, where instead of the nearest voxel, a chord of all pixel in a vertical 
+	column is played; volume corresponds to distance (louder if nearer) and frequency to voxel position on y axis */
 	std::array<int, 24> noteFrequencies = {
-		880.00, 830.61, 783.99, 739.99, 698.46, 659.25, 622.25, 587.33, 554.37, 523.25, 493.88, 466.16, 440.00,
-		415.30, 392.00, 369.99, 349.23, 329.63, 311.13, 293.66, 277.81, 261.63, 246.94, 233.08
+		880.00, 830.61, 783.99, 739.99, 698.46, 659.25, 622.25, 587.33, 554.37, 523.25, 493.88, 466.16, 
+		440.00, 415.30, 392.00, 369.99, 349.23, 329.63, 311.13, 293.66, 277.81, 261.63, 246.94, 233.08
 	};
-	std::vector<sf::Sound> sounds;
-	std::vector<sf::SoundBuffer> soundBuffers;
-	for (int i = 0; i < noteFrequencies.size(); i++) {
-		sf::Sound sound;
-		sf::SoundBuffer soundBuffer;
-		sounds.push_back(sound);
-		soundBuffers.push_back(soundBuffer);
-		std::vector<sf::Int16> samples = getSineWaveSamples(noteFrequencies[i], duration, sampleRate);
-		configureSoundSource(soundBuffers.back(), sounds.back(), samples, sampleRate);
+	sf::Sound sound;
+	sf::SoundBuffer buffer;
+	std::vector<sf::Int16> samples;
+	double phi0 = 0.0;
+	for (int i = 0; i < columns.size(); i++) {
+		std::cout << "v: " << columns[i][0] << std::endl;
+		int amplitude = depthToAmplitude(columns[i][0]);
+		std::cout << "amp: " << amplitude << std::endl;
+		// the sweep is used because volume has to change (therefore continouos phase), but frequency stays the same
+		std::pair<std::vector<sf::Int16>, double> sweep = getSweepSamples(noteFrequencies[0],
+			noteFrequencies[0], duration / (double)columns.size(), sampleRate, phi0, amplitude);
+		phi0 = sweep.second;
+		samples.insert(samples.end(), sweep.first.begin(), sweep.first.end());
 	}
-	for (int i = 0; i < sounds.size(); i++) {
-		sounds.at(i).play();
-	}
+	configureSoundSource(buffer, sound, samples, sampleRate);
+	sound.play();
 	sf::sleep(sf::seconds(duration));
+	sf::sleep(sf::seconds(0.5));
 }

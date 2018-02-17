@@ -31,22 +31,23 @@ int main(int argc, char** argv) {
 	SetThreadExecutionState(ES_CONTINUOUS | ES_SYSTEM_REQUIRED | ES_AWAYMODE_REQUIRED);
 
 	while (true) {
-		if (ACCORD_SWEEP == false) {
-			try {
-				pcl::PointCloud<pcl::PointXYZ>::Ptr pImgCloud = sr.getImg();
+		try {
+			std::printf("Taking image and transforming to sound...\n");
+			for (int i = 0; i < 3; i++) {  // get a good image (take multiple ones for better light exposure)
+				sr.getImg();
+			}
+			pcl::PointCloud<pcl::PointXYZ>::Ptr pImgCloud = sr.getImg();
+			ip.showPointCloud(pImgCloud);
+			if (ACCORD_SWEEP == false) {
 				std::vector<Voxel> imgVoxels = ip.getVoxelsForAudioSwipe(pImgCloud);
 				ap.playSoundSwipe(imgVoxels, 5.0f);
-				std::printf("Taking image and transforming to sound\n");
+			} else {
+				std::vector<std::vector<int>> chordImage = ip.getImageForChordSwipe(pImgCloud);
+				ap.playChordSwipe(chordImage, 5.0f);
 			}
-			catch (const std::out_of_range& e) {
-				std::printf("Bad image! Either the camera is too near to an object or to far from anything.\n");
-				ap.playErrorTone(1.0f);
-			}
-		} else {
-			pcl::PointCloud<pcl::PointXYZ>::Ptr pImgCloud = sr.getImg();
-			std::vector<std::vector<int>> accordImage = ip.getImageForAccordSwipe(pImgCloud);
-			ap.playAccordSwipe(accordImage, 5.0);
-			std::printf("Taking image and transforming to sound\n");
+		} catch (const std::out_of_range& e) {
+			std::printf("Error while taking image! Retrying...\n");
+			ap.playErrorTone(1.0f);
 		}
 	}
 	return 0;

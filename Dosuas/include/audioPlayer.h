@@ -12,16 +12,15 @@
 
 class AudioPlayer {
 	std::vector<sf::Int16> getSineWaveSamples(float frequency, float duration, int sampeRate);
-	std::vector<sf::Int16> getTriangleWaveSamples(float frequency, float duration, int sampleRate);
 	std::pair<std::vector<sf::Int16>, double> getSweepSamples(float fStart, float fEnd, double duration, 
-		int sampleRate, double phi0 = 0.0);
+		int sampleRate, double phi0 = 0.0, int amplitude = 20000);
 	float depthToFrequency(int depth, bool useExpFunc = true);
-	float depthToVolume(int depth, bool useExpFunc = false);
+	int depthToAmplitude(int depth, bool useExpFunc = false);
 	void configureSoundSource(sf::SoundBuffer& buffer, sf::Sound& sound, std::vector<sf::Int16> samples,
 		int sampleRate);
 	std::vector<sf::Int16> getVoxelSamples(std::vector<Voxel> voxels, float duration, int sampleRate);
 public:
 	void playErrorTone(float duration, int sampleRate = 44100);
 	void playSoundSwipe(std::vector<Voxel> voxels, float duration, int sampleRate = 44100);
-	void playAccordSwipe(std::vector<std::vector<int>> columns, float duration, int sampleRate = 44100);
+	void playChordSwipe(std::vector<std::vector<int>> columns, float duration, int sampleRate = 44100);
 };
