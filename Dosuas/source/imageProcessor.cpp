@@ -114,9 +114,9 @@ std::vector<std::vector<int>> ImageProcessor::getImageForChordSwipe(pcl::PointCl
 		depthSum = 0;
 		std::vector<int> column;
 		for (int j = 0; j < 240; j++) {
-			if (j % 10 == 0) {
+			if ((j + 1) % 10 == 0) {
 				column.push_back((float)depthSum / 10.0f);
-				std::cout << "depth sum: " << (float)depthSum / 10.0f << std::endl;
+				//std::cout << "depth sum: " << (float)depthSum / 10.0f << std::endl;
 				depthSum = 0;
 			}
 			depthSum += imgArray.at(i + j * 320);

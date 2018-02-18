@@ -37,7 +37,7 @@ int main(int argc, char** argv) {
 				sr.getImg();
 			}
 			pcl::PointCloud<pcl::PointXYZ>::Ptr pImgCloud = sr.getImg();
-			ip.showPointCloud(pImgCloud);
+			//ip.showPointCloud(pImgCloud);
 			if (ACCORD_SWEEP == false) {
 				std::vector<Voxel> imgVoxels = ip.getVoxelsForAudioSwipe(pImgCloud);
 				ap.playSoundSwipe(imgVoxels, 5.0f);
@@ -46,7 +46,7 @@ int main(int argc, char** argv) {
 				ap.playChordSwipe(chordImage, 5.0f);
 			}
 		} catch (const std::out_of_range& e) {
-			std::printf("Error while taking image! Retrying...\n");
+			std::printf("Error while processing image! Retrying...\n");
 			ap.playErrorTone(1.0f);
 		}
 	}

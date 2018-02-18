@@ -49,7 +49,7 @@ float AudioPlayer::depthToFrequency(int depth, bool useExpFunc) {
 
 int AudioPlayer::depthToAmplitude(int depth, bool useExpFunc) {
 	if (useExpFunc) {
-		return 20000;  // comming soon
+		return 30000; // comming soon
 	} else {
 		return (-400.0 / 9.0) * depth + (221000.0 / 9.0);
 	}
@@ -123,6 +123,7 @@ void AudioPlayer::playSoundSwipe(std::vector<Voxel> voxels, float duration, int 
 		xPos = -16.0f + voxels[i].x / 10.0f;
 		sound.setPosition(xPos, 1, 1);
 		sf::sleep(sf::seconds(duration / voxels.size()));
+		//std::cout << voxels[i].z << ", ";
 		//std::printf("coords: %f %f %f", xPos, voxels[i].y, voxels[i].z);
 	}
 	sf::sleep(sf::seconds(0.5));
@@ -142,7 +143,7 @@ void AudioPlayer::playChordSwipe(std::vector<std::vector<int>> columns, float du
 	double phi0 = 0.0;
 	for (int i = 0; i < columns.size(); i++) {
 		std::cout << "v: " << columns[i][0] << std::endl;
-		int amplitude = depthToAmplitude(columns[i][0]);
+		int amplitude = depthToAmplitude(columns[i][0], true);
 		std::cout << "amp: " << amplitude << std::endl;
 		// the sweep is used because volume has to change (therefore continouos phase), but frequency stays the same
 		std::pair<std::vector<sf::Int16>, double> sweep = getSweepSamples(noteFrequencies[0],
