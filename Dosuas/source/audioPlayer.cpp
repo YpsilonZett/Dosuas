@@ -65,7 +65,7 @@ void AudioPlayer::configureSoundSource(sf::SoundBuffer& buffer, sf::Sound& sound
 	sound.setBuffer(buffer);
 	sound.setRelativeToListener(true);
 	sound.setVolume(50);
-	sound.setAttenuation(0.5);
+	sound.setAttenuation(0.0);//5);
 }
 
 
@@ -104,7 +104,6 @@ void AudioPlayer::playErrorTone(float duration, int sampleRate) {
 	configureSoundSource(buffer, sound, samples, sampleRate);
 	sound.play();
 	sf::sleep(sf::seconds(duration));
-	sf::sleep(sf::seconds(0.5));
 }
 
 
@@ -114,19 +113,18 @@ void AudioPlayer::playSoundSwipe(std::vector<Voxel> voxels, float duration, int 
 	std::vector<sf::Int16> audioSamples = getVoxelSamples(voxels, duration, sampleRate);
 	sf::Sound sound;
 	sf::SoundBuffer buffer;
-	float xPos = -16.0f;
+	float xPos = -15.0f;
 
 	configureSoundSource(buffer, sound, audioSamples, sampleRate);
 	sound.setPosition(xPos, 1, 1);
 	sound.play();
 	for (int i = 0; i < voxels.size(); i++) {
-		xPos = -16.0f + voxels[i].x / 10.0f;
+		xPos = -15.0f + (float)voxels[i].x / 10.0f;
 		sound.setPosition(xPos, 1, 1);
 		sf::sleep(sf::seconds(duration / voxels.size()));
-		//std::cout << voxels[i].z << ", ";
-		//std::printf("coords: %f %f %f", xPos, voxels[i].y, voxels[i].z);
+		//std::cout, << voxels[i].z << ", ";
+		//std::printf("coords: %f %f %f\n", xPos, voxels[i].y, voxels[i].z);
 	}
-	sf::sleep(sf::seconds(0.5));
 }
 
 

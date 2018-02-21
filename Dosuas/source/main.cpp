@@ -1,4 +1,5 @@
 #include <signal.h>
+#include <ctime>
 #include "sensorReader.h"
 #include "audioPlayer.h"  // also includes imageProcessor
 
@@ -29,7 +30,6 @@ int main(int argc, char** argv) {
 	signal(SIGINT, gracefulShutdown);
 	// process does not stop (computer does not fall asleep)
 	SetThreadExecutionState(ES_CONTINUOUS | ES_SYSTEM_REQUIRED | ES_AWAYMODE_REQUIRED);
-
 	while (true) {
 		try {
 			std::printf("Taking image and transforming to sound...\n");
