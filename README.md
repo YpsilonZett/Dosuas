@@ -1,4 +1,4 @@
-DOSUAS **D**evice for **O**rientation in **S**pace **U**sing 
+*DOSUAS* (**D**evice for **O**rientation in **S**pace **U**sing 
 	**A**udio **S**ignals) ist ein Gerät, welches es blinden Menschen ermöglicht
 	sich mithilfe von akustischen Signalen im Raum zu orientieren. Das wird erreicht, indem Bilder 
 	einer 3D-Kamera mit verschiedenen Methoden algorithmisch in Tonaufnahmen umgerechnet werden,
