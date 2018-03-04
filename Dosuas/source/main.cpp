@@ -18,7 +18,7 @@ int main(int argc, char** argv) {
 	ImageProcessor ip;
 	AudioPlayer ap;
 	bool ACCORD_SWEEP;
-	std::cout << "Enter device mode (0/1): ";
+	std::cout << "Enter device mode (0 = beginner / 1 = advanced): ";
 	std::cin >> ACCORD_SWEEP;
 
 	if (!sr.connect()) {
@@ -39,7 +39,11 @@ int main(int argc, char** argv) {
 			pcl::PointCloud<pcl::PointXYZ>::Ptr pImgCloud = sr.getImg();
 			//ip.showPointCloud(pImgCloud);
 			if (ACCORD_SWEEP == false) {
+				clock_t begin = clock();
 				std::vector<Voxel> imgVoxels = ip.getVoxelsForAudioSwipe(pImgCloud);
+				clock_t end = clock();
+				double elapsed_secs = double(end - begin) / CLOCKS_PER_SEC;
+				std::cout << "time: " << elapsed_secs << std::endl;
 				ap.playSoundSwipe(imgVoxels, 5.0f);
 			} else {
 				std::vector<std::vector<int>> chordImage = ip.getImageForChordSwipe(pImgCloud);
