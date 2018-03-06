@@ -30,12 +30,12 @@
 
 \begin{abstract}
 	DOSUAS (\textbf{D}evice for \textbf{O}rientation in \textbf{S}pace \textbf{U}sing 
-	\textbf{A}udio \textbf{S}ignals) ist ein Gerät, welches es blinden Menschen ermöglicht
+	\textbf{A}udio \textbf{S}ignals) ist ein Gerät, welches es blinden Menschen ermöglicht,
 	sich mithilfe von akustischen Signalen im Raum zu orientieren. Das wird erreicht, indem Bilder 
-	einer 3D-Kamera mit verschiedenen Methoden algorithmisch in Tonaufnahmen umgerechnet werden,
-	die Informationen über die aufgenommene Umgebung enthalten. Mit Übung kann der Nutzer des Gerätes 
-	sich dann nach dem Hören dieser Töne im Raum orientieren und die Form und Entfernung verschiedener 
-	Objekte bestimmen.
+	einer 3D-Kamera mit verschiedenen Methoden algorithmisch in Töne umgerechnet werden,
+	die Informationen über die aufgenommene Umgebung enthalten. Mit Übung kann der Träger des Gerätes 
+	sich dann nach dem Hören dieser Töne im Raum orientieren und die Form, Entfernung und Ausrichtung 
+	verschiedener Objekte bestimmen.
 \end{abstract}
 
 \tableofcontents
@@ -54,7 +54,7 @@ und Signale von den Ohren im Sehzentrum verarbeitet werden.
 Mit genügend Übung schaffen es Blinde so zu \enquote{sehen} und können Fahrrad 
 fahren oder in den Bergen klettern. \par 
 Doch nicht jedem Blinden fällt es leicht und nicht jeder hat die Möglichkeit eine
-solche Technologie zu erlernen. Außerdem hat auch die menschliche Echoortung ihre
+solche Technik zu erlernen. Außerdem hat auch die menschliche Echoortung ihre
 Grenzen und ist ab einem bestimmten Punkt nicht mehr erweiterbar. Hier kommt die 
 Technologie ins Spiel. Von Tag zu Tag ergeben sich neue Möglichkeiten mithilfe 
 der verschiedensten technischen Hilfsmittel Menschen das Leben zu erleichtern.
@@ -94,11 +94,11 @@ für Orientierung und Erkennung der Umwelt zu geben.
 \section{Funktionsweise}
 
 Das Gerät besitzt momentan zwei Modi: den einfachen und den Fortgeschrittenen-Modus. Der einfache Modus 
-eignet sich gut für Blinde, die wenig Erfahrung mit dem Gerät haben oder Zuschauer bwz. Juroren, die das
-Gerät testen möchten. Er erlaubt grundlegende Orientierung und erkennen von großen Objekten. Der
+eignet sich gut für Blinde, die wenig Erfahrung mit dem Gerät haben oder Testpersonen bwz. Juroren, die das
+Gerät ausprobieren möchten. Er erlaubt grundlegende Orientierung und erkennen von großen Objekten. Der
 Fortgeschrittenen-Modus eignet sich für Leute mit mehr Erfahrung. Er ermöglicht dem Nutzer, die Umrisse von 
 Gegenständen oder Strukturen fast jeder Art relativ genau zu erkennen. Folgendes ist immer zu beachten: 
-je mehr Details das Gerät darstellt und als Töne kodiert, desto länger ist der benötigte Lernprozess. 
+je mehr Details das Gerät darstellt und als Töne kodiert, desto aufwändiger ist der Lernprozess. 
 Deshalb unterscheiden wir auch zwischen beiden Modi. In Zukunft sind noch weitere Geplant, aber mehr dazu im 
 Ausblick.
 
@@ -136,7 +136,7 @@ davon zu geben, in welcher Richtung sich ein Objekt befindet.\par
 Die dritte Komponente ist ein Laptop, der später durch einen kleineren Computer, wie z.B. ein \enquote{Raspberry Pi}
 ersetzt werden soll. Dieser ist mit Kopfhörern und dem ToF-Sensor 
 verbunden und führt unser Programm aus.\par 
-Zusammen ergeben die drei Bestandteile (und ein Bleiakku für die Tof-Kamera) einen mobilen Prototypen, den wir zum Ausstellungstag vorführen werden. Die Technik befindet sich dabei in einem Rucksack und der Sensor wird mit einem
+Zusammen ergeben die drei Bestandteile (und ein externer Bleiakku für die Tof-Kamera) einen mobilen Prototypen, den wir zum Ausstellungstag vorführen werden. Die Technik befindet sich dabei in einem Rucksack und der Sensor wird mit einem
 umgebauten Stirnband am Kopf befestigt. 
 \begin{figure}[H]
 	\centering
@@ -211,7 +211,7 @@ reflektierend ist, um von Sensor erkannt zu werden. Im späteren werden sie entf
 
 \subsection{Einfacher Modus}
 
-Der einfache Modus stellt eine Art horizontalen Schnitt durch das Bild als Ton dar. Dieser enthält also Informationen
+Der einfache Modus stellt eine Art horizontalen Schnitt durch das Bild als Ton dar. Dieser enthält Informationen
 über die Position auf der x-Achse (links, rechts, etc.) und Entfernung einer Region, Welche der Nutzer verwenden kann,
 um sich grob zu orientieren. Die x-Position wird mit 3D-Audio dargestellt. Mit den richtigen Kopfhörern und etwas Übung
 kann man sehr genau bestimmen, in welche Richtung und wie weit weg sich eine Tonquelle befindet. Die Entfernung wird
@@ -238,19 +238,19 @@ zweieinhalb bis vier Sekunden zu reduzieren.
 
 \subsection{Fortgeschrittenen-Modus}
 
-In diesem Modus wird das gesamte Bild, also ein dreidimensionales Modell der Umgebung als Töne dargestellt. 
+In diesem Modus wird das gesamte Bild, also ein dreidimensionales Modell der Umgebung, als Töne dargestellt. 
 Der Nutzer soll ein genaues Gefühl dafür bekommen, welche Umrisse einzelne Gegenstände haben und so die Form, Entfernung und Ausrichtung aller mittelgroßen und großen Objekte in einem Raum bestimmen können. \par 
 Wir Menschen können an einem Ton im Wesentlichen drei
 Eigenschaften ausmachen: Lautstärke, Position und Höhe. Wir reden hier von reinen Sinuswellen, da diese momentan für 
 das Projekt ausreichen. Später kann man noch kompliziertere Töne einbauen, aber das würde das Lernen erschweren
 und ist momentan nicht nötig. Die drei genannten Eigenschaften sollte man, wenn man mit dem Gehör viele Informationen
-verarbeiten will alle nutzen. Es ist wichtig anzumerken, dass Tonhöhe und Lautstärke viel genauer wahrgenommen werden
+verarbeiten will, alle nutzen. Es ist wichtig anzumerken, dass Tonhöhe und Lautstärke viel genauer wahrgenommen werden
 können, als die Position, und wir sie daher mehr verwenden. \par 
 Die 3D-Audio Position übernimmt hier wieder die Funktion der x-Achse im Bild. Wie beim vorherigen Radar Swipe bewegt
 sich eine Tonquelle gleichmäßig vom linken bis zum rechten Rand des Sichtfeldes. Wieder wird das Bild in Spalten 
 unterteilt, diesmal jedoch in sehr viel niedriger aufgelöste. Eine Spalte besteht nur aus 24 Voxeln.
 Jedem dieser Voxel wird nun eine Frequenz zugeordnet, die der Höhe im Bild (y-Koordinate) entspricht.
-Pixel am unteren Bildrand bekommen eine Frequenz von 220 Hz und Pixel am oberen Rand eine von 880 Hz. Die 24 
+Voxel am unteren Bildrand bekommen eine Frequenz von 220 Hz und Voxel am oberen Rand eine von 880 Hz. Die 24 
 Pixel-Frequenzen bilden genau zwei Oktaven, wobei die Frequenzen so ausgesucht sind, dass sie harmonisch zueinander
 passen. Jedem der Pixel wird nun eine Lautstärke zugeordnet, die die Tiefe (z-Koordinate) wiedergibt. Eine geringe
 z-Koordinate entspricht einem lauten Ton. Dies ist intuitiv logischer, da nähere Objekte meist lautere Töne abgeben.
@@ -267,12 +267,11 @@ Fragen beantworten, die man sich unsere Wahl betreffend stellen könnte und unse
 \begin{enumerate}
 	\item \textbf{Warum benutzen wir die y- und z-Koordinate der 3D-Audio Tonquellen nicht?} - \textit{Man könnte die
 	räumliche Position der 3D-Audio Tonquelle benutzten, um genauere Informationen über die Position eines
-	Objektes anzuzeigen. Bei unseren Versuchen ist uns aber aufgefallen, dass es sehr schwer ist, mehrere
-	3D-Audio Quellen 
-	gleichzeitig zu orten oder die y-Koordinate einer 3D-Audio Quelle auch nur annähernd genau zu bestimmen. Deshalb
-	bleiben wir beim einfachen Stereo.}
-	\item \textbf{Warum werden Frequenzen für die Höhe im Bild und nicht für die Entfernung verwendet?} - \textit{Würde
-	man die Lautstärke verwenden, um Höhe auf dem Bild darzustellen, wären nur die oberen Reihen des Bildes 
+	Objektes anzuzeigen. Bei unseren Versuchen ist uns aber aufgefallen, dass es sehr schwer ist, die y-Koordinate einer 3D-Audio Quelle auch nur annähernd genau zu bestimmen. Um eine auf der z-Achse verschobene Tonquelle 
+	darzustellen benötigt man die Lautstärke, die wir aber bereits für etwas anderes verwenden. Deshalb
+	bleiben wir beim einfachen Stereo\footnote{es stellte sich übrigens dabei heraus, dass wir auf aufwändige
+	3D-Audio Kopfhörer hätten verzichten können, weil normale Stereo-Kopfhörer gereicht hätten, aber das konnten wir vorher nicht wissen}.}
+	\item \textbf{Warum werden Frequenzen für die Höhe im Bild und nicht für die Entfernung verwendet?} - \textit{Würden wir Frequenzen für die Entfernung verwenden, müssten wir die Lautstärke verwenden, um Höhe auf dem Bild darzustellen. Dann wären aber nur die oberen Reihen des Bildes 
 	hörbar, weil das Gehör sich bei vielen Tönen auf die lautesten konzentriert. Diese Eigenschaft nutzen wir bei 
 	unserer Version viel besser aus, 
 	um das Gehirn dazu zu bringen, nähere Regionen besser zu erkennen, da diese wichtiger sind.}
@@ -280,8 +279,8 @@ Fragen beantworten, die man sich unsere Wahl betreffend stellen könnte und unse
 	Gehör bei vielen Tönen die heraus, die uns am wichtigsten erscheinen. Man bezeichnet dieses Phänomen als Cocktailparty-Effekt 
 	oder selektives Hören. Wenn wir uns auf bestimmte Töne konzentrieren (z.B. die Stimme einer Person bei einer Unterhaltung vieler
 	Personen) nehmen wir diese bis zu dreimal lauter wahr, als sie eigentlich sind. Bei den von uns erzeugten Akkorden stechen meistens
-	zusammengesetzte Töne aus mehreren Frequenzen heraus, weil sie lauter sind, als der Rest. Dadurch konzentrieren wir uns auf sie und
-	nehmen sie noch deutlicher wahr.}
+	zusammengesetzte oder einzelne Töne, die lauter sind als der Rest, heraus. Dadurch konzentrieren wir uns auf sie und nehmen sie noch deutlicher wahr. Mit etwas Übung kann man auch aus einem Akkord von vielen Tönen 
+	die einzelnen heraushören und die Höhe so noch deutlicher wahrnehmen.}
 \end{enumerate}
 
 \newpage
@@ -289,7 +288,6 @@ Fragen beantworten, die man sich unsere Wahl betreffend stellen könnte und unse
 \section{Praxistests} \label{testsAndResults}
 
 Wir haben DOSUAS in verschiedenen Umgebungen getestet und werden Ihnen am Ausstellungstag einen Prototypen vorführen.
-Beide Modi haben Vor- und Nachteile, die wir im folgenden Besprechen.
 
 \subsection{Einfacher Modus}
 
@@ -317,10 +315,10 @@ gleichbleibender Geschwindigkeit an und die Tonquelle wandert nach rechts.
 Hier hört man die Tür und am Ende eine kurze \enquote{Spitze}, die die Türklinke darstellt. Am Ende hat der Ton
 eine Frequenz von ca. 790 Hz.\par 
 Wir hoffen, dass Sie sich nun ein Bild davon machen können, wie sich die Welt mit DOSUAS anhört. Nach einem
-halbstündigen Selbsttraining mit dem Gerät waren unsere Testpersonen\footnote{Yorick Zeschke, Jonas Wanke, Petra Zeschke und Peter Kreißig} in der Lage (natürlich mit verbundenen Augen) in Schulräumen und Gängen
-Wände und Türen zu erkennen, deren Ausrichtung und Entfernung er beschreiben konnte, ohne sie gesehen zu haben.
-Außerdem war er in der Lage zu sagen, ob eine Tür offen, halboffen oder geschlossen ist. Nach einer weiteren Stunde
-war es ihnen möglich Menschen, Tische und deren ungefähre Ausrichtung zu bestimmen. 
+halbstündigen Training mit dem Gerät waren unsere Testpersonen\footnote{Yorick Zeschke, Jonas Wanke, Petra Zeschke und Peter Kreißig} in der Lage (natürlich mit verbundenen Augen) in Schulräumen und Gängen
+Wände und Türen zu erkennen, deren Ausrichtung und Entfernung sie beschreiben konnten, ohne sie gesehen zu haben.
+Außerdem konnten sie sagen, ob eine Tür offen, halboffen oder geschlossen ist. Nach einer weiteren halben Stunde
+war es ihnen möglich Menschen, Tische, Schränke und deren ungefähre Ausrichtung zu bestimmen. \par
 Wir haben bereits einige wiederkehrende Muster gefunden, die auf bestimmte Objekte in einem Raum hindeuten. 
 \begin{figure}[h]
 	\begin{tabular}{| p{0.4\textwidth} | p{0.5\textwidth} |}
@@ -356,21 +354,7 @@ Die Testergebnisse werden wir Ihnen dann präsentieren.
 \section{Diskussion}
 
 Im folgenden wollen wir kurz diskutieren, was wir für das Projekt planen und inwiefern man das
-Gerät benutzten und weiterentwickeln kann und sollte. Außerdem fassen wir die durch die Entwicklung und Forschung am Projekt Dosuas gewonnenen Erkenntnisse im Fazit zusammen.
-
-\subsection{Vergleich}
-
-Hier haben wir kurz unser Gerät mit existierenden Ideen und Lösungen verglichen, damit Sie sich ein Bild von den
-Vor- und Nachteilen machen können und sehen, welche Neuerungen unser Projekt bietet bzw. was es schon gibt. Bei unsere
-Recherche haben wir noch kein Produkt gefunden, das so funktioniert, wie unser Gerät, weshalb wir hoffen, dass es 
-etwas Neues ist und auch planen, ein Gebrauchsmuster o.ä. dafür anzumelden.
-
-\begin{figure}[h]
-	\begin{tabular}{| p{0.4\textwidth} | p{0.5\textwidth} |}
-		\hline
-		
-	\end{tabular}
-\end{figure} \par
+Gerät benutzten und weiterentwickeln kann und sollte. Außerdem fassen wir die durch die Entwicklung und Forschung am Projekt DOSUAS gewonnenen Erkenntnisse im Fazit zusammen.
 
 \subsection{Ausblick}
 
@@ -392,16 +376,20 @@ daran interessiert sind, das Projekt weiter zu entwickeln.
 
 \subsection{Fazit}
 
-Im Moment fehlen uns noch genügend Messdaten, um eine aussagekräftige Statistik zu machen. Jedoch
-können wir mit Sicherheit sagen, dass erste Schritte wie das Herumlaufen in fremden Räumen mit
-dem jetzigen Stand möglich sein sollten. Wirklich \enquote{Sehen} können Leute mit dem Gerät
-noch nicht und der Weg bis dahin ist noch weit. Aber etwas ebenfalls sehr wichtiges
-ist bereits möglich: Erkennen. Mit DOSUAS kann man sich im Raum orientieren, Strukturen einfacher, und später auch komplexerer Objekte erkennen und die Form von Gegenständen erahnen. Also tut das Gerät genau das, was sein Name sagt,  ein Gerät zur Orientierung im Raum mithilfe von Audio
+Wir können wir mit Sicherheit sagen, dass erste Schritte wie das Herumlaufen, Orientieren und erkennen einfacher
+Objekte in fremden Räumen mit dem jetzigen Stand möglich sind. Der Fortgeschrittenen-Modus bietet sogar noch mehr 
+Möglichkeiten und genaueres Verständnis der Umgebung.
+Wirklich \enquote{Sehen} können Leute mit dem Gerät noch nicht und der Weg bis dahin ist noch weit.
+Aber etwas ebenfalls sehr wichtiges
+ist bereits möglich: Erkennen. Mit DOSUAS kann man sich im Raum orientieren, Strukturen, Formen und Entfernungen
+mittelgroßer bis großer Objekte erkennen und sich ein relativ genaues Bild von der Umgebung machen. 
+Also tut das Gerät genau das, was sein Name sagt, es ist ein Gerät zur Orientierung im Raum mithilfe von Audio
 Signalen, ein \enquote{\textbf{D}evice for \textbf{O}rientation in \textbf{S}pace \textbf{U}sing 
 	\textbf{A}udio \textbf{S}ignals}.\par 
 Das Gerät ist natürlich kein Ersatz für menschliches Sehen, aber das war am Anfang der Entwicklung
-auch gar nicht beabsichtigt. Das Projekt DOSUAS sollte eine Hilfestellung für Blinde sein, die ihnen das Leben einfacher macht. Kleine und genaue Gegenstände kann man mit unserem jetzigen Sensor nicht besonders gut erkennen. Das muss man aber auch nicht, denn dazu besitzen wir Menschen den Tastsinn, der wesentlich genauer ist. Auch sonst ist es nicht beabsichtigt, sich auf 
-ein Gerät wie dieses zu verlassen. Man kann alltägliche Prozesse mit DOSUAS einfacher machen. 
+auch gar nicht beabsichtigt. Das Projekt DOSUAS sollte eine Hilfestellung für Blinde sein, die ihnen das Leben einfacher macht. Kleine oder komplizierte Gegenstände kann man mit unserem jetzigen Sensor nicht besonders gut erkennen. Das muss man aber auch nicht, denn dazu besitzen wir Menschen den Tastsinn, der wesentlich genauer ist,
+als jeder 3D-Sensor der heutigen Zeit. Auch sonst ist es nicht beabsichtigt, sich auf 
+ein Gerät wie dieses zu verlassen. Man kann alltägliche Prozesse mit DOSUAS einfacher machen.\par
 Wir hoffen, dass dieses oder ähnliche Projekte mehr blinde Menschen dazu motiviert, sich nicht 
 mit ihrer Behinderung wie mit einer Last abzumühen, sondern Geräte oder Techniken
 wie z.B. menschliche Echoortung, zu verwenden, um nicht mehr auf ständige Hilfe angewiesen 
