@@ -14,6 +14,11 @@
 \usepackage{float}
 \graphicspath{{bilder/}}
 
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta}
+\usepackage{forest}
+\forestset{qtree/.style={for tree={align=center, grow'=right, edge={green!50!black, -Latex}}}}
+
 % specific packages which are less often needed
 \usepackage[official]{eurosym}
 
@@ -102,6 +107,25 @@ je mehr Details das Gerät darstellt und als Töne kodiert, desto aufwändiger i
 Deshalb unterscheiden wir auch zwischen beiden Modi. In Zukunft sind noch weitere Geplant, aber mehr dazu im 
 Ausblick.
 
+\begin{forest}
+		qtree
+	[{Start}, name=start, s sep=0.5cm
+		[{automatisierte Echoortung\\ via Ultraschall}
+			[{aufwändige Entwicklung,\\ schlechtere Qualität als\\ menschliche Echoortung,\\ langer Lernprozess}, name=us_end, edge={red}]]
+		[{Modellierung großer\\ Objekte als Tonquellen}
+			[{zu wenig Informationen,\\ schlechte Orientierung}, name=objects_end, edge={red}]]
+		[, no edge]
+		[, no edge]
+		[, no edge]
+		[{2D Radar-Swipe\\ (jetziger Anfänger-\\Modus)}
+			[{Verbesserter Anfänger-Modus\\ (beim Regionalwettbewerb vorgestellt)}]
+			[{Fortgeschrittenen-\\Modus}
+				[{siehe Ausblick}]]]]
+		\useasboundingbox ([xshift=1cm, yshift=2.5cm]current bounding box.north west) rectangle (current bounding box.south east);
+		\draw [green!50!black, -Latex] (us_end.north west) to [out=160, in=60] node[midway, above, black] {Abbruch nach Regionalwettbewerb} (0.2cm, 3.5cm) to [out=240, in=100] (start.north);
+		\draw [green!50!black, -Latex] (objects_end.south west) to [bend left=20] node[midway, below, xshift=1.5cm, black] {Abbruch nach Regionalwettbewerb} (start.south east);
+\end{forest}
+
 \subsection{Verwendete Technologien}
 
 Der wichtigste Teil dieses Projekts ist eine ToF (\textit{Time of Flight}) Kamera, die neben normalen Fotos 
@@ -147,13 +171,12 @@ umgebauten Stirnband am Kopf befestigt.
 
 \subsection{Softwarestruktur}
 
-Das Programm ist in C++ geschrieben, weil die API des ToF Sensors C++ erfordert und C++ eine schnelle, objektorientierte und betriebssystemunabhängige Sprache mit vielen Möglichkeiten ist. Momentan wird das Programm
+Das Programm ist in C++ geschrieben, da dies die API des ToF Sensors erfordert und C++ eine objektorientierte und betriebssystemunabhängige Sprache mit vielen Möglichkeiten ist. Momentan wird das Programm
 auf Windows 10 32-Bit mit Visual Studio 2017 entwickelt.
 Wir verwenden folgende Libraries:
 \begin{enumerate}
-	\item \textit{MTF API} - eine Schnittstelle mit der man den Cube Eye Sensor ansteuern kann
-	\item \textit{SFML} - eine einfache Multimedia Bibliothek zum Abspielen von 3D-Sounds und generieren von 
-	Tönen
+	\item \textit{MTF API} - Schnittstelle für die Steuerung des Cube Eye Sensors
+	\item \textit{SFML} - einfache Multimedia-Bibliothek zum Abspielen von 3D-Sounds und Generieren von Tönen
 \end{enumerate} 
 Die Software selbst besteht im Moment aus 3 Modulen, die sich aber bis zur Ausstellung noch verändern 
 können.
@@ -176,7 +199,7 @@ weil das vom Sensor gesendete Infrarotlicht zu den Seiten der Fläche (und zurü
 braucht als zur Mitte. Wegen der kugelförmigen Ausbreitung der Lichtstrahlen von der Kameralinse hat das
 Bild außerdem ein Polarkoordinatensystem\footnote{jede Koordinate gibt eigentlich einen Winkel zwischen
 	0$^{\circ}$ und 75$^{\circ}$ (horizontal) oder 0$^{\circ}$ und 60$^{\circ}$ (vertikal) an,
-	 weil der Sensor ein Sichtfeld von 75$^{\circ}\times$60$^{\circ}$ hat}, mit dem wir nicht
+		weil der Sensor ein Sichtfeld von 75$^{\circ}\times$60$^{\circ}$ hat}, mit dem wir nicht
 gut weiterarbeiten können. Um das Problem der Verzerrung zu beheben und das Bild in ein kartesisches
 Koordinatensystem umzurechnen, verwenden wir einen Undistortion\footnote{in unserem Fall einen
 	vom Hersteller mitgelieferten, den man direkt in der Sensorkonfiguration einstellen kann} Algorithmus.
@@ -263,16 +286,16 @@ Zusammengefasst: x-Koordinate $\hat{=}$ 3D-Audio Position, y-Koordinate $\hat{=}
 \subsubsection{Warum ist das sinnvoll?}
 
 Wir denken, dass dieses Verfahren eine sehr gute Modellierung von 3D-Daten durch Töne ist. Wir wollen hier einige 
-Fragen beantworten, die man sich unsere Wahl betreffend stellen könnte und unsere Entscheidungen begründen.
+Fragen beantworten, die man sich unserer Wahl betreffend stellen könnte und unsere Entscheidungen begründen.
 \begin{enumerate}
 	\item \textbf{Warum benutzen wir die y- und z-Koordinate der 3D-Audio Tonquellen nicht?} - \textit{Man könnte die
-	räumliche Position der 3D-Audio Tonquelle benutzten, um genauere Informationen über die Position eines
+	räumliche Position der 3D-Audio Tonquelle benutzen, um genauere Informationen über die Position eines
 	Objektes anzuzeigen. Bei unseren Versuchen ist uns aber aufgefallen, dass es sehr schwer ist, die y-Koordinate einer 3D-Audio Quelle auch nur annähernd genau zu bestimmen. Um eine auf der z-Achse verschobene Tonquelle 
 	darzustellen benötigt man die Lautstärke, die wir aber bereits für etwas anderes verwenden. Deshalb
 	bleiben wir beim einfachen Stereo\footnote{es stellte sich übrigens dabei heraus, dass wir auf aufwändige
 	3D-Audio Kopfhörer hätten verzichten können, weil normale Stereo-Kopfhörer gereicht hätten, aber das konnten wir vorher nicht wissen}.}
 	\item \textbf{Warum werden Frequenzen für die Höhe im Bild und nicht für die Entfernung verwendet?} - \textit{Würden wir Frequenzen für die Entfernung verwenden, müssten wir die Lautstärke verwenden, um Höhe auf dem Bild darzustellen. Dann wären aber nur die oberen Reihen des Bildes 
-	hörbar, weil das Gehör sich bei vielen Tönen auf die lautesten konzentriert. Diese Eigenschaft nutzen wir bei 
+	hörbar, da das Gehör sich bei vielen Tönen auf die lautesten konzentriert. Diese Eigenschaft nutzen wir bei 
 	unserer Version viel besser aus, 
 	um das Gehirn dazu zu bringen, nähere Regionen besser zu erkennen, da diese wichtiger sind.}
 	\item \textbf{Wie kann das Gehör mit den vielen verschiedenen Frequenzen umgehen?} - \textit{Wie bereits gesagt, filtert das 
@@ -292,8 +315,8 @@ Wir haben DOSUAS in verschiedenen Umgebungen getestet und werden Ihnen am Ausste
 \subsection{Einfacher Modus}
 
 Es stellte sich heraus, dass sich zum Üben der Handhabung des Gerätes mittelgroße Räume mit einfachen
-Formen besser eigenen. Die Räume dürfen aber nicht zu groß sein, weil der Sensor eine maximale Reichweite
-von 5,3 Metern hat. Auch in zu kleinen Räumen eignet sich das Gerät nicht, denn der Sensor hat eine  Mindestreichweite von 0,8 Metern. Am Anfang sind Räume ohne viele kleine Objekte und mit großen 
+Formen besser eigenen. Die Räume dürfen aber nicht zu groß sein, da der Sensor eine maximale Reichweite
+von 5,3 Metern hat. Auch in zu kleinen Räumen eignet sich das Gerät nicht, denn der Sensor hat eine Mindestreichweite von 0,8 Metern. Am Anfang sind Räume ohne viele kleine Objekte und mit großen 
 Flächen wie Wänden einfacher, weil die Töne gleichmäßiger sind.
 Hier sieht man einen anderen Raum, an dessen Beispiel wir die Töne beschreiben wollen, die man
 mit unserem Gerät hört.
@@ -303,12 +326,12 @@ mit unserem Gerät hört.
 	\caption{Kamerabild eines anderen Raumes}
 	\label{normal_picture}
 \end{figure} \par
-Man hört beim Betrachten dieses Raumes einen Ton, der ungefähr eine halbe Sekunde die Frequenz (von ca. 550 Hz) nicht verändert und sich so anhört, als würde er von links kommen. Dieser Ton wird durch das Bett
-erzeugt. Als nächstes wird der Ton über ungefähr eine halbe Sekunde gleichmäßig tiefer (bis auf 340 Hz), 
-jetzt ist unsere virtuelle Tonquelle an der Wand des Raumes angekommen. Der Ton steigt nun über $1\frac{1}{2}$ Sekunden sehr langsam an (bis ca. 360 Hz), denn die Wand hat eine leichte Neigung. 
-Nun hört man eine Art Sprung, bei dem der Ton ruckartig von 360 Hz zurück auf 550 Hz wechselt. An solchen Auffälligkeiten kann man Kanten, Öffnungen oder spitze Gegenstände erkennen, was sehr wichtig für Blinde
-ist. Dieser Ton repräsentierte nämlich den Übergang von der Wand zum Schrank, der weiter vorne ist. Außerdem hört
-man die virtuelle Tonquelle in diesem Moment direkt in der Mitte des Hörfeldes, was dem Nutzer anzeigt, das sich
+Man hört beim Betrachten dieses Raumes einen Ton, der circa eine halbe Sekunde die Frequenz (von ca. 550 Hz) nicht verändert und sich anhört, als würde er von links kommen. Dieser Ton wird durch das Bett
+erzeugt. Als nächstes wird der Ton über etwa eine halbe Sekunde gleichmäßig tiefer (bis 340 Hz); 
+jetzt ist unsere virtuelle Tonquelle an der Wand des Raumes angekommen. Der Ton steigt nun über $1\frac{1}{2}$ Sekunden sehr langsam an (auf ca. 360 Hz), denn die Wand hat eine leichte Neigung. 
+Danach hört man eine Art Sprung, bei dem der Ton ruckartig von 360 Hz zurück auf 550 Hz wechselt. An solchen Auffälligkeiten kann man Kanten, Öffnungen oder spitze Gegenstände erkennen, was sehr wichtig für Blinde
+ist. Dieser Ton repräsentiert den Übergang von der Wand zum Schrank, der weiter vorne ist. Außerdem hört
+man die virtuelle Tonquelle in diesem Moment direkt in der Mitte des Hörfeldes, was dem Nutzer anzeigt, dass sich
 die Kante fast genau vor ihm befindet. Über ungefähr eine Sekunde bleibt die Tonhöhe wieder gleich, nur die Position
 verändert sich; man hört die Fläche des Schranks. Über die restlichen $1\frac{1}{2}$ Sekunden steigt der Ton mit 
 gleichbleibender Geschwindigkeit an und die Tonquelle wandert nach rechts.
@@ -334,7 +357,7 @@ Wir haben bereits einige wiederkehrende Muster gefunden, die auf bestimmte Objek
 	\end{tabular}
 \end{figure} \par
 \footnotetext{Intuitiv würde man so einen Ton wahrscheinlich
-	als kreisförmig beschreiben. Die Frequenzänderung kann durch eine nach unter geöffnete gestauchte Parabel angenähert werden.}
+	als kreisförmig beschreiben. Die Frequenzänderung kann durch eine nach unten geöffnete gestauchte Parabel angenähert werden.}
 \footnotetext{weil der Ton schnell zwischen verschiedenen Frequenzen wechselt} 
 Wir wollen das Gerät noch mit
 anderen Leuten testen und sehen, wie schnell jemand lernt, damit umzugehen. Wir vermuten, dass man nach einigen 
@@ -345,8 +368,8 @@ Möglichkeiten. Doch das Gerät ist und bleibt momentan nur ein Prototyp.
 \subsection{Fortgeschrittenen-Modus}
 
 Wir sind im Moment dabei den Fortgeschrittenen-Modus mit verschiedenen Leute zu testen und die Orientierung damit zu üben. Bis jetzt
-ist es uns gelungen mit dem Fortgeschrittenen-Modus ein Orientierungsvermögen zu erreichen, das ungefähr so gut ist, wie beim einfachen
-Modus. Bis zum Wettbewerb werden wir aber noch weiter Üben und den Fortgeschrittenen-Modus anpassen, weiterentwickeln und besser testen.
+ist es uns gelungen mit dem Fortgeschrittenen-Modus ein Orientierungsvermögen zu erreichen, das etwa so gut ist wie beim einfachen
+Modus. Bis zum Wettbewerb werden wir aber noch weiter üben und den Fortgeschrittenen-Modus anpassen, weiterentwickeln und besser testen.
 Die Testergebnisse werden wir Ihnen dann präsentieren.
 
 \newpage
@@ -354,21 +377,21 @@ Die Testergebnisse werden wir Ihnen dann präsentieren.
 \section{Diskussion}
 
 Im folgenden wollen wir kurz diskutieren, was wir für das Projekt planen und inwiefern man das
-Gerät benutzten und weiterentwickeln kann und sollte. Außerdem fassen wir die durch die Entwicklung und Forschung am Projekt DOSUAS gewonnenen Erkenntnisse im Fazit zusammen.
+Gerät benutzen und weiterentwickeln kann und sollte. Außerdem fassen wir die durch die Entwicklung und Forschung am Projekt DOSUAS gewonnenen Erkenntnisse im Fazit zusammen.
 
 \subsection{Ausblick}
 
-Es gibt noch sehr viele Möglichkeiten das Projekt weiterzuentwickeln. Einige vielversprechende,
+Es gibt noch sehr viele Möglichkeiten das Projekt weiterzuentwickeln. Einige vielversprechende
 möchten wir hier auflisten. Die Entwicklungen sind nach ihrer Schwierigkeit und Wichtigkeit geordnet. Einige sind auch nur Ideen.
 \begin{enumerate}
 	\item Verbesserung der Genauigkeit, z.B durch ein größeres Frequenzspektrum
 	\item Entwickeln eines Echtzeit-Modus, um das Sehen zu beschleunigen
 	\item Einbauen von Texterkennung, sodass das Programm Texte vorlesen kann, die nicht in Braille geschrieben sind
 	\item Einbauen von Gesichts- und Objekterkennung, z.B. mit Machine Learning, um bei Bedarf genauere 
-	Informationen über Objekte zu sagen (Sprachmodul)
-	\item Verkleinern und besser portabel Machen des Geräts, z.B. Laptop durch Raspberry Pi ersetzen oder Programm über
+	Informationen über Objekte wiederzugeben (Sprachmodul)
+	\item Verbesserung der Portabilität durch Verkleinerung des Geräts, z.B. Laptop durch Raspberry Pi ersetzen oder das Programm per
 	Handy-App steuern
-	\item Benutzen eines auf das Projekt angepassten Sensors und bequemer Machen der Stirnhalterung
+	\item Benutzen eines auf das Projekt angepassten Sensors sowie eine bequemere Stirnhalterung
 \end{enumerate}
 Viele der hier aufgezählten Entwicklungen werden wir bis zum Wettbewerb wahrscheinlich nicht 
 mehr schaffen. Aber dieser Ausblick dient auch als Ideen für Leute, die nach Jugend forscht 
