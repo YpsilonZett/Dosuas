@@ -1,11 +1,3 @@
-#include <vector>
-#include <array>
-#include <algorithm>
-#include <pcl/point_types.h>
-#include <pcl/point_cloud.h>
-#include <pcl/filters/voxel_grid.h>
-#include <pcl/filters/passthrough.h>
-#include <pcl/visualization/cloud_viewer.h>
 
 
 struct Voxel {

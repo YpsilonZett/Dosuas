@@ -1,10 +1,3 @@
-#define NOMINMAX  // Windows.h causes PCL error, if MINMAX is defined
-#include <Windows.h>
-#include <stdlib.h>
-#include <MTF_API.h>
-#include <pcl/point_cloud.h>
-#include <pcl/point_types.h>
-
 #define IMAGE_NUM 2
 
 

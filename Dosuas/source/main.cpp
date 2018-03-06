@@ -1,5 +1,4 @@
-#include <signal.h>
-#include <ctime>
+#include "stdafx.h"
 #include "sensorReader.h"
 #include "audioPlayer.h"  // also includes imageProcessor
 
@@ -39,11 +38,11 @@ int main(int argc, char** argv) {
 			pcl::PointCloud<pcl::PointXYZ>::Ptr pImgCloud = sr.getImg();
 			//ip.showPointCloud(pImgCloud);
 			if (ACCORD_SWEEP == false) {
-				clock_t begin = clock();
+				//clock_t begin = clock();
 				std::vector<Voxel> imgVoxels = ip.getVoxelsForAudioSwipe(pImgCloud);
-				clock_t end = clock();
-				double elapsed_secs = double(end - begin) / CLOCKS_PER_SEC;
-				std::cout << "time: " << elapsed_secs << std::endl;
+				//clock_t end = clock();
+				//double elapsed_secs = double(end - begin) / CLOCKS_PER_SEC;
+				//std::cout << "time: " << elapsed_secs << std::endl;
 				ap.playSoundSwipe(imgVoxels, 5.0f);
 			} else {
 				std::vector<std::vector<int>> chordImage = ip.getImageForChordSwipe(pImgCloud);
@@ -52,6 +51,7 @@ int main(int argc, char** argv) {
 		} catch (const std::out_of_range& e) {
 			std::printf("Error while processing image! Retrying...\n");
 			ap.playErrorTone(1.0f);
+			e;
 		}
 	}
 	return 0;

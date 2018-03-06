@@ -77,6 +77,7 @@
       <SDLCheck>true</SDLCheck>
       <AdditionalIncludeDirectories>C:\Program Files (x86)\PCL 1.8.1\3rdParty\VTK\include\vtk-8.0;C:\Program Files (x86)\PCL 1.8.1\include\pcl-1.8;C:\Program Files (x86)\PCL 1.8.1\3rdParty\Eigen\eigen3;C:\Program Files (x86)\PCL 1.8.1\3rdParty\Boost\include\boost-1_64;C:\Program Files (x86)\OpenNI2\Include;C:\Program Files (x86)\PCL 1.8.1\3rdParty\FLANN\include;C:\Program Files (x86)\PCL 1.8.1\3rdParty\Qhull\include;C:\Program Files (x86)\PCL 1.8.1\3rdParty\VTK\include;$(SolutionDir)Dosuas\include;$(SolutionDir)..\..\Libraries\Cube Eye\include;$(SolutionDir)..\..\Libraries\SFML-2.4.2\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DisableSpecificWarnings>4996</DisableSpecificWarnings>
+      <PrecompiledHeader>Use</PrecompiledHeader>
     </ClCompile>
     <Link>
       <AdditionalLibraryDirectories>C:/Program Files (x86)/PCL 1.8.1/lib;C:/Program Files (x86)/PCL 1.8.1/lib/$(Configuration);$(SolutionDir)..\..\Libraries\Cube Eye\lib\x86\debug;$(SolutionDir)..\..\Libraries\SFML-2.4.2\lib;$(SolutionDir)Dosuas\lib\x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
@@ -88,6 +89,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
+      <PrecompiledHeader>Use</PrecompiledHeader>
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -97,6 +99,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
+      <PrecompiledHeader>Use</PrecompiledHeader>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
@@ -110,6 +113,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
+      <PrecompiledHeader>Use</PrecompiledHeader>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
@@ -121,11 +125,18 @@
     <ClCompile Include="source\imageProcessor.cpp" />
     <ClCompile Include="source\main.cpp" />
     <ClCompile Include="source\sensorReader.cpp" />
+    <ClCompile Include="source\stdafx.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\audioPlayer.h" />
     <ClInclude Include="include\imageProcessor.h" />
     <ClInclude Include="include\sensorReader.h" />
+    <ClInclude Include="source\stdafx.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
