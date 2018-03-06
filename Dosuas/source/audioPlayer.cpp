@@ -203,7 +203,7 @@ void AudioPlayer::playChordSwipe(std::vector<std::vector<int>> columns, float du
 		sounds[i].play();
 	}
 	clock_t begin = clock();
-	for (float xPos = -12.0f; xPos < 12; xPos++) {
+	for (float xPos = -15.0f; xPos < 16; xPos++) {
 		for (int i = 0; i < sounds.size(); i++) {
 			sounds[i].setPosition(xPos, 1, 1);
 		}
