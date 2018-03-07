@@ -14,10 +14,11 @@
 \usepackage{float}
 \graphicspath{{bilder/}}
 
+% dev chart 
 \usepackage{tikz}
 \usetikzlibrary{arrows.meta}
 \usepackage{forest}
-\forestset{qtree/.style={for tree={align=center, grow'=right, edge={green!50!black, -Latex}}}}
+\forestset{qtree/.style={for tree={align=center, grow'=east, edge={green!50!black, -Latex}}}}
 
 % specific packages which are less often needed
 \usepackage[official]{eurosym}
@@ -49,7 +50,7 @@
 
 \section{Einleitung}
 
-Blinde Menschen haben schon immer Probleme damit, sich im Raum zu orientieren.
+Blinde Menschen hatten schon immer Probleme damit, sich im Raum zu orientieren.
 Manche von ihnen, zum Beispiel \textit{Daniel Kish}, benutzen die Technik der 
 \textit{menschlichen Echoortung}, ein Verfahren, bei dem
 man regelmäßig mit dem Mund Klicklaute erzeugt und das Gehör darauf trainiert,
@@ -60,7 +61,9 @@ Mit genügend Übung schaffen es Blinde so zu \enquote{sehen} und können Fahrra
 fahren oder in den Bergen klettern. \par 
 Doch nicht jedem Blinden fällt es leicht und nicht jeder hat die Möglichkeit eine
 solche Technik zu erlernen. Außerdem hat auch die menschliche Echoortung ihre
-Grenzen und ist ab einem bestimmten Punkt nicht mehr erweiterbar. Hier kommt die 
+Grenzen und ist ab einem bestimmten Punkt nicht mehr erweiterbar, denn die Schallreflexionen
+enthalten nur eine bestimmte Menge an Informationen, deren Potenzial irgendwann ausgeschöpft
+ist. Hier kommt die 
 Technologie ins Spiel. Von Tag zu Tag ergeben sich neue Möglichkeiten mithilfe 
 der verschiedensten technischen Hilfsmittel Menschen das Leben zu erleichtern.
 Geräte, wie 3D-Sensoren oder Kameras, können heutzutage schon oft sehr realistische
@@ -99,32 +102,13 @@ für Orientierung und Erkennung der Umwelt zu geben.
 \section{Funktionsweise}
 
 Das Gerät besitzt momentan zwei Modi: den einfachen und den Fortgeschrittenen-Modus. Der einfache Modus 
-eignet sich gut für Blinde, die wenig Erfahrung mit dem Gerät haben oder Testpersonen bwz. Juroren, die das
-Gerät ausprobieren möchten. Er erlaubt grundlegende Orientierung und erkennen von großen Objekten. Der
+eignet sich gut für Blinde, die wenig Erfahrung mit dem Gerät haben oder Testpersonen bzw. Juroren, die das
+Gerät ausprobieren möchten. Er erlaubt grundlegende Orientierung und das Erkennen von großen Objekten. Der
 Fortgeschrittenen-Modus eignet sich für Leute mit mehr Erfahrung. Er ermöglicht dem Nutzer, die Umrisse von 
 Gegenständen oder Strukturen fast jeder Art relativ genau zu erkennen. Folgendes ist immer zu beachten: 
 je mehr Details das Gerät darstellt und als Töne kodiert, desto aufwändiger ist der Lernprozess. 
-Deshalb unterscheiden wir auch zwischen beiden Modi. In Zukunft sind noch weitere Geplant, aber mehr dazu im 
+Deshalb unterscheiden wir auch zwischen beiden Modi. In Zukunft sind noch weitere geplant, aber mehr dazu im 
 Ausblick.
-
-\begin{forest}
-		qtree
-	[{Start}, name=start, s sep=0.5cm
-		[{automatisierte Echoortung\\ via Ultraschall}
-			[{aufwändige Entwicklung,\\ schlechtere Qualität als\\ menschliche Echoortung,\\ langer Lernprozess}, name=us_end, edge={red}]]
-		[{Modellierung großer\\ Objekte als Tonquellen}
-			[{zu wenig Informationen,\\ schlechte Orientierung}, name=objects_end, edge={red}]]
-		[, no edge]
-		[, no edge]
-		[, no edge]
-		[{2D Radar-Swipe\\ (jetziger Anfänger-\\Modus)}
-			[{Verbesserter Anfänger-Modus\\ (beim Regionalwettbewerb vorgestellt)}]
-			[{Fortgeschrittenen-\\Modus}
-				[{siehe Ausblick}]]]]
-		\useasboundingbox ([xshift=1cm, yshift=2.5cm]current bounding box.north west) rectangle (current bounding box.south east);
-		\draw [green!50!black, -Latex] (us_end.north west) to [out=160, in=60] node[midway, above, black] {Abbruch nach Regionalwettbewerb} (0.2cm, 3.5cm) to [out=240, in=100] (start.north);
-		\draw [green!50!black, -Latex] (objects_end.south west) to [bend left=20] node[midway, below, xshift=1.5cm, black] {Abbruch nach Regionalwettbewerb} (start.south east);
-\end{forest}
 
 \subsection{Verwendete Technologien}
 
@@ -132,20 +116,20 @@ Der wichtigste Teil dieses Projekts ist eine ToF (\textit{Time of Flight}) Kamer
 auch sogenannte Tiefenbilder aufnehmen kann.
 In einem Tiefenbild bekommt jeder Pixel einen Wert, der die Entfernung zur Kameralinse in mm angibt.
 Der von uns verwendete \enquote{Cube Eye MDC500C}\footnote{http://www.cube-eye.co.kr/en/\#/spec/product\_MDC500d.html}
-Sensor hat eine Reichweite von 0.8 bis 5.3 Metern und eine Auflösung von 320$\times$240 Tiefenpixeln. 
+Sensor hat eine Reichweite von 0,8 bis 5,3 Metern und eine Auflösung von 320$\times$240 Tiefenpixeln. 
 Time of Flight Kameras messen die Entfernung mit Infrarotlicht. Dieses geben sie mit mehreren (hier zwei) Dioden
 ab und messen die reflektierten Strahlen mit einer Sensormatrix (auch Pixelarray) im Inneren der Kameralinse. 
 Über die Zeit zwischen 
 Aussenden und Empfangen kann die Entfernung sehr genau bestimmt werden.
 Weil der Sensor seine eigene Lichtquelle besitzt, funktioniert er auch im Dunkeln und wird von Licht im 
-sichtbaren Spektrum nur wenig gestört. Der Cube Eye MDC500C hat viele Vorteile, aber auch einige Nachteile, wie z.B. 
-Probleme beim Erkennen von lichtdurchlässigen oder reflektierenden Objekten (z. B. Glasscheiben oder Spiegel). 
+sichtbaren Spektrum nur wenig gestört. Der Cube Eye MDC500C hat viele Vorteile, aber auch einige Nachteile, wie z.\,B. 
+Probleme beim Erkennen von lichtdurchlässigen oder reflektierenden Objekten (z.\,B. Glasscheiben oder Spiegel). 
 Auch ist die Mindestreichweite von ca. 80 cm manchmal sehr störend. Für einen Prototypen sind das aber keine großen
 Probleme, weil es uns darum geht, die Funktionsweise der Idee zu demonstrieren und kein marktreifes
 Gerät zu entwickeln. Wir haben diese Kamera ausgewählt, weil sie uns von einem 
 Familienmitglied\footnote{Jan Nicklisch, Vater von Yorick Zeschke, arbeitet in der Firma
 	\enquote{DILAX}, die ähnliche Sensoren für Personenzählsysteme verwendet} 
-empfohlen wurde. Außerdem besitzt der Sensor noch eine normale Kamera, die wir später benutzten wollen, um Farben mit 
+empfohlen wurde. Außerdem besitzt der Sensor noch eine normale Kamera, die wir später benutzen wollen, um Farben mit 
 3D-Daten zu kombinieren.
 \begin{figure}[H]
 	\centering
@@ -210,7 +194,7 @@ von Punkten mit x-, y- und z-Koordinate}), vor der Anwendung des Undistortion-Al
 	\includegraphics[width=0.6\textwidth]{no_undistortion2}
 	\caption{verzerrte Punktwolke mit Messfehlern}
 \end{figure}
-Wie in Abb. \ref{distorted_pointcloud_img} zu sehen ist, wirkt ein ebene Fläche wie ein Teil der Oberfläche einer Kugel. Mit Rot sind hier ungefähr die echten Flächen (ohne Verzerrung) markiert, damit man die 
+Wie in Abb. \ref{distorted_pointcloud_img} zu sehen ist, wirkt eine ebene Fläche wie ein Teil der Oberfläche einer Kugel. Mit Rot sind hier ungefähr die echten Flächen (ohne Verzerrung) markiert, damit man die 
 Abweichung vom Original sehen kann. Dieser Raum enthält eine Menge 
 Flächen und ist relativ einfach aufgebaut. Deshalb eignet er sich gut als Testumgebung.
 \begin{figure}[H]
@@ -235,10 +219,10 @@ reflektierend ist, um von Sensor erkannt zu werden. Im späteren werden sie entf
 \subsection{Einfacher Modus}
 
 Der einfache Modus stellt eine Art horizontalen Schnitt durch das Bild als Ton dar. Dieser enthält Informationen
-über die Position auf der x-Achse (links, rechts, etc.) und Entfernung einer Region, Welche der Nutzer verwenden kann,
+über die Position auf der x-Achse (links, rechts, etc.) und Entfernung einer Region, welche der Nutzer verwenden kann,
 um sich grob zu orientieren. Die x-Position wird mit 3D-Audio dargestellt. Mit den richtigen Kopfhörern und etwas Übung
 kann man sehr genau bestimmen, in welche Richtung und wie weit weg sich eine Tonquelle befindet. Die Entfernung wird
-durch die Tonhöhe angegeben, wobei etwas Nahes als hoher Ton und etwas weit entferntes als tiefer Ton gehört wird.
+durch die Tonhöhe angegeben, wobei etwas Nahes als hoher Ton und etwas weit Entferntes als tiefer Ton gehört wird.
 Nach einigem Experimentieren stellte es sich heraus, dass Töne zwischen 300 und 2300 Hz sich angenehm anhören und auch
 längere Zeit (bei angemessener Lautstärke) ertragen lassen. \par 
 Die Kombination aus Position und Frequenz ermöglicht es, im
@@ -378,6 +362,34 @@ Die Testergebnisse werden wir Ihnen dann präsentieren.
 
 Im folgenden wollen wir kurz diskutieren, was wir für das Projekt planen und inwiefern man das
 Gerät benutzen und weiterentwickeln kann und sollte. Außerdem fassen wir die durch die Entwicklung und Forschung am Projekt DOSUAS gewonnenen Erkenntnisse im Fazit zusammen.
+
+\subsection{Entwicklung}
+
+Hier sehen Sie eine Zusammenfassung der Entwicklung des Projekts. Hoffentlich können Sie nun verstehen, welche Ideen und Lösungsansätze 
+wir verfolgt haben und warum wir uns in bestimmten Situationen für einen Entwicklungsweg entschieden haben.\par
+\begin{forest}
+	qtree
+	[{Start}, name=start, s sep=0.5cm
+	[{automatisierte Echoortung\\ via Ultraschall}
+	[{aufwändige Entwicklung,\\ schlechtere Qualität als\\ menschliche Echoortung,\\ langer Lernprozess}, name=us_end, edge={red}]]
+	[{Modellierung großer\\ Objekte als Tonquellen}
+	[{zu wenig Informationen,\\ schlechte Orientierung}, name=objects_end, edge={red}]]
+	[, no edge]
+	[, no edge]
+	[, no edge]
+	[{2D Radar-Swipe\\ (jetziger Anfänger-\\Modus)}
+	[{Verbesserter Anfänger-Modus\\ (beim Regionalwettbewerb vorgestellt)}]
+	[{Fortgeschrittenen-\\Modus}
+	[{siehe Ausblick}]]]]
+	\useasboundingbox ([xshift=1cm, yshift=2.5cm]current bounding box.north west) rectangle (current bounding box.south east);
+	\draw [green!50!black, -Latex] (us_end.north west) to [out=160, in=60] node[midway, above, black] {Abbruch nach Regionalwettbewerb} (0.2cm, 3.5cm) to [out=240, in=100] (start.north);
+	\draw [green!50!black, -Latex] (objects_end.south west) to [bend left=20] node[midway, below, xshift=1.5cm, black] {Abbruch nach Regionalwettbewerb} (start.south east);
+\end{forest}
+%\begin{figure}[H]
+%	\centering
+%	\includegraphics[width=0.85\textwidth]{dev_chart}
+%	\label{dev_chart}
+%\end{figure} 
 
 \subsection{Ausblick}
 

@@ -1,0 +1,24 @@
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta}
+\usepackage{forest}
+\forestset{qtree/.style={for tree={align=center, grow'=right, edge={green!50!black, -Latex}}}}
+
+
+\begin{forest}
+	qtree
+	[{Start}, name=start, s sep=0.5cm
+	[{automatisierte Echoortung\\ via Ultraschall}
+	[{aufw‰ndige Entwicklung,\\ schlechtere Qualit‰t als\\ menschliche Echoortung,\\ langer Lernprozess}, name=us_end, edge={red}]]
+	[{Modellierung groﬂer\\ Objekte als Tonquellen}
+	[{zu wenig Informationen,\\ schlechte Orientierung}, name=objects_end, edge={red}]]
+	[, no edge]
+	[, no edge]
+	[, no edge]
+	[{2D Radar-Swipe\\ (jetziger Anf‰nger-\\Modus)}
+	[{Verbesserter Anf‰nger-Modus\\ (beim Regionalwettbewerb vorgestellt)}]
+	[{Fortgeschrittenen-\\Modus}
+	[{siehe Ausblick}]]]]
+	\useasboundingbox ([xshift=1cm, yshift=2.5cm]current bounding box.north west) rectangle (current bounding box.south east);
+	\draw [green!50!black, -Latex] (us_end.north west) to [out=160, in=60] node[midway, above, black] {Abbruch nach Regionalwettbewerb} (0.2cm, 3.5cm) to [out=240, in=100] (start.north);
+	\draw [green!50!black, -Latex] (objects_end.south west) to [bend left=20] node[midway, below, xshift=1.5cm, black] {Abbruch nach Regionalwettbewerb} (start.south east);
+\end{forest}
