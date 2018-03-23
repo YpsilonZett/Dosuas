@@ -12,6 +12,23 @@ void gracefulShutdown(int sigNum) {
 	std::exit(0);  // TODO: improve bad-style exit
 }
 
+/*#include "stdafx.h"
+#include <audioPlayer.h>
+int main() {  // x - z test
+	AudioPlayer ap;
+	sf::Sound snd;
+	sf::SoundBuffer buf;
+	std::vector<sf::Int16> samples = ap.getSineWaveSamples(440, 10.0, 44100);
+	ap.configureSoundSource(buf, snd, samples, 44100);
+	snd.setAttenuation(0);
+	snd.play();
+	for (int i = -5; i < 5; i++) {
+		snd.setPosition(4.0f, 1, i);
+		sf::sleep(sf::seconds(1));
+	}
+	return 0;
+}*/
+
 
 int main(int argc, char** argv) {
 	ImageProcessor ip;
