@@ -62,13 +62,13 @@ fahren oder in den Bergen klettern. \par
 Doch nicht jedem Blinden fällt es leicht und nicht jeder hat die Möglichkeit eine
 solche Technik zu erlernen. Außerdem hat auch die menschliche Echoortung ihre
 Grenzen und ist ab einem bestimmten Punkt nicht mehr erweiterbar, denn die Schallreflexionen
-enthalten nur eine bestimmte Menge an Informationen, deren Potenzial irgendwann ausgeschöpft
+enthalten nur eine begrenzte Menge an Informationen, deren Potenzial irgendwann ausgeschöpft
 ist. Hier kommt die 
 Technologie ins Spiel. Von Tag zu Tag ergeben sich neue Möglichkeiten mithilfe 
 der verschiedensten technischen Hilfsmittel Menschen das Leben zu erleichtern.
 Geräte, wie 3D-Sensoren oder Kameras, können heutzutage schon oft sehr realistische
 und detaillierte Bilder aufnehmen, die dem menschlichen Sehen nahe kommen. \par 
-Relativ neu ist zum Beispiel die Technologie der \textit{Retina Implantate}, die sich 
+Relativ neu ist zum Beispiel die Technologie der \textit{Retina-Implantate}, die sich 
 momentan aber noch im Anfangsstadium der Entwicklung befindet. Mit ihnen soll es in 
 Zukunft möglich sein, dass Blinde wie nicht sehbehinderte Menschen sehen. Jedoch
 können die Kosten von 75.000 \euro{} aufwärts selten von den Blinden selbst getragen
@@ -91,7 +91,7 @@ nicht für eine solche Reizüberlastung ausgelegt ist. Unsere Zunge ist zwar emp
 Unser Gerät funktioniert gegensätzlich: Es ermöglicht 
 Orientierung im Raum und eignet sich weniger gut für kleine Objekte. Aber mit dem Tastsinn können Menschen
 sowieso Gegenstände viel genauer erfühlen, als man sie mit einem Sensor wie unserem sehen könnte.\par
-Weil unser Gehirn sehr anpassungsfähig ist und beeindruckende
+Da unser Gehirn sehr anpassungsfähig ist und beeindruckende
 Leistungen im Finden von Regelmäßigkeiten oder Mustern erbringt, ist der Ansatz,
 andere Sinne zu verwenden, eine vielversprechende Strategie. Darauf setzt auch 
 unser Projekt, DOSUAS, welches den Hörsinn verwenden möchte, um Blinden eine Hilfe
@@ -101,51 +101,48 @@ für Orientierung und Erkennung der Umwelt zu geben.
 
 \section{Funktionsweise}
 
-Das Gerät besitzt momentan zwei Modi: den einfachen und den Fortgeschrittenen-Modus. Der einfache Modus 
-eignet sich gut für Blinde, die wenig Erfahrung mit dem Gerät haben oder Testpersonen bzw. Juroren, die das
-Gerät ausprobieren möchten. Er erlaubt grundlegende Orientierung und das Erkennen von großen Objekten. Der
-Fortgeschrittenen-Modus eignet sich für Leute mit mehr Erfahrung. Er ermöglicht dem Nutzer, die Umrisse von 
-Gegenständen oder Strukturen fast jeder Art relativ genau zu erkennen. Folgendes ist immer zu beachten: 
-je mehr Details das Gerät darstellt und als Töne kodiert, desto aufwändiger ist der Lernprozess. 
-Deshalb unterscheiden wir auch zwischen beiden Modi. In Zukunft sind noch weitere geplant, aber mehr dazu im 
+Das Gerät besitzt momentan zwei Modi: den einfachen und den fortgeschrittenen Modus. Der einfache Modus
+erlaubt eine grundlegende Orientierung und das Erkennen von großen Objekten, wobei Ergebnisse bereits
+innerhalb der ersten Stunde des Trainings erkennbar waren (siehe Abschnitt \ref{testsAndResults}). Der
+fortgeschrittene Modus ist für erfahrenere Personen geeignet und ermöglicht dem Nutzer, die Umrisse von
+Gegenständen oder Strukturen fast jeder Art relativ genau zu erkennen. Allgemein gilt hierbei:
+je mehr Details das Gerät darstellt und als Töne kodiert, desto länger dauert der Lernprozess. 
+Daher unterscheiden wir auch zwischen beiden Modi. In Zukunft sind noch weitere geplant, aber mehr dazu im 
 Ausblick.
 
 \subsection{Verwendete Technologien}
 
-Der wichtigste Teil dieses Projekts ist eine ToF (\textit{Time of Flight}) Kamera, die neben normalen Fotos 
-auch sogenannte Tiefenbilder aufnehmen kann.
-In einem Tiefenbild bekommt jeder Pixel einen Wert, der die Entfernung zur Kameralinse in mm angibt.
-Der von uns verwendete \enquote{Cube Eye MDC500C}\footnote{http://www.cube-eye.co.kr/en/\#/spec/product\_MDC500d.html}
-Sensor hat eine Reichweite von 0,8 bis 5,3 Metern und eine Auflösung von 320$\times$240 Tiefenpixeln. 
-Time of Flight Kameras messen die Entfernung mit Infrarotlicht. Dieses geben sie mit mehreren (hier zwei) Dioden
+Der wichtigste Teil dieses Projekts ist eine ToF-Kamera (\textit{Time of Flight}-Kamera), die neben herkömmlichen Farbfotos 
+auch Tiefenbilder aufnehmen kann.
+In diesen bekommt jeder Pixel einen Wert, der die Entfernung zur Kameralinse in mm angibt.
+Der von uns verwendete \enquote{Cube Eye MDC500C}\footnote{http://www.cube-eye.co.kr/en/\#/spec/product_MDC500d.html}
+Sensor hat eine Reichweite von $0,8 m$ bis $5,3 m$ und eine Auflösung von $320 \times 240$ Tiefenpixeln. 
+ToF-Kameras messen die Entfernung mithilfe von Infrarotlicht (In unserem Fall beträgt die Wellenlänge $850nm$). Dieses geben sie mit mehreren (hier zwei) Dioden
 ab und messen die reflektierten Strahlen mit einer Sensormatrix (auch Pixelarray) im Inneren der Kameralinse. 
-Über die Zeit zwischen 
-Aussenden und Empfangen kann die Entfernung sehr genau bestimmt werden.
+Über die Zeit zwischen Aussenden und Empfangen kann die Entfernung präzise bestimmt werden.
 Weil der Sensor seine eigene Lichtquelle besitzt, funktioniert er auch im Dunkeln und wird von Licht im 
 sichtbaren Spektrum nur wenig gestört. Der Cube Eye MDC500C hat viele Vorteile, aber auch einige Nachteile, wie z.\,B. 
 Probleme beim Erkennen von lichtdurchlässigen oder reflektierenden Objekten (z.\,B. Glasscheiben oder Spiegel). 
-Auch ist die Mindestreichweite von ca. 80 cm manchmal sehr störend. Für einen Prototypen sind das aber keine großen
-Probleme, weil es uns darum geht, die Funktionsweise der Idee zu demonstrieren und kein marktreifes
+Auch ist die Mindestreichweite von ca. $80 cm$ in einigen Situationen unpraktisch. Für einen Prototypen sind das aber keine großen Probleme, da es uns momentan darum geht, die Funktionsweise der Idee zu demonstrieren und kein marktreifes
 Gerät zu entwickeln. Wir haben diese Kamera ausgewählt, weil sie uns von einem 
 Familienmitglied\footnote{Jan Nicklisch, Vater von Yorick Zeschke, arbeitet in der Firma
-	\enquote{DILAX}, die ähnliche Sensoren für Personenzählsysteme verwendet} 
-empfohlen wurde. Außerdem besitzt der Sensor noch eine normale Kamera, die wir später benutzen wollen, um Farben mit 
+\enquote{DILAX}, welche ähnliche Sensoren für Personenzählsysteme verwendet} 
+empfohlen wurde. Zudem besitzt der Sensor noch eine normale Kamera, die später genutzt werden soll, um Farben mit den 
 3D-Daten zu kombinieren.
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=0.6\textwidth]{cube_eye}
-	\caption{beschriftetes Bild des Sensors, aus der User Manual des Herstellers}
+	\caption{beschriftetes Bild des Sensors aus dem Handbuch des Herstellers}
 	\label{cube_eye_sensor}
 \end{figure} \par
-Einen weiteren wichtigen Teil des Projekts stellen 3D-Audio Kopfhörer dar. Diese können den Eindruck
-erzeugen, dass sich eine Tonquelle im dreidimensionalen
-Raum befindet bzw. sich bewegt. Dieses Verfahren benutzen wir, um dem Träger des Geräts einen Eindruck
+Einen weiteren wichtigen Teil des Projekts stellen Stereokopfhörer dar. Mit diesen kann der Eindruck
+erzeugt werden, dass sich eine Tonquelle im dreidimensionalen
+Raum befindet bzw. sich bewegt. Dieses Verfahren nutzen wir, um dem Träger des Geräts einen Eindruck
 davon zu geben, in welcher Richtung sich ein Objekt befindet.\par 
 Die dritte Komponente ist ein Laptop, der später durch einen kleineren Computer, wie z.B. ein \enquote{Raspberry Pi}
-ersetzt werden soll. Dieser ist mit Kopfhörern und dem ToF-Sensor 
-verbunden und führt unser Programm aus.\par 
-Zusammen ergeben die drei Bestandteile (und ein externer Bleiakku für die Tof-Kamera) einen mobilen Prototypen, den wir zum Ausstellungstag vorführen werden. Die Technik befindet sich dabei in einem Rucksack und der Sensor wird mit einem
-umgebauten Stirnband am Kopf befestigt. 
+ersetzt werden soll. Dieser ist mit Kopfhörern und dem ToF-Sensor verbunden und führt unser Programm aus.\par 
+Zusammen ergeben die drei Bestandteile (sowie ein externer Bleiakku für die ToF-Kamera) einen mobilen Prototypen, den wir am Ausstellungstag vorführen werden. Die Technik befindet sich dabei in einem Rucksack und der Sensor wird mit einem
+umgebauten Stirnband am Kopf befestigt.
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=0.4\textwidth]{device}
@@ -155,9 +152,8 @@ umgebauten Stirnband am Kopf befestigt.
 
 \subsection{Softwarestruktur}
 
-Das Programm ist in C++ geschrieben, da dies die API des ToF Sensors erfordert und C++ eine objektorientierte und betriebssystemunabhängige Sprache mit vielen Möglichkeiten ist. Momentan wird das Programm
-auf Windows 10 32-Bit mit Visual Studio 2017 entwickelt.
-Wir verwenden folgende Libraries:
+Das Programm ist in C++ geschrieben, da die API des ToF-Sensors dies erfordert und C++ eine objektorientierte und plattformunabhängige Sprache mit vielen Möglichkeiten ist. Momentan wird das Programm
+auf Windows 10 (32 Bit) mit Visual Studio 2017 entwickelt. Wir verwenden folgende Libraries:
 \begin{enumerate}
 	\item \textit{MTF API} - Schnittstelle für die Steuerung des Cube Eye Sensors
 	\item \textit{SFML} - einfache Multimedia-Bibliothek zum Abspielen von 3D-Sounds und Generieren von Tönen
@@ -165,50 +161,44 @@ Wir verwenden folgende Libraries:
 Die Software selbst besteht im Moment aus 3 Modulen, die sich aber bis zur Ausstellung noch verändern 
 können.
 \begin{enumerate}
-	\item \textit{sensorReader.cpp} - ein Modul, das die Schnittstelle zum ToF Sensor benutzt, um Daten zu 
-	lesen und in eine Struktur für die weitere Verarbeitung zu bringen
-	\item \textit{imageProcessor.cpp} - ein Modul zum Filtern und Umwandeln der 3D-Bilder in Anweisungen zum 
-	Tonabspielen (Frequenzen und deren Spieldauer, Position der Tonquellen, Lautstärke etc.)
-	\item \textit{audioPlayer.cpp} - ein Modul, welches zu den Anweisungen passende Töne generiert und abspielt
+	\item \textit{sensorReader.cpp} - liest die Sensordaten aus und wandelt sie zur weiteren Verarbeitung in eine andere Struktur um
+	\item \textit{imageProcessor.cpp} - beinhaltet Funktionen zum Filtern und Umwandeln der 3D-Bilder in Anweisungen zur akustischen Wiedergabe (Frequenzen und deren Spieldauer, Positionen der Tonquellen, Lautstärke etc.)
+	\item \textit{audioPlayer.cpp} - generiert zu den Anweisungen passende Töne und spielt diese ab
 \end{enumerate}
-Den Sourcecode finden Sie auf https://github.com/YpsilonZett/Dosuas.
-Im folgenden beschreiben wir den Ablauf des Programms und die Unterschiede der einzelnen Modi.
+Den Quellcode finden Sie auf https://github.com/YpsilonZett/Dosuas.
+Im folgenden sind nun der Ablauf des Programms sowie die Unterschiede der einzelnen Modi näher beschrieben.
 
 \subsection{Vorverarbeitung}
 
-Zuerst macht die Kamera ein Bild und stellt es als 2D Matrix von 320$\times$240 (=76800) natürlichen Zahlen dar.
-In diesem Tiefenbild gibt jeder Pixel den Abstand zur nächsten lichtreflektierenden Region in mm an. 
+Zuerst nimmt die Kamera ein Bild auf und stellt es als 2D-Matrix von $320 \times 240$ ($=76800$) natürlichen Zahlen dar.
+In diesem Tiefenbild gibt jeder Pixel den Abstand zur nächsten lichtreflektierenden Region in $mm$ an. 
 Dadurch erscheint eine gerade Fläche direkt vor dem Sensor jedoch auf dem Bild als nach außen gekrümmt, 
-weil das vom Sensor gesendete Infrarotlicht zu den Seiten der Fläche (und zurück) ein bisschen länger
-braucht als zur Mitte. Wegen der kugelförmigen Ausbreitung der Lichtstrahlen von der Kameralinse hat das
-Bild außerdem ein Polarkoordinatensystem\footnote{jede Koordinate gibt eigentlich einen Winkel zwischen
-	0$^{\circ}$ und 75$^{\circ}$ (horizontal) oder 0$^{\circ}$ und 60$^{\circ}$ (vertikal) an,
-		weil der Sensor ein Sichtfeld von 75$^{\circ}\times$60$^{\circ}$ hat}, mit dem wir nicht
-gut weiterarbeiten können. Um das Problem der Verzerrung zu beheben und das Bild in ein kartesisches
-Koordinatensystem umzurechnen, verwenden wir einen Undistortion\footnote{in unserem Fall einen
-	vom Hersteller mitgelieferten, den man direkt in der Sensorkonfiguration einstellen kann} Algorithmus.
-Hier sieht man ein verzerrtes Bild (Darstellung als Punktwolke\footnote{Punktwolken sind ggf. geordnete Mengen
-von Punkten mit x-, y- und z-Koordinate}), vor der Anwendung des Undistortion-Algorithmus.
+da das vom Sensor gesendete Infrarotlicht zu den Seiten der Fläche (und zurück) etwas länger
+benötigt als zu deren Mitte. Aufgrund der kugelförmigen Ausbreitung der Lichtstrahlen von der Kameralinse ist das
+Bild somit in einem Polarkoordinatensystem\footnote{jede Koordinate gibt eigentlich einen Winkel zwischen
+	$0^{\circ}$ und $75^{\circ}$ (horizontal) bzw. $0^{\circ}$ und $60^{\circ}$ (vertikal) an,
+weil der Sensor ein Sichtfeld von $75^{\circ} \times 60^{\circ}$ besitzt} dargestellt, welches nicht für unsere Weiterverarbeitung geeignet ist. Um das Problem der Verzerrung zu beheben und das Bild in ein kartesisches
+Koordinatensystem umzurechnen, verwenden wir einen Undistortion\footnote{Dieser wurde vom Hersteller mitgeliefert und ist direkt in der Sensorkonfiguration einstellbar}-Algorithmus.
+Die Abbildung zeigt ein verzerrtes Bild (Darstellung als Punktwolke\footnote{ggf. geordnete Menge von Punkten im karthesischen Koordinatensystem}), vor der Anwendung des Undistortion-Algorithmus.
 \begin{figure}[H] \label{distorted_pointcloud_img}
 	\centering
 	\includegraphics[width=0.6\textwidth]{no_undistortion2}
 	\caption{verzerrte Punktwolke mit Messfehlern}
 \end{figure}
-Wie in Abb. \ref{distorted_pointcloud_img} zu sehen ist, wirkt eine ebene Fläche wie ein Teil der Oberfläche einer Kugel. Mit Rot sind hier ungefähr die echten Flächen (ohne Verzerrung) markiert, damit man die 
-Abweichung vom Original sehen kann. Dieser Raum enthält eine Menge 
-Flächen und ist relativ einfach aufgebaut. Deshalb eignet er sich gut als Testumgebung.
+Wie in Abb. \ref{distorted_pointcloud_img} zu sehen ist, wirkt eine ebene Fläche wie ein Teil einer Kugeloberfläche. Mit Rot sind hier die ungefähren Flächen ohne Verzerrung markiert, damit die Abweichung vom Original erkennbar ist.
+Dieser Raum enthält viele Flächen und ist relativ einfach aufgebaut, weshalb er sich als einfache Testumgebung eignet.
 \begin{figure}[H]
 	\centering
 	\includegraphics[angle=180,width=0.6\textwidth]{20180125_171703}
 	\caption{Kamerabild des Raumes aus Abb. \ref{room_at_school}}
 	\label{room_at_school}
 \end{figure} \par
-In der nächsten Abbildung (Abb. \ref{before_filtering}) sieht
-man die Aufnahme des selben Zimmers, in der die Wände gerade erscheinen. Durch die Visualisierung hat man
-den Eindruck, dass die Flächen Streifen (sogenannte Moir\'{e} Muster) enthalten. Das liegt jedoch an der
+Die nächste Abbildung (Abb. \ref{before_filtering}) zeigt
+die Aufnahme des selben Zimmers, in der die Wände gerade erscheinen. Durch die Visualisierung entsteht
+der Eindruck, dass die Flächen Streifen (sogenannte Moir\'{e} Muster) enthalten. Das liegt jedoch an der
 Visualisierung und hat nichts mit dem eigentlichen Bild zu tun. Die dünnen Linien rechts im Bild sind Punkte
 mit der z-Koordinate 0, was Messfehler anzeigt. Diese entstehen, wenn etwas zu nah, zu weit oder zu stark
-reflektierend ist, um von Sensor erkannt zu werden. Im späteren werden sie entfernt.
+reflektierend ist, um von Sensor erkannt zu werden. Diese werden im weiteren Verlauf entfernt.
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=0.6\textwidth]{before_filtering}
@@ -219,74 +209,72 @@ reflektierend ist, um von Sensor erkannt zu werden. Im späteren werden sie entf
 \subsection{Einfacher Modus}
 
 Der einfache Modus stellt eine Art horizontalen Schnitt durch das Bild als Ton dar. Dieser enthält Informationen
-über die Position auf der x-Achse (links, rechts, etc.) und Entfernung einer Region, welche der Nutzer verwenden kann,
-um sich grob zu orientieren. Die x-Position wird mit 3D-Audio dargestellt. Mit den richtigen Kopfhörern und etwas Übung
-kann man sehr genau bestimmen, in welche Richtung und wie weit weg sich eine Tonquelle befindet. Die Entfernung wird
-durch die Tonhöhe angegeben, wobei etwas Nahes als hoher Ton und etwas weit Entferntes als tiefer Ton gehört wird.
-Nach einigem Experimentieren stellte es sich heraus, dass Töne zwischen 300 und 2300 Hz sich angenehm anhören und auch
-längere Zeit (bei angemessener Lautstärke) ertragen lassen. \par 
+über die Position auf der x-Achse (links, rechts und Werte dazwischen) sowie Entfernung einer Region, welche der Nutzer verwenden kann,
+um sich grob zu orientieren. Die x-Position wird mithilfe von Stereosound dargestellt. Mit einfachen Kopfhörern und etwas Übung
+kann man sehr genau bestimmen, in welche Richtung und wie weit entfernt sich eine Tonquelle befindet. Die Entfernung wird
+durch die Tonhöhe angegeben, wobei etwas nahes als hoher Ton und etwas weiter entferntes als tiefer Ton gehört wird.
+Nach einigem Experimentieren stellte sich heraus, dass Töne zwischen $300 Hz$ und $2300 Hz$ als angenehm empfunden werden und sich
+auch längere Zeit (bei angemessener Lautstärke) ertragen lassen. \par 
 Die Kombination aus Position und Frequenz ermöglicht es, im
 einfachen Modus einen \enquote{Querschnitt} durch das Bild darzustellen. Es ist jedoch nicht besonders hilfreich, 
-den Querschnitt an einer festgelegten Höhe durchzuführen. Wenn man z.B. im Raum aus Abb. \ref{room_at_school} den Schnitt im oberen Viertel des Bildes durchführen würde, würde er keine Informationen über den Tisch, der näher ist, als
-die Wand, enthalten. Daher teilen wir das Bild in Spalten, nehmen aus jeder Spalte den \enquote{nächsten} Voxel 
-(mit der kleinsten z-Koordinate), generieren einen Ton für ihn und setzten diese Töne zu einem Ton zusammen. \par
-Bei so einem Ton hat man den Eindruck, dass die Tonquelle gleichmäßig von links nach rechts wandert und dabei ständig
-die Tonhöhe ändert. Wir nennen so einen Ton \enquote{Radar Swipe}, weil er einem Radarscan ähnelt.
-Um Wände, Türen, Menschen und große Gegenstände (z.B. Schränke oder Tische) zu erkennen reichen diese Informationen völlig aus. So kann man also in den meisten Räumen umher laufen und sich relativ frei bewegen.\par
+den Querschnitt an einer festgelegten Höhe durchzuführen. Wenn man z.\,B. im Raum aus Abb. \ref{room_at_school} den Schnitt im oberen Viertel des Bildes durchführen würde, würde er keine Informationen über den Tisch, der dichter als
+die Wand liegt, enthalten. Daher teilen wir das Bild in Spalten, nehmen aus jeder Spalte den \enquote{nächsten} Voxel 
+(mit der kleinsten z-Koordinate), generieren einen Ton für ihn und setzten diese Töne zu einem Tonverlauf zusammen. \par
+Bei so einem Tonverlauf entsteht der Eindruck, dass die Tonquelle gleichmäßig von links nach rechts wandert und dabei ständig
+die Tonhöhe ändert. Wir nennen so einen Tonverlauf \enquote{Radar Swipe}, da er einem Radarscan ähnelt.
+Um Wände, Türen, Menschen und große Gegenstände (z.\,B. Schränke oder Tische) zu erkennen reichen diese Informationen völlig aus. So kann man also in den meisten Räumen umherlaufen und sich relativ frei bewegen.\par
 Zum Beispiel könnte ein Ton, der in der linken Bildhälfte hoch anfängt, dann langsam tiefer wird und 
 in der rechten Bildhälfte gleich bleibt, eine schräge Wand darstellen, die in einiger Entfernung in eine
-zum Nutzer parallele Wand übergeht. So ein einfaches Beispiel kommt zwar selten vor, und meistens gibt es
+zum Nutzer parallele Wand übergeht. Ein solch einfaches Beispiel kommt in der Realität zwar selten vor, und meistens gibt es
 noch eine Menge Störgeräusche, aber näheres dazu im Abschnitt \ref{testsAndResults}.\par 
-Momentan beträgt die Dauer zum Abspielen eines Bildes fünf Sekunden, gefolgt von einer halben Sekunde 
-Pause. Bis zum Wettbewerb wollen wir die Dauer noch verkürzen, jedoch erfordert das ein gewisses 
+Momentan beträgt die Dauer zum Abspielen eines Bildes fünf Sekunden, gefolgt von einer halbsekündigen Pause.
+Diese Dauer kann noch verkürzt werden, jedoch erfordert dies ein gewisses 
 Training, weil der Mensch üben muss, mehr Informationen in kürzerer Zeit zu verarbeiten. Zusammen mit 
 einer Verkürzung der Pausen zwischen Aufnahmen hoffen wir die Zeit für einen Programmzyklus auf ungefähr
-zweieinhalb bis vier Sekunden zu reduzieren. 
+zweieinhalb bis vier Sekunden zu reduzieren.
 
-\subsection{Fortgeschrittenen-Modus}
+\subsection{Fortgeschrittener Modus}
 
 In diesem Modus wird das gesamte Bild, also ein dreidimensionales Modell der Umgebung, als Töne dargestellt. 
 Der Nutzer soll ein genaues Gefühl dafür bekommen, welche Umrisse einzelne Gegenstände haben und so die Form, Entfernung und Ausrichtung aller mittelgroßen und großen Objekte in einem Raum bestimmen können. \par 
 Wir Menschen können an einem Ton im Wesentlichen drei
 Eigenschaften ausmachen: Lautstärke, Position und Höhe. Wir reden hier von reinen Sinuswellen, da diese momentan für 
-das Projekt ausreichen. Später kann man noch kompliziertere Töne einbauen, aber das würde das Lernen erschweren
-und ist momentan nicht nötig. Die drei genannten Eigenschaften sollte man, wenn man mit dem Gehör viele Informationen
-verarbeiten will, alle nutzen. Es ist wichtig anzumerken, dass Tonhöhe und Lautstärke viel genauer wahrgenommen werden
-können, als die Position, und wir sie daher mehr verwenden. \par 
-Die 3D-Audio Position übernimmt hier wieder die Funktion der x-Achse im Bild. Wie beim vorherigen Radar Swipe bewegt
+das Projekt ausreichen. Später kann man noch komplexere Töne einbauen, aber das würde das Lernen erschweren
+und ist momentan nicht nötig. Die drei genannten Eigenschaften sollten, wenn mit dem Gehör viele Informationen
+verarbeitet werden sollen, alle genutzt werden. Es ist wichtig anzumerken, dass Tonhöhe und Lautstärke viel genauer
+wahrgenommen werden können als die Position, und wir diese daher überwiegend verwenden. \par 
+Die Stereosound-Position übernimmt hier wieder die Funktion der x-Achse im Bild. Wie beim vorherigen Radar Swipe bewegt
 sich eine Tonquelle gleichmäßig vom linken bis zum rechten Rand des Sichtfeldes. Wieder wird das Bild in Spalten 
-unterteilt, diesmal jedoch in sehr viel niedriger aufgelöste. Eine Spalte besteht nur aus 24 Voxeln.
+unterteilt, diesmal jedoch in sehr viel geringer aufgelöste. Eine Spalte besteht nur aus 24 Voxeln.
 Jedem dieser Voxel wird nun eine Frequenz zugeordnet, die der Höhe im Bild (y-Koordinate) entspricht.
 Voxel am unteren Bildrand bekommen eine Frequenz von 220 Hz und Voxel am oberen Rand eine von 880 Hz. Die 24 
-Pixel-Frequenzen bilden genau zwei Oktaven, wobei die Frequenzen so ausgesucht sind, dass sie harmonisch zueinander
-passen. Jedem der Pixel wird nun eine Lautstärke zugeordnet, die die Tiefe (z-Koordinate) wiedergibt. Eine geringe
-z-Koordinate entspricht einem lauten Ton. Dies ist intuitiv logischer, da nähere Objekte meist lautere Töne abgeben.
-\par 
+Pixel-Frequenzen bilden genau zwei Oktaven, wobei die Frequenzen danach ausgesucht wurden, einen harmonischen Klang zu erzeugen.
+Jedem der Pixel wird nun eine Lautstärke zugeordnet, die die Entfernung (z-Koordinate) wiedergibt. Eine geringere
+z-Koordinate entspricht einem lauteren Ton. Dies erscheint intuitiv, da nähere Objekte meist lautere Töne abgeben.\par 
 Beim Abspielen des Tones erklingen alle Pixel einer Spalte gleichzeitig und bilden so einen Akkord aus 24 Tönen 
 mit unterschiedlichen Lautstärken. Alle diese Akkorde (es gibt 32 Spalten) werden hintereinander abgespielt, während
-sich die Tonquelle entsprechend der x-Koordinate einer Spalte bewegt. Zusammen bilden sie eine komplizierte Melodie.
-Zusammengefasst: x-Koordinate $\hat{=}$ 3D-Audio Position, y-Koordinate $\hat{=}$ Frequenz und z-Koordinate $\hat{=}$ Lautstärke.
+sich die Tonquelle entsprechend der x-Koordinate einer Spalte bewegt. Zusammen bilden sie eine komplexe Melodie.
+Zusammengefasst: x-Koordinate $\hat{=}$ Stereosound-Position, y-Koordinate $\hat{=}$ Frequenz und z-Koordinate $\hat{=}$ Lautstärke.
 
-\subsubsection{Warum ist das sinnvoll?}
+\subsubsection{Warum ist dies sinnvoll?}
 
-Wir denken, dass dieses Verfahren eine sehr gute Modellierung von 3D-Daten durch Töne ist. Wir wollen hier einige 
+Wir denken, dass dieses Verfahren eine geeignete Modellierung von 3D-Daten durch Töne ist. Wir wollen hier einige 
 Fragen beantworten, die man sich unserer Wahl betreffend stellen könnte und unsere Entscheidungen begründen.
 \begin{enumerate}
-	\item \textbf{Warum benutzen wir die y- und z-Koordinate der 3D-Audio Tonquellen nicht?} - \textit{Man könnte die
+	\item \textbf{Warum benutzen wir keine Kopfhörer mit 3D-Audio?} - \textit{Man könnte die
 	räumliche Position der 3D-Audio Tonquelle benutzen, um genauere Informationen über die Position eines
-	Objektes anzuzeigen. Bei unseren Versuchen ist uns aber aufgefallen, dass es sehr schwer ist, die y-Koordinate einer 3D-Audio Quelle auch nur annähernd genau zu bestimmen. Um eine auf der z-Achse verschobene Tonquelle 
-	darzustellen benötigt man die Lautstärke, die wir aber bereits für etwas anderes verwenden. Deshalb
-	bleiben wir beim einfachen Stereo\footnote{es stellte sich übrigens dabei heraus, dass wir auf aufwändige
-	3D-Audio Kopfhörer hätten verzichten können, weil normale Stereo-Kopfhörer gereicht hätten, aber das konnten wir vorher nicht wissen}.}
+	Objektes anzuzeigen. Bei unseren Versuchen ist uns aber aufgefallen, dass es sehr schwer ist, die y-Koordinate einer
+	3D-Audioquelle auch nur annähernd genau zu bestimmen. Um eine auf der z-Achse verschobene Tonquelle 
+	darzustellen benötigt man die Lautstärke, die wir aber bereits verwenden. Deshalb	bleiben wir beim einfachen Stereo.}
 	\item \textbf{Warum werden Frequenzen für die Höhe im Bild und nicht für die Entfernung verwendet?} - \textit{Würden wir Frequenzen für die Entfernung verwenden, müssten wir die Lautstärke verwenden, um Höhe auf dem Bild darzustellen. Dann wären aber nur die oberen Reihen des Bildes 
 	hörbar, da das Gehör sich bei vielen Tönen auf die lautesten konzentriert. Diese Eigenschaft nutzen wir bei 
 	unserer Version viel besser aus, 
-	um das Gehirn dazu zu bringen, nähere Regionen besser zu erkennen, da diese wichtiger sind.}
+	um das Gehirn dazu zu bringen, nähere Regionen genauer zu erkennen, da diese wichtiger sind.}
 	\item \textbf{Wie kann das Gehör mit den vielen verschiedenen Frequenzen umgehen?} - \textit{Wie bereits gesagt, filtert das 
-	Gehör bei vielen Tönen die heraus, die uns am wichtigsten erscheinen. Man bezeichnet dieses Phänomen als Cocktailparty-Effekt 
+	Gehör bei vielen Tönen diejenigen heraus, die uns am wichtigsten erscheinen. Man bezeichnet dieses Phänomen als Cocktailparty-Effekt 
 	oder selektives Hören. Wenn wir uns auf bestimmte Töne konzentrieren (z.B. die Stimme einer Person bei einer Unterhaltung vieler
 	Personen) nehmen wir diese bis zu dreimal lauter wahr, als sie eigentlich sind. Bei den von uns erzeugten Akkorden stechen meistens
-	zusammengesetzte oder einzelne Töne, die lauter sind als der Rest, heraus. Dadurch konzentrieren wir uns auf sie und nehmen sie noch deutlicher wahr. Mit etwas Übung kann man auch aus einem Akkord von vielen Tönen 
+	zusammengesetzte oder einzelne Töne, die lauter als der Rest sind, heraus. Dadurch konzentrieren wir uns auf diese und nehmen sie noch deutlicher wahr. Mit etwas Übung kann man auch aus einem Akkord von vielen Tönen 
 	die einzelnen heraushören und die Höhe so noch deutlicher wahrnehmen.}
 \end{enumerate}
 
@@ -298,72 +286,72 @@ Wir haben DOSUAS in verschiedenen Umgebungen getestet und werden Ihnen am Ausste
 
 \subsection{Einfacher Modus}
 
-Es stellte sich heraus, dass sich zum Üben der Handhabung des Gerätes mittelgroße Räume mit einfachen
-Formen besser eigenen. Die Räume dürfen aber nicht zu groß sein, da der Sensor eine maximale Reichweite
-von 5,3 Metern hat. Auch in zu kleinen Räumen eignet sich das Gerät nicht, denn der Sensor hat eine Mindestreichweite von 0,8 Metern. Am Anfang sind Räume ohne viele kleine Objekte und mit großen 
-Flächen wie Wänden einfacher, weil die Töne gleichmäßiger sind.
-Hier sieht man einen anderen Raum, an dessen Beispiel wir die Töne beschreiben wollen, die man
-mit unserem Gerät hört.
+Es stellte sich heraus, dass zum Üben der Handhabung des Gerätes mittelgroße Räume mit einfachen
+Formen am geeignetsten sind. Die Räume dürfen aber nicht zu groß sein, da der Sensor eine maximale Reichweite
+von $5,3 m$ besitzt. Auch in zu kleinen Räumen eignet sich das Gerät nicht, denn der Sensor hat eine Mindestreichweite von $0,8 m$.
+Am Anfang sind Räume ohne viele kleine Objekte und mit großen Flächen wie Wänden einfacher, da die erzeugten Töne gleichmäßiger sind.
+Hier sieht man einen anderen Raum, an dessen Beispiel die Töne beschreiben werden, die von unserem Gerät erzeugt werden.
 \begin{figure}[H]
 	\centering
-	\includegraphics[angle=180,width=0.5\textwidth]{20180120_114953}
+	\includegraphics[angle=180,width=0.7\textwidth]{20180120_114953}
 	\caption{Kamerabild eines anderen Raumes}
 	\label{normal_picture}
 \end{figure} \par
-Man hört beim Betrachten dieses Raumes einen Ton, der circa eine halbe Sekunde die Frequenz (von ca. 550 Hz) nicht verändert und sich anhört, als würde er von links kommen. Dieser Ton wird durch das Bett
-erzeugt. Als nächstes wird der Ton über etwa eine halbe Sekunde gleichmäßig tiefer (bis 340 Hz); 
-jetzt ist unsere virtuelle Tonquelle an der Wand des Raumes angekommen. Der Ton steigt nun über $1\frac{1}{2}$ Sekunden sehr langsam an (auf ca. 360 Hz), denn die Wand hat eine leichte Neigung. 
-Danach hört man eine Art Sprung, bei dem der Ton ruckartig von 360 Hz zurück auf 550 Hz wechselt. An solchen Auffälligkeiten kann man Kanten, Öffnungen oder spitze Gegenstände erkennen, was sehr wichtig für Blinde
-ist. Dieser Ton repräsentiert den Übergang von der Wand zum Schrank, der weiter vorne ist. Außerdem hört
+Man hört beim Betrachten dieses Raumes einen Ton, der etwa eine halbe Sekunde seine Frequenz (von ca. $550 Hz$) nicht verändert und sich anhört, als würde er von links kommen. Dieser Ton wird durch das Bett
+erzeugt. Als nächstes wird der Ton über etwa eine halbe Sekunde gleichmäßig tiefer (bis $340 Hz$); 
+jetzt ist unsere virtuelle Tonquelle an der Wand des Raumes angekommen. Der Ton steigt nun über $1\frac{1}{2}$ Sekunden sehr langsam an (auf ca. $360 Hz$), denn die Wand hat eine leichte Neigung. 
+Danach hört man eine Art Sprung, bei dem der Ton ruckartig von $360 Hz$ zurück auf $550 Hz$ wechselt. An solchen Auffälligkeiten kann man Kanten, Öffnungen oder spitze Gegenstände erkennen, was für Blinde sehr wichtig
+ist. Dieser Ton repräsentiert den Übergang von der Wand zum Schrank, der weiter vorne steht. Außerdem hört
 man die virtuelle Tonquelle in diesem Moment direkt in der Mitte des Hörfeldes, was dem Nutzer anzeigt, dass sich
 die Kante fast genau vor ihm befindet. Über ungefähr eine Sekunde bleibt die Tonhöhe wieder gleich, nur die Position
 verändert sich; man hört die Fläche des Schranks. Über die restlichen $1\frac{1}{2}$ Sekunden steigt der Ton mit 
 gleichbleibender Geschwindigkeit an und die Tonquelle wandert nach rechts.
 Hier hört man die Tür und am Ende eine kurze \enquote{Spitze}, die die Türklinke darstellt. Am Ende hat der Ton
-eine Frequenz von ca. 790 Hz.\par 
+eine Frequenz von ca. $790 Hz$.\par 
 Wir hoffen, dass Sie sich nun ein Bild davon machen können, wie sich die Welt mit DOSUAS anhört. Nach einem
 halbstündigen Training mit dem Gerät waren unsere Testpersonen\footnote{Yorick Zeschke, Jonas Wanke, Petra Zeschke und Peter Kreißig} in der Lage (natürlich mit verbundenen Augen) in Schulräumen und Gängen
 Wände und Türen zu erkennen, deren Ausrichtung und Entfernung sie beschreiben konnten, ohne sie gesehen zu haben.
 Außerdem konnten sie sagen, ob eine Tür offen, halboffen oder geschlossen ist. Nach einer weiteren halben Stunde
 war es ihnen möglich Menschen, Tische, Schränke und deren ungefähre Ausrichtung zu bestimmen. \par
-Wir haben bereits einige wiederkehrende Muster gefunden, die auf bestimmte Objekte in einem Raum hindeuten. 
+Wir haben bereits einige wiederkehrende Muster gefunden, die auf bestimmte Objekte in einem Raum hindeuten:
 \begin{figure}[h]
 	\begin{tabular}{| p{0.4\textwidth} | p{0.5\textwidth} |}
 		\hline
-		Objekt & Beschreibung des Tons \\ \hline
-		Wand oder große Fläche & verändert gleichmäßig und ununterbrochen seine Tonhöhe \\ \hline
+		\textbf{Objekt} & \textbf{Beschreibung des Tons} \\ \hline
+		Wand oder große Fläche & gleichmäßige und ununterbrochene Änderung der Tonhöhe \\ \hline
 		Kante, Ecke, sehr steile Fläche oder spitzer Gegenstand & \enquote{Sprung} von einer Tonhöhe zu einer 
 		anderen \\ \hline
-		Tür, Öffnung oder Loch & gleichmäßiger Ton (z.B. Wand), dann Sprung (Kante), wieder gleichmäßiger Ton
+		Tür, Öffnung oder Loch (über die gesamte Höhe) & gleichmäßiger Ton (z.B. Wand), dann Sprung (Kante), wieder gleichmäßiger Ton
 		(z.B. Gang hinter der Tür), noch ein Sprung und dann wieder ein gleichmäßiger Ton (Wand geht weiter) \\ \hline 
-		Mensch oder Säule & gleichmäßiger Ton (z.B. Wand), dann \enquote{kreisförmiger}\footnotemark Ton, dann wieder gleichmäßiger Ton \\ \hline
-		unregelmäßiges Objekt (z.B. Gardrobe mit Kleidung oder Computer auf einem Tisch) & zitternd\footnotemark erscheinender Ton \\ \hline 
+		Mensch oder Säule & gleichmäßiger Ton (z.B. Wand), dann \enquote{kreisförmiger}\footnotemark \,Ton, dann wieder ein gleichmäßiger Ton \\ \hline
+		unregelmäßiges Objekt (z.B. Garderobe mit Kleidung oder Computer auf einem Tisch) & zitternd\footnotemark erscheinender Ton \\ \hline 
 	\end{tabular}
 \end{figure} \par
-\footnotetext{Intuitiv würde man so einen Ton wahrscheinlich
-	als kreisförmig beschreiben. Die Frequenzänderung kann durch eine nach unten geöffnete gestauchte Parabel angenähert werden.}
+\footnotetext{Intuitiv würde man so einen Ton wohl
+	als kreisförmig beschreiben. Der Frequenzverlauf kann durch eine nach unten geöffnete, gestauchte Parabel angenähert werden.}
 \footnotetext{weil der Ton schnell zwischen verschiedenen Frequenzen wechselt} 
 Wir wollen das Gerät noch mit
-anderen Leuten testen und sehen, wie schnell jemand lernt, damit umzugehen. Wir vermuten, dass man nach einigen 
-Tagen Selbsttraining im Stande ist, ohne Hilfe durch noch nie gesehene Räume zu gehen, ohne dabei irgendwo an zu
-stoßen und den Weg nach draußen wieder zu finden. Längeres Üben oder technische Verbesserungen bieten ungeahnte
-Möglichkeiten. Doch das Gerät ist und bleibt momentan nur ein Prototyp. 
+weiteren Leuten testen und sehen, wie schnell der Umgang damit erlernt werden kann. Wir vermuten, dass man nach einigen 
+Tagen Selbsttraining im Stande ist, ohne Hilfe durch noch nie gesehene Räume zu gehen, ohne dabei irgendwo anzustoßen und
+den Weg nach draußen wiederzufinden. Längeres Üben oder technische Verbesserungen bieten ungeahnte
+Möglichkeiten. Doch das Gerät ist und bleibt zurzeit nur ein Prototyp. 
 
-\subsection{Fortgeschrittenen-Modus}
+\subsection{Fortgeschrittener Modus}
 
-Wir sind im Moment dabei den Fortgeschrittenen-Modus mit verschiedenen Leute zu testen und die Orientierung damit zu üben. Bis jetzt
-ist es einzelnen Personen gelungen mit dem Fortgeschrittenen-Modus ein Orientierungsvermögen zu erreichen, das wesentlich besser ist, als
-beim einfachen Modus. Es hat sich auch mit Sicherheit gezeigt, das man in der Lage ist die Höhe von Objekten oder deren Position auf der
-y-Achse zu bestimmen, was der wesentliche Vorteil gegenüber dem einfachen Modus ist. Außerdem stellte sich heraus, dass die Lernkurve mit
-dem Fortgeschrittenen-Modus etwas flacher ist und man bis zu 10 Stunden braucht, um sich gut damit zu orientieren. Bis zum Wettbewerb werden wir aber noch weiter üben und den Fortgeschrittenen-Modus anpassen, weiterentwickeln und besser testen. Die Testergebnisse werden wir 
-Ihnen dann präsentieren.
+Wir sind im Moment dabei, den fortgeschrittenen Modus mit verschiedenen Leute zu testen und die Orientierung damit zu üben. Bisher
+ist es einzelnen Personen gelungen, mit diesem Modus ein Orientierungsvermögen zu erreichen, welches wesentlich besser ist als
+beim einfachen Modus. Es hat sich auch mit Sicherheit gezeigt, das die Höhe von Objekten oder deren Position auf der
+y-Achse bestimmbar ist, was den wesentlichen Vorteil gegenüber dem einfachen Modus darstellt. Zudem stellte sich heraus, dass die Lernkurve mit
+dem fortgeschrittenen Modus etwas flacher ist und bis zu 10 Stunden benötigt werden, um sich damit gut zu orientieren.
+Bis zum Wettbewerb werden wir aber noch weiter üben und den fortgeschrittenen Modus anpassen, weiterentwickeln und
+umfassender testen. Die Testergebnisse werden wir Ihnen dann präsentieren.
 
 \newpage
 
 \section{Diskussion}
 
 Im folgenden wollen wir kurz diskutieren, was wir für das Projekt planen und inwiefern man das
-Gerät benutzen und weiterentwickeln kann und sollte. Außerdem fassen wir die durch die Entwicklung und Forschung am Projekt DOSUAS gewonnenen Erkenntnisse im Fazit zusammen.
+Gerät nutzen und weiterentwickeln kann und sollte. Außerdem fassen wir die durch die Entwicklung und Forschung am Projekt DOSUAS gewonnenen Erkenntnisse im Fazit zusammen.
 
 \subsection{Entwicklung}
 
@@ -395,54 +383,56 @@ wir verfolgt haben und warum wir uns in bestimmten Situationen für einen Entwic
 
 \subsection{Ausblick}
 
-Es gibt noch sehr viele Möglichkeiten das Projekt weiterzuentwickeln. Einige vielversprechende
-möchten wir hier auflisten. Die Entwicklungen sind nach ihrer Schwierigkeit und Wichtigkeit geordnet.
+Es gibt noch sehr viele Möglichkeiten, um das Projekt weiterzuentwickeln. Einige vielversprechende
+möchten wir hier auflisten. Die Entwicklungen sind nach ihrer Komplexität und Wichtigkeit geordnet.
 In Entwicklung (vermutlich bis zum Wettbewerb fertig):
 \begin{enumerate}
 	\item Verbesserung der Genauigkeit, z.B durch ein größeres Frequenzspektrum oder größere Intervalle (z.B. Quinten) in den
-	 Akkorden beim Fortgeschrittenen-Modus
-	\item Verkürzung der Abspieldauer um das Sehen zu beschleunigen
-	\item Entwickeln und Testen eines neues Modus, der Bilder durch Kanten von Objekten beschreibt (\enquote{zeichnet}) 
+	 Akkorden beim fortgeschrittenen Modus
+	\item Verkürzung der Abspieldauer, um das Sehen zu beschleunigen
+	\item Entwickelung und Testen eines neues Modus, der Bilder durch Kanten von Objekten beschreibt (\enquote{zeichnet}) 
 	\item Verbesserung der Portabilität durch Verkleinerung des Geräts, z.B. Laptop durch Raspberry Pi ersetzen oder das Programm per
 	Handy-App steuern
 	\item Einbauen von Texterkennung, sodass DOSUAS Texte vorlesen kann, die nicht in Braille geschrieben sind
 \end{enumerate}
 Ideen:
 \begin{enumerate} 
-	\item Entwickeln eines Echtzeit-Modus, um das Sehen zu beschleunigen
+	\item Entwickelung eines Echtzeit-Modus, um die Wahrnehmung zu beschleunigen
 	\item Einbauen von Gesichts- und Objekterkennung, z.B. mit Machine Learning, um bei Bedarf genauere 
 	Informationen über Objekte wiederzugeben (Sprachmodul)
-	\item Benutzen eines auf das Projekt angepassten Sensors sowie eine bequemere Stirnhalterung
+	\item Nutzung eines auf das Projekt angepassten Sensors sowie eine bequemere Stirnhalterung
 \end{enumerate}
 Viele der hier aufgezählten Entwicklungen werden wir bis zum Wettbewerb wahrscheinlich nicht 
-mehr schaffen. Aber dieser Ausblick dient auch als Ideen für Leute, die nach Jugend forscht 
-daran interessiert sind, das Projekt weiter zu entwickeln. 
+mehr schaffen. Aber dieser Ausblick dient auch als Ideen für Personen, die nach Jugend forscht 
+daran interessiert sind, das Projekt weiterzuentwickeln. 
 
 \subsection{Fazit}
 
-Wir können wir mit Sicherheit sagen, dass erste Schritte wie das Herumlaufen, Orientieren und erkennen einfacher
-Objekte in fremden Räumen mit dem jetzigen Stand möglich sind. Der Fortgeschrittenen-Modus bietet sogar noch mehr 
-Möglichkeiten und genaueres Verständnis der Umgebung.
+Wir können mit Sicherheit sagen, dass erste Schritte wie das Herumlaufen, Orientieren und erkennen einfacher
+Objekte in fremden Räumen mit dem jetzigen Stand möglich sind. Der fortgeschrittene Modus bietet sogar noch mehr 
+Möglichkeiten und ein genaueres Verständnis der Umgebung.
 Wirklich \enquote{Sehen} können Leute mit dem Gerät noch nicht und der Weg bis dahin ist noch weit.
 Aber etwas ebenfalls sehr wichtiges
 ist bereits möglich: Erkennen. Mit DOSUAS kann man sich im Raum orientieren, Strukturen, Formen und Entfernungen
 mittelgroßer bis großer Objekte erkennen und sich ein relativ genaues Bild von der Umgebung machen. 
-Also tut das Gerät genau das, was sein Name sagt, es ist ein Gerät zur Orientierung im Raum mithilfe von Audio
-Signalen, ein \enquote{\textbf{D}evice for \textbf{O}rientation in \textbf{S}pace \textbf{U}sing 
-	\textbf{A}udio \textbf{S}ignals}.\par 
+Also tut das Gerät genau das, was sein Name sagt, es ist ein Gerät zur Orientierung im Raum mithilfe von Audiosignalen,
+ein \enquote{\textbf{D}evice for \textbf{O}rientation in \textbf{S}pace \textbf{U}sing 
+\textbf{A}udio \textbf{S}ignals}.\par 
 Das Gerät ist natürlich kein Ersatz für menschliches Sehen, aber das war am Anfang der Entwicklung
-auch gar nicht beabsichtigt. Das Projekt DOSUAS sollte eine Hilfestellung für Blinde sein, die ihnen das Leben einfacher macht. Kleine oder komplizierte Gegenstände kann man mit unserem jetzigen Sensor nicht besonders gut erkennen. Das muss man aber auch nicht, denn dazu besitzen wir Menschen den Tastsinn, der wesentlich genauer ist,
+auch nicht beabsichtigt. Das Projekt DOSUAS sollte eine Hilfestellung für Blinde sein, die ihnen das Leben erleichtert.
+Kleine oder komplexe Gegenstände kann man mit unserem jetzigen Sensor nicht besonders gut erkennen. Das muss man aber
+auch nicht, denn dazu besitzen wir Menschen den Tastsinn, der wesentlich präziser ist
 als jeder 3D-Sensor der heutigen Zeit. Auch sonst ist es nicht beabsichtigt, sich auf 
-ein Gerät wie dieses zu verlassen. Man kann alltägliche Prozesse mit DOSUAS einfacher machen.\par
+ein Gerät wie dieses zu verlassen. Man kann jedoch alltägliche Prozesse mit DOSUAS vereinfachen.\par
 Wir hoffen, dass dieses oder ähnliche Projekte mehr blinde Menschen dazu motiviert, sich nicht 
 mit ihrer Behinderung wie mit einer Last abzumühen, sondern Geräte oder Techniken
-wie z.B. menschliche Echoortung, zu verwenden, um nicht mehr auf ständige Hilfe angewiesen 
-zu sein und selbständiger zu werden. Wie Daniel Kish in einem TED-Talk\footnote{https://www.ted.com/talks/daniel\_kish\_how\_i\_use\_sonar\_to\_navigate\_the\_world} sagte, 
+wie z.B. die menschliche Echoortung zu verwenden, um nicht mehr auf ständige Hilfe angewiesen 
+zu sein und selbständiger zu werden. Wie Daniel Kish in einem TED-Talk\footnote{https://www.ted.com/talks/daniel_kish_how_i_use_sonar_to_navigate_the_world} sagte, 
 empfindet er Blindheit nicht als Problem, sondern als Eigenschaft, die ihn von anderen Menschen
 unterscheidet. Diesem Beispiel sollten unserer Meinung nach mehr Blinde folgen.\par 
 Vielleicht wird DOSUAS irgendwann die Grundlage für ein weiteres
-Forschungsprojekt sein, das es blinden Menschen vollständig ermöglicht zu sehen. Bis dahin
-warten wir gespannt und versuchen mit unserem Projekt den Grundstein dafür zu legen. 
+Forschungsprojekt bilden, welches blinden Menschen vollständig ermöglicht zu sehen. Bis dahin
+warten wir gespannt und versuchen, mit unserem Projekt den Grundstein dafür zu legen. 
 
 \newpage
 
