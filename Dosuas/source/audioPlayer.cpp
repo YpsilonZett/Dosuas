@@ -57,18 +57,18 @@ std::vector<sf::Int16> AudioPlayer::getAmplitudeSweepSamples(double freq, double
 float AudioPlayer::depthToFrequency(int depth) {
 	/* represents depth in cm as frequency in Hz, so that larger distance means a lower sound */
 	if ((depth < 80) || (depth > 530)) {
-		return 300;
+		return 19;  // not hearable
 	}
-	return 3303.63 * exp(-0.0045264 * depth);
+	return 6852.78 * exp(-0.00616135 * depth);   //3303.63 * exp(-0.0045264 * depth);
 }
 
 
 float AudioPlayer::depthToAmplitude(int depth) {
-	/* represents depth in cm as volume (unknown amplitude unit), so that larger distances mean are more silent */
+	/* represents depth in cm as volume, so that larger distances mean are more silent */
 	if ((depth < 80) || (depth > 530)) {
 		return 0; 
 	}
-	return 38533.7 * exp(-0.00819751 * depth);
+	return 44306.0 * exp(-0.00715306 * depth);  //38533.7 * exp(-0.00819751 * depth);
 }
 
 
@@ -82,6 +82,18 @@ void AudioPlayer::configureSoundSource(sf::SoundBuffer& buffer, sf::Sound& sound
 	sound.setRelativeToListener(true);
 	sound.setVolume(50);
 	sound.setAttenuation(0.0);//5);
+}
+
+
+void AudioPlayer::playErrorTone(float duration, int sampleRate) {
+	/* plays a special tone for indicating too few or too far distance from an object */
+
+	sf::Sound sound;
+	sf::SoundBuffer buffer;
+	std::vector<sf::Int16> samples = getSineWaveSamples(1000, duration, sampleRate);
+	configureSoundSource(buffer, sound, samples, sampleRate);
+	sound.play();
+	sf::sleep(sf::seconds(duration));
 }
 
 
@@ -112,18 +124,6 @@ std::vector<sf::Int16> AudioPlayer::getVoxelSamples(std::vector<Voxel> voxels, f
 }
 
 
-void AudioPlayer::playErrorTone(float duration, int sampleRate) {
-	/* plays a special tone for indicating too few or too far distance from an object */
-
-	sf::Sound sound;
-	sf::SoundBuffer buffer;
-	std::vector<sf::Int16> samples = getSineWaveSamples(1000, duration, sampleRate);
-	configureSoundSource(buffer, sound, samples, sampleRate);
-	sound.play();
-	sf::sleep(sf::seconds(duration));
-}
-
-
 void AudioPlayer::playSoundSwipe(std::vector<Voxel> voxels, float duration, int sampleRate) {
 	/* plays the audio swipe representing the image (using only one moving 3D sound source); beginner mode */
 
@@ -143,20 +143,33 @@ void AudioPlayer::playSoundSwipe(std::vector<Voxel> voxels, float duration, int 
 }
 
 
+double AudioPlayer::rowToFrequency(int row) {
+	/*std::array<double, 24> noteFrequencies = {
+		880.00, 830.61, 783.99, 739.99, 698.46, 659.25, 622.25, 587.33, 554.37, 523.25, 493.88, 466.16,
+		440.00, 415.30, 392.00, 369.99, 349.23, 329.63, 311.13, 293.66, 277.81, 261.63, 246.94, 233.08
+	};  // cromatic
+	std::array<double, 24> noteFrequencies = {
+		1567.98, 1396.91, 1318.51, 1174.65, 1046.5, 987.76, 932.32, 830.6, 783.99, 689.45, 659.25, 587.33,
+		523.25, 466.16, 440.0, 391.99, 349.22, 329.62, 261.62, 233.08, 195.99, 164.81, 130.81, 116.54
+	}; // C, E, G, Bb harmonic series (first 8) */
+	std::array<double, 12> noteFrequencies = {
+		1567.98, 1318.51, 1046.5, 783.99, 659.25, 523.25, 391.99, 329.62, 261.62, 195.99, 164.81, 130.81
+	};
+	return noteFrequencies.at(row);
+}
+
+
 std::vector<std::vector<sf::Int16>> AudioPlayer::getChordSamples(std::vector<std::vector<int>> columns, float duration, 
 	int sampleRate) {
 	/* generates samples needed to play the chord swipe (advanced mode) by first generating sine waves with 
 	changing amplitudes of different frequencies and then adding them up to get the sequence of chords */
-
-	std::array<double, 24> noteFrequencies = {
-		880.00, 830.61, 783.99, 739.99, 698.46, 659.25, 622.25, 587.33, 554.37, 523.25, 493.88, 466.16,
-		440.00, 415.30, 392.00, 369.99, 349.23, 329.63, 311.13, 293.66, 277.81, 261.63, 246.94, 233.08
-	};
+	
 	std::vector<sf::Int16> connectingSweep, constantTone;
 	std::vector<std::vector<sf::Int16>> resultChordSamples;
 	int depthSum = 0;
 	float average1 = 0, average2 = 0;
-	double amp1, amp2, singleDuration = (double)duration / (double)((double)columns.size() / 5.0);
+	double amp1, amp2, singleDuration = (double)duration / ((double)columns.size() / 5.0);
+
 	for (int j = 0; j < columns.at(0).size(); j++) {
 		std::vector<sf::Int16> samples;
 		for (int i = 1; i < columns.size(); i++) {
@@ -169,14 +182,11 @@ std::vector<std::vector<sf::Int16>> AudioPlayer::getChordSamples(std::vector<std
 			amp1 = depthToAmplitude(average1);
 			amp2 = depthToAmplitude(average2);
 			average1 = average2;
-			connectingSweep = getAmplitudeSweepSamples(noteFrequencies.at(j), amp1, amp2, singleDuration, sampleRate);
+			connectingSweep = getAmplitudeSweepSamples(rowToFrequency(j), amp1, amp2, singleDuration, sampleRate);
 			samples.insert(samples.end(), connectingSweep.begin(), connectingSweep.end());
-			constantTone = getAmplitudeSweepSamples(noteFrequencies.at(j), amp2, amp2, singleDuration, sampleRate);
+			constantTone = getAmplitudeSweepSamples(rowToFrequency(j), amp2, amp2, singleDuration, sampleRate);
 			samples.insert(samples.end(), constantTone.begin(), constantTone.end());
 		}
-		/*for (int i = 0; i < samples.size(); i++) {
-			resultChordSamples.at(i) += samples.at(i);
-		}*/
 		resultChordSamples.push_back(samples);
 	}
 	return resultChordSamples;
@@ -186,14 +196,8 @@ std::vector<std::vector<sf::Int16>> AudioPlayer::getChordSamples(std::vector<std
 void AudioPlayer::playChordSwipe(std::vector<std::vector<int>> columns, float duration, int sampleRate) {
 	/* plays newer swipe version (advanced mode) using chords, volume and 3d position */
 
-	/*sf::Sound sound;
-	sf::SoundBuffer buffer;
-	std::vector<sf::Int16> samples = getChordSamples(columns, duration, sampleRate);
-	configureSoundSource(buffer, sound, samples, sampleRate);
-	sound.play();
-	sf::sleep(sf::seconds(duration));*/
-	std::vector<sf::Sound> sounds(24);
-	std::vector<sf::SoundBuffer> buffers(24);
+	std::vector<sf::Sound> sounds(12);
+	std::vector<sf::SoundBuffer> buffers(12);
 	std::vector<std::vector<sf::Int16>> samples = getChordSamples(columns, duration, sampleRate);
 	
 	for (int i = 0; i < samples.size(); i++) {
@@ -202,15 +206,11 @@ void AudioPlayer::playChordSwipe(std::vector<std::vector<int>> columns, float du
 	for (int i = 0; i < sounds.size(); i++) {
 		sounds[i].play();
 	}
-	clock_t begin = clock();
-	for (float xPos = -15.0f; xPos < 16; xPos++) {
-		for (int i = 0; i < sounds.size(); i++) {
-			sounds[i].setPosition(xPos, 1, 1);
+	for (int i = -16; i <= 15; i++) {
+		//std::cout << "pos: " << i << std::endl;
+		for (int j = 0; j < sounds.size(); j++) {
+			sounds[j].setPosition(i, 1, 1);
 		}
-		//std::cout << "pos: " << xPos << std::endl;
-		sf::sleep(sf::seconds(duration / 24.0));
+		sf::sleep(sf::seconds(duration / 32.0));
 	}
-	clock_t end = clock();
-	double elapsed_secs = double(end - begin) / CLOCKS_PER_SEC;
-	std::cout << "time: " << elapsed_secs << std::endl;
 }

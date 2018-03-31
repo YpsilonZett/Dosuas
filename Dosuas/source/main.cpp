@@ -9,33 +9,19 @@ SensorReader sr;
 void gracefulShutdown(int sigNum) {
 	sr.close();
 	std::printf("Program stopped. Shutting down gracefully...\n");
-	std::exit(0);  // TODO: improve bad-style exit
+	std::exit(0); 
 }
-
-/*#include "stdafx.h"
-#include <audioPlayer.h>
-int main() {  // x - z test
-	AudioPlayer ap;
-	sf::Sound snd;
-	sf::SoundBuffer buf;
-	std::vector<sf::Int16> samples = ap.getSineWaveSamples(440, 10.0, 44100);
-	ap.configureSoundSource(buf, snd, samples, 44100);
-	snd.setAttenuation(0);
-	snd.play();
-	for (int i = -5; i < 5; i++) {
-		snd.setPosition(4.0f, 1, i);
-		sf::sleep(sf::seconds(1));
-	}
-	return 0;
-}*/
 
 
 int main(int argc, char** argv) {
 	ImageProcessor ip;
 	AudioPlayer ap;
-	bool ACCORD_SWEEP;
-	std::cout << "Enter device mode (0 = beginner / 1 = advanced): ";
-	std::cin >> ACCORD_SWEEP;
+	bool ADVANCED_MODE;
+	float SWEEP_DURATION;
+	std::cout << "Mode (0 = beginner, 1 = advanced): ";
+	std::cin >> ADVANCED_MODE;
+	std::cout << "Enter sweep duration (float): ";
+	std::cin >> SWEEP_DURATION;
 
 	if (!sr.connect()) {
 		std::printf("Sensor connection failed! Shutting down...");
@@ -53,21 +39,15 @@ int main(int argc, char** argv) {
 				sr.getImg();
 			}
 			pcl::PointCloud<pcl::PointXYZ>::Ptr pImgCloud = sr.getImg();
-			//ip.showPointCloud(pImgCloud);
-			if (ACCORD_SWEEP == false) {
-				//clock_t begin = clock();
+			if (ADVANCED_MODE == false) {
 				std::vector<Voxel> imgVoxels = ip.getVoxelsForAudioSwipe(pImgCloud);
-				//clock_t end = clock();
-				//double elapsed_secs = double(end - begin) / CLOCKS_PER_SEC;
-				//std::cout << "time: " << elapsed_secs << std::endl;
-				ap.playSoundSwipe(imgVoxels, 5.0f);
+				ap.playSoundSwipe(imgVoxels, SWEEP_DURATION);
 			} else {
 				std::vector<std::vector<int>> chordImage = ip.getImageForChordSwipe(pImgCloud);
-				ap.playChordSwipe(chordImage, 5.0f);
+				ap.playChordSwipe(chordImage, SWEEP_DURATION);
 			}
-		} catch (const std::out_of_range& e) {
+		} catch (const std::out_of_range& e) {  // TODO: review, if this is even possible
 			std::printf("Error while processing image! Retrying...\n");
-			ap.playErrorTone(1.0f);
 			e;
 		}
 	}

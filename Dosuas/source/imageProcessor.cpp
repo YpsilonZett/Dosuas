@@ -54,18 +54,27 @@ std::array<int, 320 * 240> ImageProcessor::pcToImgArray(pcl::PointCloud<pcl::Poi
 
 Voxel ImageProcessor::getNearestVoxel(std::array<pcl::PointXYZ, 240> column) {
 	/* gets a single voxel (nearest point), wich represents the column, which is heared */
-	// TODO: filtering 
+
 	int i = 0, j = 0, sum = 0, num = 0;
 	Voxel vxl;
 	std::sort(column.begin(), column.end(), [](pcl::PointXYZ a, pcl::PointXYZ b) {return a.z > b.z;});
-	while (column.at(i).z == 0) { i++; }  // skip invalid voxels
-	for (j = i; (j < i + 10) && (j < 240); j++) {
+	while (i < 240) {  // skip 0s (invalid pixels)
+		if (column.at(i).z != 0) {
+			break;
+		}
+		i++; 
+	}  
+	for (j = i; (j < i + 10) && (j < 240); j++) {  // get average over the 10 nearest pixels
 		sum += column.at(j).z;
 		num++;
-	}  // throws error if all pixels are invalid
-	vxl.x = column.at(j).x;
-	vxl.y = 1;  // TODO: later add y to sounds
-	vxl.z = sum / num;  
+	}  
+	vxl.x = column.at(0).x;  // column x coordinate
+	vxl.y = 1; 
+	if (num == 0) {
+		vxl.z = 0;  // all voxels of this column are invalid
+	} else {
+		vxl.z = sum / num;
+	}
 	return vxl;
 }
 
@@ -115,8 +124,8 @@ std::vector<std::vector<int>> ImageProcessor::getImageForChordSwipe(pcl::PointCl
 		depthSum = 0;
 		std::vector<int> column;
 		for (int j = 0; j < 240; j++) {
-			if ((j + 1) % 10 == 0) {
-				column.push_back((float)depthSum / 10.0f);
+			if ((j + 1) % 20 == 0) {
+				column.push_back((float)depthSum / 20.0f);
 				//std::cout << "depth sum: " << (float)depthSum / 10.0f << std::endl;
 				depthSum = 0;
 			}
