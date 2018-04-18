@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "imageProcessor.h"
 
-
+// TODO: remove all pointclouds (not needed any more)
 pcl::PointCloud<pcl::PointXYZ>::Ptr ImageProcessor::filterPointCloud(pcl::PointCloud<pcl::PointXYZ>::Ptr pCloud) {
 	/* removes error pixels (outliners), floor and ceiling from pointcloud */
 	// TODO: improve algorithm (current is very naive)
@@ -116,7 +116,8 @@ std::vector<Voxel> ImageProcessor::getVoxelsForAudioSwipe(pcl::PointCloud<pcl::P
 }
 
 
-std::vector<std::vector<int>> ImageProcessor::getImageForChordSwipe(pcl::PointCloud<pcl::PointXYZ>::Ptr pCloud) {
+std::vector<std::vector<int>> ImageProcessor::getImageForChordSwipe(pcl::PointCloud<pcl::PointXYZ>::Ptr pCloud, 
+	int numRows) {
 	std::array<int, 320 * 240> imgArray = pcToImgArray(pCloud);
 	std::vector<std::vector<int>> columns;
 	int depthSum;
@@ -124,9 +125,8 @@ std::vector<std::vector<int>> ImageProcessor::getImageForChordSwipe(pcl::PointCl
 		depthSum = 0;
 		std::vector<int> column;
 		for (int j = 0; j < 240; j++) {
-			if ((j + 1) % 20 == 0) {
-				column.push_back((float)depthSum / 20.0f);
-				//std::cout << "depth sum: " << (float)depthSum / 10.0f << std::endl;
+			if ((j + 1) % (240 / numRows) == 0) {
+				column.push_back((float)depthSum / (float)(240 / numRows));
 				depthSum = 0;
 			}
 			depthSum += imgArray.at(i + j * 320);

@@ -18,10 +18,19 @@ int main(int argc, char** argv) {
 	AudioPlayer ap;
 	bool ADVANCED_MODE;
 	float SWEEP_DURATION;
-	std::cout << "Mode (0 = beginner, 1 = advanced): ";
+	int NUM_ROWS = 0;
+	std::cout << "Mode (0 = 2D depth (beginner), 1 = 3D chords (advanced)): ";
 	std::cin >> ADVANCED_MODE;
 	std::cout << "Enter sweep duration (float): ";
 	std::cin >> SWEEP_DURATION;
+	if (ADVANCED_MODE) {
+		std::cout << "Enter number of rows (different tones of chord): ";
+		std::cin >> NUM_ROWS;
+		if ((NUM_ROWS == 0) || (12 % NUM_ROWS != 0)) {
+			std::cout << "invalid row number (has to be divisor of 12)";
+			return -1;
+		}
+	}
 
 	if (!sr.connect()) {
 		std::printf("Sensor connection failed! Shutting down...");
@@ -43,7 +52,7 @@ int main(int argc, char** argv) {
 				std::vector<Voxel> imgVoxels = ip.getVoxelsForAudioSwipe(pImgCloud);
 				ap.playSoundSwipe(imgVoxels, SWEEP_DURATION);
 			} else {
-				std::vector<std::vector<int>> chordImage = ip.getImageForChordSwipe(pImgCloud);
+				std::vector<std::vector<int>> chordImage = ip.getImageForChordSwipe(pImgCloud, NUM_ROWS);
 				ap.playChordSwipe(chordImage, SWEEP_DURATION);
 			}
 		} catch (const std::out_of_range& e) {  // TODO: review, if this is even possible

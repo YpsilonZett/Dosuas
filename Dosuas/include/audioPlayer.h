@@ -13,7 +13,7 @@ class AudioPlayer {
 	// convert A to B
 	float depthToFrequency(int depth);
 	float depthToAmplitude(int depth);
-	double AudioPlayer::rowToFrequency(int row);
+	double AudioPlayer::rowToFrequency(int row, int numRows);
 	// prepare playing
 	void configureSoundSource(sf::SoundBuffer& buffer, sf::Sound& sound, std::vector<sf::Int16> samples,
 		int sampleRate);

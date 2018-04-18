@@ -13,5 +13,6 @@ class ImageProcessor {
 public:
 	void showPointCloud(pcl::PointCloud<pcl::PointXYZ>::Ptr pCloud);
 	std::vector<Voxel> getVoxelsForAudioSwipe(pcl::PointCloud<pcl::PointXYZ>::Ptr pCloud);
-	std::vector<std::vector<int>> getImageForChordSwipe(pcl::PointCloud<pcl::PointXYZ>::Ptr pCloud);
+	std::vector<std::vector<int>> getImageForChordSwipe(pcl::PointCloud<pcl::PointXYZ>::Ptr pCloud, 
+		int numRows);
 };

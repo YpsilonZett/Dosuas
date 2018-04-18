@@ -143,7 +143,7 @@ void AudioPlayer::playSoundSwipe(std::vector<Voxel> voxels, float duration, int 
 }
 
 
-double AudioPlayer::rowToFrequency(int row) {
+double AudioPlayer::rowToFrequency(int row, int numRows) {
 	/*std::array<double, 24> noteFrequencies = {
 		880.00, 830.61, 783.99, 739.99, 698.46, 659.25, 622.25, 587.33, 554.37, 523.25, 493.88, 466.16,
 		440.00, 415.30, 392.00, 369.99, 349.23, 329.63, 311.13, 293.66, 277.81, 261.63, 246.94, 233.08
@@ -155,7 +155,7 @@ double AudioPlayer::rowToFrequency(int row) {
 	std::array<double, 12> noteFrequencies = {
 		1567.98, 1318.51, 1046.5, 783.99, 659.25, 523.25, 391.99, 329.62, 261.62, 195.99, 164.81, 130.81
 	};
-	return noteFrequencies.at(row);
+	return noteFrequencies.at(row * (12 / numRows));
 }
 
 
@@ -167,8 +167,8 @@ std::vector<std::vector<sf::Int16>> AudioPlayer::getChordSamples(std::vector<std
 	std::vector<sf::Int16> connectingSweep, constantTone;
 	std::vector<std::vector<sf::Int16>> resultChordSamples;
 	int depthSum = 0;
-	float average1 = 0, average2 = 0;
-	double amp1, amp2, singleDuration = (double)duration / ((double)columns.size() / 5.0);
+	float average1 = 0, average2 = 0, freq;
+	double amp1, amp2, singleDuration = (double)duration / ((double)columns.size() / 5.0);  // 5 because 320 / 10 columns + sweep between 2 columns
 
 	for (int j = 0; j < columns.at(0).size(); j++) {
 		std::vector<sf::Int16> samples;
@@ -177,14 +177,15 @@ std::vector<std::vector<sf::Int16>> AudioPlayer::getChordSamples(std::vector<std
 			if (i % 10 != 0) {
 				continue;
 			}
-			average2 = (float)depthSum / 10.0;
+			average2 = (float)depthSum / 10.0;  // make 32 columns from 320 by using average
 			depthSum = 0;
 			amp1 = depthToAmplitude(average1);
 			amp2 = depthToAmplitude(average2);
 			average1 = average2;
-			connectingSweep = getAmplitudeSweepSamples(rowToFrequency(j), amp1, amp2, singleDuration, sampleRate);
+			freq = rowToFrequency(j, columns.at(0).size());
+			connectingSweep = getAmplitudeSweepSamples(freq, amp1, amp2, singleDuration, sampleRate);
 			samples.insert(samples.end(), connectingSweep.begin(), connectingSweep.end());
-			constantTone = getAmplitudeSweepSamples(rowToFrequency(j), amp2, amp2, singleDuration, sampleRate);
+			constantTone = getAmplitudeSweepSamples(freq, amp2, amp2, singleDuration, sampleRate);
 			samples.insert(samples.end(), constantTone.begin(), constantTone.end());
 		}
 		resultChordSamples.push_back(samples);
@@ -196,10 +197,10 @@ std::vector<std::vector<sf::Int16>> AudioPlayer::getChordSamples(std::vector<std
 void AudioPlayer::playChordSwipe(std::vector<std::vector<int>> columns, float duration, int sampleRate) {
 	/* plays newer swipe version (advanced mode) using chords, volume and 3d position */
 
-	std::vector<sf::Sound> sounds(12);
-	std::vector<sf::SoundBuffer> buffers(12);
 	std::vector<std::vector<sf::Int16>> samples = getChordSamples(columns, duration, sampleRate);
-	
+	std::vector<sf::Sound> sounds(samples.size());
+	std::vector<sf::SoundBuffer> buffers(samples.size());
+
 	for (int i = 0; i < samples.size(); i++) {
 		configureSoundSource(buffers[i], sounds[i], samples[i], sampleRate);
 	}
