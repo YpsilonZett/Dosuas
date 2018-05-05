@@ -46,24 +46,16 @@ void SensorReader::close() {
 }
 
 
-pcl::PointCloud<pcl::PointXYZ>::Ptr SensorReader::getImg() {
-	/* gets depth data from sensor and returns pointcloud for 3d space representation */
+std::array<std::array<int, 240>, 320> SensorReader::getImg() {
+	/* gets depth data from sensor and returns column - row representation of image matrix 
+	note: please configure undistortion filter in the CubeEye software */
 
 	MTF_API::mtfReadFromDevice(m_pDevHnd, (unsigned short**)m_pCameraBuf, &m_stFrameInfo[m_pDevHnd]);
-	
-	pcl::PointCloud<pcl::PointXYZ>::Ptr cloud(new pcl::PointCloud<pcl::PointXYZ>);
-	cloud->width = width;
-	cloud->height = height;
-	cloud->points.resize(cloud->width * cloud->height);
-
-	int i = 0;
-	for (int y = 0; y < height; ++y) {
-		for (int x = 0; x < width; ++x) {
-			cloud->points[i].x = x;
-			cloud->points[i].y = y;
-			cloud->points[i].z = m_pCameraBuf[1][y * width + x] / 10;  // TODO: configure according to max distance and voxelgrid
-			i++;
+	std::array<std::array<int, 240>, 320> imgMat;
+	for (int x = 0; x < width; ++x) {
+		for (int y = 0; y < height; ++y) {
+			imgMat[x][y] = m_pCameraBuf[1][y * width + x] / 10;
 		}
 	}
-	return cloud;  // TODO: don't forget deleting after using
+	return imgMat;  // TODO: don't forget deleting after using
 }

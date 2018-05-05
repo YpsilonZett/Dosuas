@@ -3,8 +3,8 @@
 
 
 std::vector<sf::Int16> AudioPlayer::getSineWaveSamples(float frequency, float duration, int sampleRate) {
-	/* returns vector of audio samples needed to play sine wave of given
-	frequency for given duration (in seconds) */
+	/* returns vector of audio samples needed to play sine wave of given frequency for given duration 
+    (in seconds) */
 
 	std::vector<sf::Int16> samples;
 	const int amplitude = 20000;
@@ -19,7 +19,6 @@ std::pair<std::vector<sf::Int16>, double> AudioPlayer::getFrequencySweepSamples(
 	int sampleRate, double phi0, int amplitude) {
 	/* generates sine sweep from fStart to fEnd; allows multiple sweeps with smooth continuous phase (use phi0
 	for continuous phase, remember phi0 and set phi0 of next sweep to old phi0) */
-	//TODO: better sweep
 
 	std::vector<sf::Int16> samples;
 	const int nValues = sampleRate * duration;

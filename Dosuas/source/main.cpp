@@ -30,7 +30,7 @@ int main(int argc, char** argv) {
 			std::cout << "invalid row number (has to be divisor of 12)";
 			return -1;
 		}
-	}
+	}  // TODO: user entered number of columns 
 
 	if (!sr.connect()) {
 		std::printf("Sensor connection failed! Shutting down...");
@@ -44,15 +44,15 @@ int main(int argc, char** argv) {
 	while (true) {
 		try {
 			std::printf("Taking image and transforming to sound...\n");
-			for (int i = 0; i < 3; i++) {  // get a good image (take multiple ones for better light exposure)
-				sr.getImg();
+			for (int i = 0; i < 3; i++) {  
+				sr.getImg();  // get a good image (take multiple ones for better light exposure)
 			}
-			pcl::PointCloud<pcl::PointXYZ>::Ptr pImgCloud = sr.getImg();
+			std::array<std::array<int, IMG_HEIGHT>, IMG_WIDTH> imgMat = sr.getImg();
 			if (ADVANCED_MODE == false) {
-				std::vector<Voxel> imgVoxels = ip.getVoxelsForAudioSwipe(pImgCloud);
+				std::vector<Voxel> imgVoxels = ip.getVoxelsForAudioSwipe(imgMat);
 				ap.playSoundSwipe(imgVoxels, SWEEP_DURATION);
 			} else {
-				std::vector<std::vector<int>> chordImage = ip.getImageForChordSwipe(pImgCloud, NUM_ROWS);
+				std::vector<std::vector<int>> chordImage = ip.getImgMatChordSwipe(imgMat, NUM_ROWS);
 				ap.playChordSwipe(chordImage, SWEEP_DURATION);
 			}
 		} catch (const std::out_of_range& e) {  // TODO: review, if this is even possible

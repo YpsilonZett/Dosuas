@@ -16,5 +16,5 @@ public:
 	SensorReader();
 	bool connect();
 	void close();
-	pcl::PointCloud<pcl::PointXYZ>::Ptr getImg();
+	std::array<std::array<int, 240>, 320> getImg();
 };
