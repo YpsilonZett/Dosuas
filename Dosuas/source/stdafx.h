@@ -7,6 +7,7 @@
 #include <array>
 #include <vector>
 #include <algorithm>
+#include <numeric>
 #include <utility>
 #include <stdlib.h>
 #include <math.h>
