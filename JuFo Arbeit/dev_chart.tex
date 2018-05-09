@@ -1,24 +1,49 @@
+\documentclass[a4paper,12pt,ngerman]{scrartcl}
+
+% standard packages
+\usepackage[german]{babel}
+\usepackage[utf8x]{inputenc}
+\usepackage[a4paper,margin=2.5cm]{geometry}
+
+% additional packages
+\usepackage[colorlinks=true,linkcolor=black,urlcolor=blue,
+citecolor=blue,anchorcolor=blue]{hyperref}
+\usepackage{amsmath}
+\usepackage{csquotes}
+\usepackage{graphicx}
+\usepackage{float}
+\graphicspath{{bilder/}}
+
+% dev chart 
 \usepackage{tikz}
 \usetikzlibrary{arrows.meta}
 \usepackage{forest}
-\forestset{qtree/.style={for tree={align=center, grow'=right, edge={green!50!black, -Latex}}}}
+\forestset{qtree/.style={for tree={align=center, grow'=east, edge={green!50!black, -Latex}}}}
 
+
+\begin{document}
 
 \begin{forest}
 	qtree
 	[{Start}, name=start, s sep=0.5cm
 	[{automatisierte Echoortung\\ via Ultraschall}
-	[{aufw‰ndige Entwicklung,\\ schlechtere Qualit‰t als\\ menschliche Echoortung,\\ langer Lernprozess}, name=us_end, edge={red}]]
-	[{Modellierung groﬂer\\ Objekte als Tonquellen}
-	[{zu wenig Informationen,\\ schlechte Orientierung}, name=objects_end, edge={red}]]
+	[{aufw√§dige Entwicklung,\\ schlechtere Qualit√§t als\\ menschliche Echoortung,\\ langer Lernprozess}, name=us_end, edge={red}]]
+	[{Arbeiten mit Punktwolken\\und Bildverarbeitung}, name=image_processing
+	[{Finden von Fl√§chen und\\Darstellung als T√∂ne}, name=surfaces]
+	[{Kodierung einzelner Objekte\\ als unterschiedliche T√∂ne}
+	[{zu wenig Informationen,\\ schlechte Orientierung,\\ zu aufw√§ndige Bildverarbeitung}, name=objects_end, edge={red}]]]
 	[, no edge]
 	[, no edge]
 	[, no edge]
-	[{2D Radar-Swipe\\ (jetziger Anf‰nger-\\Modus)}
-	[{Verbesserter Anf‰nger-Modus\\ (beim Regionalwettbewerb vorgestellt)}]
-	[{Fortgeschrittenen-\\Modus}
-	[{siehe Ausblick}]]]]
+	[{Anf√§nger-Modus 1.0\\(n√§chster Voxel), beim\\ Regionalwettbewerb\\vorgestellt}
+	[{Anf√§nger-Modus 2.0\\(gewichteter Durchschnitts-Voxel),\\ nach Landeswettbewerb entwickelt}, name=beginner_mode2]
+	[{Fortgeschrittenen-Modus 1.0,\\beim Landeswettbewerb vorgestellt}
+	[{siehe Ausblick}, name=end]]]]
 	\useasboundingbox ([xshift=1cm, yshift=2.5cm]current bounding box.north west) rectangle (current bounding box.south east);
 	\draw [green!50!black, -Latex] (us_end.north west) to [out=160, in=60] node[midway, above, black] {Abbruch nach Regionalwettbewerb} (0.2cm, 3.5cm) to [out=240, in=100] (start.north);
-	\draw [green!50!black, -Latex] (objects_end.south west) to [bend left=20] node[midway, below, xshift=1.5cm, black] {Abbruch nach Regionalwettbewerb} (start.south east);
+	\draw [red!50!black, -Latex] (surfaces.south east) to node[midway, right, black] {} (objects_end.north west);
+	\draw [green!50!black, -Latex] (objects_end.south west) to [bend left=20] node[midway, below, xshift=1.5cm, black] {Abbruch vor Regionalwettbewerb} (start.south east);
+	\draw [green!50!black, -Latex] (beginner_mode2.south east) to [] node[midway, below, xshift=1.5cm, black] {}  (end.north west);
 \end{forest}
+
+\end{document}
