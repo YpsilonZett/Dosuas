@@ -56,7 +56,7 @@ std::vector<sf::Int16> AudioPlayer::getAmplitudeSweepSamples(double freq, double
 float AudioPlayer::depthToFrequency(int depth) {
 	/* represents depth in cm as frequency in Hz, so that larger distance means a lower sound */
 	if ((depth < 80) || (depth > 530)) {
-		return 19;  // not hearable
+		return 19;  // hearable threshhold: 20 Hz => not hearable
 	}
 	return 6852.78 * exp(-0.00616135 * depth);   //3303.63 * exp(-0.0045264 * depth);
 }
@@ -67,7 +67,7 @@ float AudioPlayer::depthToAmplitude(int depth) {
 	if ((depth < 80) || (depth > 530)) {
 		return 0; 
 	}
-	return 44306.0 * exp(-0.00715306 * depth);  //38533.7 * exp(-0.00819751 * depth);
+	return /*29299.7 - 53.3333 * depth;*/ 44306.0 * exp(-0.00715306 * depth);  //38533.7 * exp(-0.00819751 * depth);
 }
 
 
@@ -158,6 +158,19 @@ double AudioPlayer::rowToFrequency(int row, int numRows) {
 }
 
 
+double AudioPlayer::getAmplitudeFactor(double frequency) {
+	/* calculates the factor, by which the amplitude of a sound with the given frequenc should be multiplied, so 
+	that all sounds are heard equally loud subjectively when they have the same amplitude (which isn't the case 
+	normally) */
+	// WARNING: don't use, not finished yet!
+	if ((131 < frequency) && (frequency < 936 + 131)) {
+		return 10 * log10((-25 * (frequency - 131)) / 900 + 27) / 7 + 1;
+	} else {
+		return 1;
+	}
+}
+
+
 std::vector<std::vector<sf::Int16>> AudioPlayer::getChordSamples(std::vector<std::vector<int>> columns, float duration, 
 	int sampleRate) {
 	/* generates samples needed to play the chord swipe (advanced mode) by first generating sine waves with 
@@ -178,10 +191,12 @@ std::vector<std::vector<sf::Int16>> AudioPlayer::getChordSamples(std::vector<std
 			}
 			average2 = (float)depthSum / 10.0;  // make 32 columns from 320 by using average
 			depthSum = 0;
+			freq = rowToFrequency(j, columns.at(0).size());
+
 			amp1 = depthToAmplitude(average1);
 			amp2 = depthToAmplitude(average2);
 			average1 = average2;
-			freq = rowToFrequency(j, columns.at(0).size());
+			
 			connectingSweep = getAmplitudeSweepSamples(freq, amp1, amp2, singleDuration, sampleRate);
 			samples.insert(samples.end(), connectingSweep.begin(), connectingSweep.end());
 			constantTone = getAmplitudeSweepSamples(freq, amp2, amp2, singleDuration, sampleRate);

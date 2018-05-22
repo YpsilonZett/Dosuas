@@ -76,8 +76,8 @@ std::vector<std::vector<int>> ImageProcessor::getImgMatChordSwipe(std::array<std
 	}
 	return columns;
 
-	/*// nearest voxel approach
-	std::vector<std::vector<int>> imgMat(numColumns, std::vector<int>(numRows));
+	// nearest voxel approach
+	/*std::vector<std::vector<int>> imgMat(numColumns, std::vector<int>(numRows));
 	int rowHeight = IMG_HEIGHT / numRows, colWidth = IMG_WIDTH / numColumns;
 	for (int col = 0; col < numColumns; col++) {
 		for (int row = 0; row < numRows; row++) {
@@ -87,7 +87,7 @@ std::vector<std::vector<int>> ImageProcessor::getImgMatChordSwipe(std::array<std
 				for (int y = 0; y < rowHeight; y++) {
 					subColumn.push_back(rawImg[x + col * colWidth][y + row * rowHeight]);
 				}
-				nearestVoxels.push_back(getNearestVoxel(subColumn, x + col * colWidth));
+				nearestVoxels.push_back(getAverageVoxel(subColumn, x + col * colWidth, row * rowHeight));
 			}
 			Voxel nearestVoxel = *std::min_element(nearestVoxels.begin(), nearestVoxels.end(),
 				[](Voxel a, Voxel b) { return a.z < b.z; });
